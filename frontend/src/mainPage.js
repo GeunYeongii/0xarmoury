@@ -78,8 +78,8 @@ function MainPage(){
                         {JSON.stringify(jsonData)}
                     </div>
                 </div>
-                <div className='container-body2'>
-                    <img src='/img/Main_logo.png' alt="Main_logo" width={'45%'} height={'45%'} />
+                <div className='container-body3'>
+                    <img src='/img/Main_logo.png' alt="Main_logo" width={'80%'} height={'80%'} />
                 </div>
             </div>
         </div>

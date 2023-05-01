@@ -44,15 +44,22 @@
 	flex-direction: row;
   	align-items: center;
   	justify-content: center;
-	text-align: center;
 	font-size: 24px;
 	height: 80vh;
   }
 
   .container-body2 {
-	flex: 1;
-  	align-items: center;
-  	justify-content: center;
+	flex: 0.3;
+  	align-items: right;
+  	justify-content: right;
+	text-align: center;
+	font-size: 24px;
+  }
+
+  .container-body3 {
+	flex: 0.3;
+  	align-items: left;
+  	justify-content: left;
 	text-align: center;
 	font-size: 24px;
   }
