@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 // import {BrowserRouter as Router, Routes, Route, Link, Switch} from 'react-router-dom';  // eslint-disable-line no-unused-vars 
 import axios from 'axios';
-import './App.css';
 import Button from '@mui/material/Button';
 import './mainPage.css';
 import Box from '@mui/material/Box';
@@ -67,26 +66,22 @@ function MainPage(){
                     </Box>
                 </div>
             </div>
-            {/*App.css*/}
-            <header className="App-header">
-                <h3>This is main Page</h3>
+            <div className='container-body1'>
+                <div className='container-body2'>
+                    <h3>This is main Page</h3>
 
-                <Link href = './SignIn'>
-                    <button>SignIn</button>
-                </Link>
+                    <p>
+                        MITRE ATT&CK Json file
+                    </p>
 
-                <Link href = './SignUp'>
-                    <button>SignUp</button>
-                </Link>
-
-                <p>
-                    MITRE ATT&CK Json file
-                </p>
-
-                <div>
-                    {JSON.stringify(jsonData)}
+                    <div>
+                        {JSON.stringify(jsonData)}
+                    </div>
                 </div>
-            </header>
+                <div className='container-body2'>
+                    <img src='/img/Main_logo.png' alt="Main_logo" width={'45%'} height={'45%'}/>
+                </div>
+            </div>
         </div>
     );
 }
