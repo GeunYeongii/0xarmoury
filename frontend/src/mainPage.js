@@ -66,7 +66,7 @@ function MainPage(){
                     </Box>
                 </div>
             </div>
-            <div className='container-body1'>
+            <div className='container-body1' >
                 <div className='container-body2'>
                     <h3>This is main Page</h3>
 
@@ -79,7 +79,7 @@ function MainPage(){
                     </div>
                 </div>
                 <div className='container-body2'>
-                    <img src='/img/Main_logo.png' alt="Main_logo" width={'45%'} height={'45%'}/>
+                    <img src='/img/Main_logo.png' alt="Main_logo" width={'45%'} height={'45%'} />
                 </div>
             </div>
         </div>

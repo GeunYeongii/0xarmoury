@@ -44,12 +44,15 @@
 	flex-direction: row;
   	align-items: center;
   	justify-content: center;
+	text-align: center;
 	font-size: 24px;
+	height: 80vh;
   }
 
   .container-body2 {
 	flex: 1;
   	align-items: center;
   	justify-content: center;
+	text-align: center;
 	font-size: 24px;
   }
