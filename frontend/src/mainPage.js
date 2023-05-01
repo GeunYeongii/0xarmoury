@@ -21,11 +21,17 @@ function MainPage(){
 
     return(
         <div>
+            <div className='container-right'>
+                <div className="button-container">
+                    <Link href ="./SignIn" color='#000000'>Sign In</Link>
+                    <Link href="./SignUp" color='#000000'>Sign Up</Link>
+                </div>
+            </div>
             <div className="container">
                 {/*logo*/}
                 <Link href ="/">    
-                    <Button startIcon={<img src="/img/armoury_logo.png" alt="Armoury" width={60} height={60}/>} sx={{
-                    margin:1
+                    <Button startIcon={<img src="/img/armoury_logo.png" alt="Armoury" width={52} height={52}/>} sx={{
+                    mr:1
                     ,fontSize:30
                     ,color:"black"
                     }}>
@@ -33,31 +39,33 @@ function MainPage(){
                     </Button>
                 </Link>
 
-                <div className='outline-container'>
-                    <div className="button-container">
-                        <Link href ="#" color='#000000'>Matric</Link>
-                        <Link href="#" color='#000000'>Tools</Link>
-                        <Link href ="#" color='#000000'>Training</Link>
-                        <Link href ="#" color='#000000'>Gallery</Link>
-                        <Link href ="#" color='#000000'>My page</Link>
+                <div className='container-right'>
+                    <div className='outline-container'>
+                        <div className="button-container">
+                            <Link href ="#" color='#000000'>Matric</Link>
+                            <Link href="#" color='#000000'>Tools</Link>
+                            <Link href ="#" color='#000000'>Training</Link>
+                            <Link href ="#" color='#000000'>Gallery</Link>
+                            <Link href ="#" color='#000000'>My page</Link>
+                        </div>
                     </div>
+                    
+                    <Box sx={{ '& > :not(style)': { m: 1 } , justifyContent: "flex-end"}}>
+                        <TextField
+                            id="input-with-icon-textfield"
+                            
+                            InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="end">
+                                <SearchIcon/>
+                                </InputAdornment>
+                            )
+                            ,
+                            }}
+                            variant="standard"
+                        />
+                    </Box>
                 </div>
-                
-                <Box sx={{ '& > :not(style)': { m: 1 } , justifyContent: "flex-end"}}>
-                    <TextField
-                        id="input-with-icon-textfield"
-                        label="Search"
-                        InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="end">
-                            <SearchIcon/>
-                            </InputAdornment>
-                        )
-                        ,
-                        }}
-                        variant="standard"
-                    />
-                </Box>
             </div>
             {/*App.css*/}
             <header className="App-header">
