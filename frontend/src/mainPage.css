@@ -1,0 +1,30 @@
+.button-container{
+	display:flex;
+	flex-direction: row;
+	gap: 40px;
+	padding: 5px;
+	font-size: 15px;
+  }
+
+  .outline-container{
+	border: 2px solid black;
+	padding: 5px;
+	padding-left: 7px;
+	padding-right: 7px;
+
+	display: inline-block; /*vutton 크기만큼*/
+  }
+
+  .outline-search{
+	border: 2px solid black;
+	border-radius: 5px;
+	/* border-radius: 5px;*/
+	display: inline-block; /*vutton 크기만큼*/
+
+  }
+
+  .container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+  }
