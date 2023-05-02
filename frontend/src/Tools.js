@@ -58,7 +58,7 @@ function Tools(){
                     </Box>
                 </div>
             </div>
-
+            <div className = 'division-line'></div>
             <div className='container-body1'>
                 <div className='toolbox-left'>
                     <p>어휴</p>

@@ -66,6 +66,7 @@ function MainPage(){
                     </Box>
                 </div>
             </div>
+            <div className = 'division-line'></div>
             <div className='container-body1' >
                 <div className='container-body2'>
                     <h3>This is main Page</h3>
