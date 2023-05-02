@@ -7,6 +7,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
+import TreeItem from '@mui/lab/TreeItem';
+import TreeView from '@mui/lab/TreeView';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 function Tools(){
 
@@ -61,7 +65,22 @@ function Tools(){
             <div className = 'division-line'></div>
             <div className='container-body1'>
                 <div className='toolbox-left'>
-                    <p>어휴</p>
+                <TreeView
+                    aria-label="file system navigator"
+                    defaultCollapseIcon={<ExpandMoreIcon />}
+                    defaultExpandIcon={<ChevronRightIcon />}
+                    sx={{ height: 240, flexGrow: 1, width: '95%'}}
+                    >
+                    <TreeItem nodeId="1" label="Applications">
+                        <TreeItem nodeId="2" label="Calendar" />
+                    </TreeItem>
+                    <TreeItem nodeId="5" label="Documents">
+                        <TreeItem nodeId="10" label="OSS" />
+                        <TreeItem nodeId="6" label="MUI">
+                        <TreeItem nodeId="8" label="index.js" />
+                        </TreeItem>
+                    </TreeItem>
+                </TreeView>
                 </div>
                 <div className='toolbox-right'>
                     <p>에휴</p>
