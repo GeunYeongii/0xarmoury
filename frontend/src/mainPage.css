@@ -1,17 +1,17 @@
 .button-container{
 	display:flex;
 	flex-direction: row;
-	gap: 40px;
+	gap: 60px;
 	padding: 3px;
-	font-size: 15px;
+	font-size: 20px;
 	font-weight: 500;
   }
 
   .outline-container{
 	border: 1px solid black;
 	padding: 3px;
-	padding-left: 7px;
-	padding-right: 7px;
+	padding-left: 30px;
+	padding-right: 30px;
 	margin-right: 20px;
 
 	display: inline-block; /*button 크기만큼*/
@@ -62,4 +62,14 @@
   	justify-content: left;
 	text-align: center;
 	font-size: 24px;
+  }
+
+  .sign-container{
+	display:flex;
+	flex-direction: row;
+	gap: 35px;
+	padding: 3px;
+	font-size: 18px;
+	font-weight: 500;
+	margin-right: 7px;
   }

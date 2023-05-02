@@ -21,7 +21,7 @@ function MainPage(){
     return(
         <div>
             <div className='container-right'>
-                <div className="button-container">
+                <div className="sign-container">
                     <Link href ="./SignIn" color='#000000'>Sign In</Link>
                     <Link href="./SignUp" color='#000000'>Sign Up</Link>
                 </div>
@@ -29,7 +29,7 @@ function MainPage(){
             <div className="container">
                 {/*logo*/}
                 <Link href ="/">    
-                    <Button startIcon={<img src="/img/armoury_logo.png" alt="Armoury" width={52} height={52}/>} sx={{
+                    <Button startIcon={<img src="/img/armoury_logo.png" alt="Armoury" width={60} height={60}/>} sx={{
                     mr:1
                     ,fontSize:30
                     ,color:"black"
