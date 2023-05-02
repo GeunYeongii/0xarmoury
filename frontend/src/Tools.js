@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import './mainPage.css';
+import './Tools.css'
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
@@ -55,6 +56,15 @@ function Tools(){
                             variant="standard"
                         />
                     </Box>
+                </div>
+            </div>
+
+            <div className='container-body1'>
+                <div className='toolbox-left'>
+                    <p>어휴</p>
+                </div>
+                <div className='toolbox-right'>
+                    <p>에휴</p>
                 </div>
             </div>
 		</div>

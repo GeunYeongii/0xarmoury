@@ -1,0 +1,25 @@
+
+.toolbox-left {
+	flex: 0.2;
+  	align-items: center;
+  	justify-content: center;
+	text-align: center;
+	font-size: 24px;
+    background-color: rgb(223, 223, 223);
+    border-radius: 10px;
+    margin: 35px;
+    height: 80vh;
+  }
+
+  
+  .toolbox-right {
+	flex: 0.8;
+  	align-items: center;
+  	justify-content: center;
+	text-align: center;
+	font-size: 24px;
+    background-color: rgb(223, 223, 223);
+    border-radius: 10px;
+    margin: 35px;
+    height: 80vh;
+  }
