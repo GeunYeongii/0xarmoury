@@ -11,6 +11,7 @@ import TreeItem from '@mui/lab/TreeItem';
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Typography from '@mui/material/Typography';
 
 function Tools(){
 
@@ -71,7 +72,7 @@ function Tools(){
                     defaultExpandIcon={<ChevronRightIcon />}
                     sx={{ height: 240, flexGrow: 1, width: '95%'}}
                     >
-                    <TreeItem nodeId="1" label="Applications">
+                      <TreeItem nodeId="1" label={<Typography sx={{fontSize: '40px'}}>Applications</Typography>}>
                         <TreeItem nodeId="2" label="Calendar" />
                     </TreeItem>
                     <TreeItem nodeId="5" label="Documents">
