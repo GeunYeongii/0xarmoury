@@ -12,7 +12,7 @@
 	padding: 3px;
 	padding-left: 30px;
 	padding-right: 30px;
-	margin-right: 20px;
+	margin-right: 40px;
 
 	display: inline-block; /*button 크기만큼*/
   }
@@ -29,6 +29,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding-left: 10px;
   }
 
   .container-right {

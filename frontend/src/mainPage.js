@@ -79,7 +79,7 @@ function MainPage(){
                     </div>
                 </div>
                 <div className='container-body3'>
-                    <img src='/img/Main_logo.png' alt="Main_logo" width={'80%'} height={'80%'} />
+                    <img src='/img/Main_logo.png' alt="Main_logo" width={'65%'} height={'65%'} />
                 </div>
             </div>
         </div>
