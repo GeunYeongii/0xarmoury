@@ -12,6 +12,8 @@ import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { useState, useEffect } from 'react';
 
 function Tools(){
@@ -150,7 +152,18 @@ function Tools(){
                  */}
                 </div>
                 <div className='toolbox-right'>
-                    <p>에휴</p>
+                    <div className='tool-container'>
+                        <div class='text-size'>Nmap</div>
+
+                        <div className='tool-container-right'>
+                         <Button sx={{color: '#000000'}}>edit</Button>
+                         <IconButton aria-label="delete">
+                            <BookmarkBorderIcon sx={{width: 40, height: 40}} />
+                        </IconButton>
+                        </div>
+                    </div>
+
+                    <div className='tool-division-line'></div>
                 </div>
             </div>
 		</div>
