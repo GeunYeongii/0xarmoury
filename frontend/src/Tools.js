@@ -12,8 +12,64 @@ import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Typography from '@mui/material/Typography';
+import { useState, useEffect } from 'react';
 
 function Tools(){
+
+    {/*테스트 용 data */}
+    const data = [
+        {
+          id: '1',
+          label: 'Applications',
+          children: [
+            { id: '2', label: 'Calendar' },
+            { id: '3', label: 'Email' },
+          ],
+        },
+        {
+          id: '4',
+          label: 'Documents',
+          children: [
+            {
+              id: '5',
+              label: 'OSS',
+            },
+            {
+              id: '6',
+              label: 'MUI',
+              children: [{ id: '7', label: 'index.js' }],
+            },
+          ],
+        },
+      ];
+    {/*
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // 데이터베이스에서 데이터를 불러와서 state 업데이트
+        const fetchData = async () => {
+        const response = await fetch('/api/data'); // 데이터를 불러올 API 경로
+        const data = await response.json(); // JSON 형식으로 응답을 받아옴
+        setData(data);
+        };
+        fetchData();
+    }, []);
+ */}
+    const renderTree = (nodes) => (
+        <TreeItem key={nodes.id} nodeId={nodes.id} label={<Typography sx={{ fontSize: 25 }}>{nodes.label}</Typography>}>
+        {Array.isArray(nodes.children)
+            ? nodes.children.map((node) => renderTree({
+                ...node,
+                label: (
+                  <Typography sx={{ fontSize: 16 }}>
+                    {node.label}
+                  </Typography>
+                ),
+              })
+            )
+            : null}
+        </TreeItem>
+    );
 
     return(
         <div>
@@ -70,6 +126,15 @@ function Tools(){
                     aria-label="file system navigator"
                     defaultCollapseIcon={<ExpandMoreIcon />}
                     defaultExpandIcon={<ChevronRightIcon />}
+                    sx={{ height: 240, flexGrow: 1, width: '95%' }}
+                    >
+                    {data.map((node) => renderTree(node))}
+                </TreeView>
+                {/*
+                <TreeView
+                    aria-label="file system navigator"
+                    defaultCollapseIcon={<ExpandMoreIcon />}
+                    defaultExpandIcon={<ChevronRightIcon />}
                     sx={{ height: 240, flexGrow: 1, width: '95%'}}
                     >
                       <TreeItem nodeId="1" label={<Typography sx={{fontSize: '40px'}}>Applications</Typography>}>
@@ -82,6 +147,7 @@ function Tools(){
                         </TreeItem>
                     </TreeItem>
                 </TreeView>
+                 */}
                 </div>
                 <div className='toolbox-right'>
                     <p>에휴</p>
