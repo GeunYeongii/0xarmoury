@@ -78,6 +78,12 @@ function MainPage(){
                     <div>
                         {JSON.stringify(jsonData)}
                     </div>
+                    <Button variant="contained" sx={{
+                        margin:1
+                        ,fontSize:15
+                        }}>
+                        <strong>Go to Matrix</strong>
+                    </Button>
                 </div>
                 <div className='container-body3'>
                     <img src='/img/Main_logo.png' alt="Main_logo" width={'65%'} height={'65%'} />
