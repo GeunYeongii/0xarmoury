@@ -16,8 +16,6 @@ import IconButton from '@mui/material/IconButton';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { useState, useEffect } from 'react';
 
-function Tools(){
-
     {/*테스트 용 data */}
     const data = [
         {
@@ -57,21 +55,40 @@ function Tools(){
         fetchData();
     }, []);
  */}
-    const renderTree = (nodes) => (
-        <TreeItem key={nodes.id} nodeId={nodes.id} label={<Typography sx={{ fontSize: 25 }}>{nodes.label}</Typography>}>
+    const RenderTree = ({nodes, onSelect}) => (
+        <TreeItem 
+        key={nodes.id} 
+        nodeId={nodes.id}
+        label={
+        <Typography sx={{ fontSize: 25 }}>{nodes.label}</Typography>}
+        onClick={() => onSelect(nodes.id, nodes.label)}
+        >
         {Array.isArray(nodes.children)
-            ? nodes.children.map((node) => renderTree({
-                ...node,
-                label: (
-                  <Typography sx={{ fontSize: 16 }}>
-                    {node.label}
-                  </Typography>
-                ),
-              })
-            )
-            : null}
-        </TreeItem>
-    );
+    ? nodes.children.map((node) => (
+        <RenderTree
+            nodes={{
+            ...node,
+            label: (
+                <Typography sx={{ fontSize: 16 }}>{node.label}</Typography>
+            ),
+            }}
+            onSelect={onSelect}
+            key={node.id}
+        />
+        ))
+    : null}
+    </TreeItem>
+);
+
+function Tools(){
+
+    const [selectedId, setSelectedId] = useState(null);
+    const [selectedLabel, setSelectedLabel] = useState(null);
+
+    const handleSelect = (id, label) => {
+    setSelectedId(id);
+    setSelectedLabel(label);
+    };
 
     return(
         <div>
@@ -130,7 +147,9 @@ function Tools(){
                     defaultExpandIcon={<ChevronRightIcon />}
                     sx={{ height: 240, flexGrow: 1, width: '95%' }}
                     >
-                    {data.map((node) => renderTree(node))}
+                    {data.map((node) => (
+                        <RenderTree nodes={node} onSelect={handleSelect} key={node.id} />
+                        ))}
                 </TreeView>
                 {/*
                 <TreeView
@@ -153,7 +172,7 @@ function Tools(){
                 </div>
                 <div className='toolbox-right'>
                     <div className='tool-container-top'>
-                        <div class='text-size'>Nmap</div>
+                        <div class='text-size'>{selectedLabel}</div>
 
                         <div className='tool-container-right'>
                          <Button sx={{color: '#000000'}}>edit</Button>
