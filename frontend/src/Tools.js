@@ -152,7 +152,7 @@ function Tools(){
                  */}
                 </div>
                 <div className='toolbox-right'>
-                    <div className='tool-container'>
+                    <div className='tool-container-top'>
                         <div class='text-size'>Nmap</div>
 
                         <div className='tool-container-right'>
@@ -164,6 +164,45 @@ function Tools(){
                     </div>
 
                     <div className='tool-division-line'></div>
+               
+                    <div className='toolbox-right-body'>
+                        <div className='toolbox-half'>
+                            <div className='text-size2'>
+                                Definition
+                            </div>
+                            <div className='toolbox-definition'>
+
+                            </div>
+                            <div className='text-size2'>
+                                Options
+                            </div>
+                            <div className='toolbox-option'>
+                                
+                            </div>
+                            <div className='text-size2'>
+                                MITRE ATT&CK
+                            </div>
+                            <div className='toolbox-mitre'>
+                                
+                            </div>
+                        </div>
+
+                        <div className='toolbox-half'>
+                            <div className='text-size2'>
+                                Execute
+                            </div>
+                            <div className='toolbox-exec'>
+
+                            </div>
+                            <div className='text-size2'>
+                                Wiki
+                            </div>
+                            <div className='toolbox-wiki'>
+
+                            </div>
+                        </div>
+                    </div>
+               
                 </div>
             </div>
 		</div>
