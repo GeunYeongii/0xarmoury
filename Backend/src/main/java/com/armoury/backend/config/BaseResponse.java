@@ -28,6 +28,15 @@ public class BaseResponse<T> {
         this.result = result;
     }
 
+    // 응답값이 없는 요청 성공 경우
+    public BaseResponse() {
+        this.isSuccess = SUCCESS.isSuccess();
+        this.message = SUCCESS.getMessage();
+        this.code = SUCCESS.getCode();
+        this.result = null;
+    }
+
+
     // 요청에 실패한 경우
     public BaseResponse(BaseResponseStatus status) {
         this.isSuccess = status.isSuccess();

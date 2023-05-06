@@ -7,6 +7,7 @@ import com.armoury.backend.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import static com.armoury.backend.config.BaseResponseStatus.*;
@@ -23,6 +24,8 @@ public class UserController {
     private final UserService userService;
     @Autowired
     private final JwtService jwtService;
+    @Autowired
+    private EmailVerificationService emailVerificationService;
 
 
     public UserController(JwtService jwtService, UserProvider userProvider, UserService userService){
@@ -149,5 +152,26 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    @ResponseBody
+    @PostMapping("/send/email-verification-code")
+    public BaseResponse<Void> sendEmailVerificationCode(@RequestBody SendEmailVerificationCodeReq req) {
+        if (req.getEmail() == null)
+            throw new RuntimeException("email 값이 비어 있습니다");
+        emailVerificationService.sendCode(req.getEmail());
+
+        return new BaseResponse();
+    }
+
+    @ResponseBody
+    @PostMapping("/check/email-verification-code")
+    public BaseResponse<Boolean> checkEmailVerificationCode(@RequestBody CheckEmailVerificationCodeReq req) {
+        if (req.getEmail() == null)
+            throw new RuntimeException("email 값이 비어 있습니다");
+
+        // 인증 성공시 true, 실패시 false
+        return new BaseResponse<>(emailVerificationService.checkVerificationCode(req.getEmail(), req.getCode()));
+    }
+
 
 }
