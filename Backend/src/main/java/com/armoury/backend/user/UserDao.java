@@ -68,6 +68,8 @@ public class UserDao {
                     rs.getInt("grade")
             ));
             System.out.println(user);
+            System.out.println(user.getEmail());
+
             return user;
 
         } catch (EmptyResultDataAccessException e) {
