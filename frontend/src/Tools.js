@@ -46,14 +46,10 @@ import { useState, useEffect } from 'react';
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        // 데이터베이스에서 데이터를 불러와서 state 업데이트
-        const fetchData = async () => {
-        const response = await fetch('/api/data'); // 데이터를 불러올 API 경로
-        const data = await response.json(); // JSON 형식으로 응답을 받아옴
-        setData(data);
-        };
-        fetchData();
-    }, []);
+            axios.get('/api/test/)
+            .then(response => setData(response.data))
+            .catch(error => console.log(error))
+        }, []);
  */}
     const RenderTree = ({nodes, onSelect}) => (
         <TreeItem 
@@ -85,6 +81,7 @@ function Tools(){
     const [selectedId, setSelectedId] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState(null);
     const [str, setStr] = useState(null);
+    const [selectedDefinition, setSelectedDefinition] = useState(null);
 
     const CircularJSON = require('circular-json');
 
@@ -100,6 +97,14 @@ function Tools(){
             //  'children' 앖으면 Str에 label저장
           setStr(jsonObject.label);
         }
+
+        /* 정상 작동하는지는 모르겠지만 일단 데이터베이스에서 Definiton받아오는 코드//
+        useEffect(() => {
+            axios.get('/api/data/${id}')
+            .then(response => setSelectedDefinition(response.data))
+            .catch(error => console.log(error))
+        }, []);
+        */
     };
 
     return(
@@ -164,25 +169,6 @@ function Tools(){
                         ))}
                         
                 </TreeView>
-                
-                {/*
-                <TreeView
-                    aria-label="file system navigator"
-                    defaultCollapseIcon={<ExpandMoreIcon />}
-                    defaultExpandIcon={<ChevronRightIcon />}
-                    sx={{ height: 240, flexGrow: 1, width: '95%'}}
-                    >
-                      <TreeItem nodeId="1" label={<Typography sx={{fontSize: '40px'}}>Applications</Typography>}>
-                        <TreeItem nodeId="2" label="Calendar" />
-                    </TreeItem>
-                    <TreeItem nodeId="5" label="Documents">
-                        <TreeItem nodeId="10" label="OSS" />
-                        <TreeItem nodeId="6" label="MUI">
-                        <TreeItem nodeId="8" label="index.js" />
-                        </TreeItem>
-                    </TreeItem>
-                </TreeView>
-                 */}
                 </div>
                 <div className='toolbox-right'>
                     <div className='tool-container-top'>
@@ -208,6 +194,7 @@ function Tools(){
                             <div className='toolbox-definition'>
                                 <p>Nmap is a utility for network exploration or security auditing. It supports ping scanning (determine which hosts are up), many port scanning techniques, version detection (determine service protocols and application versions listening behind ports), and TCP/IP fingerprinting (remote host OS or device identification). Nmap also offers flexible target and port specification, decoy/stealth scanning, sunRPC scanning, and more. Most Unix and Windows platforms are supported in both GUI and commandline modes. Several popular handheld devices are also supported, including the Sharp Zaurus and the iPAQ.
                                     </p>
+                                {/*<div>{selectedDefinition}</div> database에서 받아오면이렇게*/}
                             </div>
                             <div className='text-size2'>
                                 Options
