@@ -64,10 +64,12 @@
 
 .toolbox-definition{
   flex: 0.2;
+  padding-left: 10px;
   background-color: rgb(245, 245, 245);
   border-radius: 6px;
   font-size: 16px;
   width: 100%;
+  height: 100;
   white-space: normal; /* 줄 바꿈 활성화 */
   overflow-y:auto;
   overflow-x: hidden;
@@ -75,18 +77,26 @@
 
 .toolbox-option{
   flex: 0.4;
+  padding-left: 10px;
   background-color: rgb(245, 245, 245);
   border-radius: 6px;
   font-size: 16px;
   width:100%;
+  white-space: normal; /* 줄 바꿈 활성화 */
+  overflow-y:auto;
+  overflow-x: hidden;
 }
 
 .toolbox-mitre{
   flex: 0.4;
+  padding-left: 10px;
   background-color: rgb(245, 245, 245);
   border-radius: 6px;
   font-size: 16px;
   width:100%;
+  white-space: normal; /* 줄 바꿈 활성화 */
+  overflow-y:auto;
+  overflow-x: hidden;
 }
 
 .toolbox-exec{
@@ -96,10 +106,14 @@
 
 .toolbox-wiki{
   flex: 0.5;
+  padding-left: 10px;
   background-color: rgb(245, 245, 245);
   border-radius: 6px;
   font-size: 16px;
   width:100%;
+  white-space: normal; /* 줄 바꿈 활성화 */
+  overflow-y:auto;
+  overflow-x: hidden;
 }
 
 .text-size {

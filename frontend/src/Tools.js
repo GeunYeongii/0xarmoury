@@ -84,10 +84,22 @@ function Tools(){
 
     const [selectedId, setSelectedId] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState(null);
+    const [str, setStr] = useState(null);
+
+    const CircularJSON = require('circular-json');
+
 
     const handleSelect = (id, label) => {
-    setSelectedId(id);
-    setSelectedLabel(label);
+        setSelectedId(id);
+        setSelectedLabel(label);
+        const jsonObject = JSON.parse(CircularJSON.stringify({ label }));
+        // 'children' 있으면 Str에 children value저장
+        if (jsonObject && jsonObject.label && jsonObject.label.props && jsonObject.label.props.children) {
+          setStr(jsonObject.label.props.children);
+        } else {
+            //  'children' 앖으면 Str에 label저장
+          setStr(jsonObject.label);
+        }
     };
 
     return(
@@ -150,7 +162,9 @@ function Tools(){
                     {data.map((node) => (
                         <RenderTree nodes={node} onSelect={handleSelect} key={node.id} />
                         ))}
+                        
                 </TreeView>
+                
                 {/*
                 <TreeView
                     aria-label="file system navigator"
@@ -172,8 +186,10 @@ function Tools(){
                 </div>
                 <div className='toolbox-right'>
                     <div className='tool-container-top'>
-                        <div class='text-size'>{selectedLabel}</div>
-
+                    <div className='text-size'>
+                        {str} 
+                    </div>
+                       
                         <div className='tool-container-right'>
                          <Button sx={{color: '#000000'}}>edit</Button>
                          <IconButton aria-label="delete">
