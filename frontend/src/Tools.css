@@ -126,6 +126,9 @@
   margin-bottom: 10px;;
   font-size: 20px;
   font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
 }
 
 .tool-division-line{

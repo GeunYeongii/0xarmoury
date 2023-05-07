@@ -223,6 +223,9 @@ function Tools(){
                             </div>
                             <div className='text-size2'>
                                 Wiki
+                                <IconButton aria-label="edit">
+                                    <EditIcon sx={{width: 20, height: 20}} />
+                                </IconButton>
                             </div>
                             <div className='toolbox-wiki'>
 
