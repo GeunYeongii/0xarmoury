@@ -13,6 +13,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { useState, useEffect } from 'react';
 
@@ -57,8 +58,11 @@ import { useState, useEffect } from 'react';
         nodeId={nodes.id}
         label={
         <Typography sx={{ fontSize: 25 }}>{nodes.label}</Typography>}
-        onClick={() => onSelect(nodes.id, nodes.label)}
+        onClick={() => nodes.id>1 ? onSelect(nodes.id, nodes.label) : 0}
         >
+        {/* id값으로 제일 상단의 트리아이템은 안불러오도록 지정?
+            이렇게 해도 됨? */}
+
         {Array.isArray(nodes.children)
     ? nodes.children.map((node) => (
         <RenderTree
@@ -178,7 +182,7 @@ function Tools(){
                        
                         <div className='tool-container-right'>
                          <Button sx={{color: '#000000'}}>edit</Button>
-                         <IconButton aria-label="delete">
+                         <IconButton aria-label="bookmark">
                             <BookmarkBorderIcon sx={{width: 40, height: 40}} />
                         </IconButton>
                         </div>
