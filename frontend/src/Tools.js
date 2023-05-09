@@ -57,7 +57,7 @@ import { useState, useEffect } from 'react';
         key={nodes.id} 
         nodeId={nodes.id}
         label={
-        <Typography sx={{ fontSize: 25 }}>{nodes.label}</Typography>}
+        <Typography sx={{ fontSize: 23}}>{nodes.label}</Typography>}
         onClick={() => nodes.id>1 ? onSelect(nodes.id, nodes.label) : 0}
         >
         {/* id값으로 제일 상단의 트리아이템은 안불러오도록 지정?
@@ -69,7 +69,7 @@ import { useState, useEffect } from 'react';
             nodes={{
             ...node,
             label: (
-                <Typography sx={{ fontSize: 16 }}>{node.label}</Typography>
+                <Typography sx={{ fontSize: 17 }}>{node.label}</Typography>
             ),
             }}
             onSelect={onSelect}
@@ -162,17 +162,17 @@ function Tools(){
             <div className = 'division-line'></div>
             <div className='container-body1'>
                 <div className='toolbox-left'>
-                <TreeView
-                    aria-label="file system navigator"
-                    defaultCollapseIcon={<ExpandMoreIcon />}
-                    defaultExpandIcon={<ChevronRightIcon />}
-                    sx={{ height: 240, flexGrow: 1, width: '95%' }}
-                    >
-                    {data.map((node) => (
-                        <RenderTree nodes={node} onSelect={handleSelect} key={node.id} />
-                        ))}
-                        
-                </TreeView>
+                    <TreeView
+                        aria-label="file system navigator"
+                        defaultCollapseIcon={<ExpandMoreIcon />}
+                        defaultExpandIcon={<ChevronRightIcon />}
+                        sx={{ height: 240, flexGrow: 1, width: '95%' }}
+                        >
+                        {data.map((node) => (
+                            <RenderTree nodes={node} onSelect={handleSelect} key={node.id} />
+                            ))}
+                            
+                    </TreeView> 
                 </div>
                 <div className='toolbox-right'>
                     <div className='tool-container-top'>
