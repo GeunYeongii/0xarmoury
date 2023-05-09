@@ -24,9 +24,9 @@
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  font-size: 24px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
+  font-size: 20px;
+  background-color: rgb(255, 255, 255);;
+  border-radius: 10px;
   margin: 35px;
   padding: 20px;
   height: 75vh;
