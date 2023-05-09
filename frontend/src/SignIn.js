@@ -32,7 +32,7 @@ export default function SignIn() {
       .then(function (response) {
         if (response.data.isSuccess){
           console.log(response, '성공');
-          Navigate('/mainPage');
+          Navigate('/');
         }
       })
       .catch(function (err) {
