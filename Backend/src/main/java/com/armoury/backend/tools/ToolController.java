@@ -4,8 +4,6 @@ import com.armoury.backend.config.BaseException;
 import com.armoury.backend.config.BaseResponse;
 import com.armoury.backend.tools.model.GetToolRes;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +24,7 @@ public class ToolController {
     }
 
     @ResponseBody
-    @Operation(summary = "공격 도구 정보 조회", description = "toolIdx 사용하여 공격 도구 정보 조회")
+    @Operation(summary = "공격 도구 정보 조회", description = "toolIdx 사용하여 공격 도구 정보 조회합니다.")
     @GetMapping("/{toolIdx}")
     public BaseResponse<GetToolRes> getToolByIdx (@PathVariable("toolIdx")int toolIdx){
         try{
