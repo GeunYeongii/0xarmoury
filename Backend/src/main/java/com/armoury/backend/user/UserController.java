@@ -4,6 +4,8 @@ import com.armoury.backend.config.BaseException;
 import com.armoury.backend.config.BaseResponse;
 import com.armoury.backend.user.model.*;
 import com.armoury.backend.utils.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import static com.armoury.backend.utils.ValidationRegex.isRegexEmail;
 
 @RestController
 @RequestMapping("/users")
+@Tag(name = "User", description = "유저와 관련된 기능 & 정보 제공")
 public class UserController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -32,21 +35,8 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/test")
-    public BaseResponse<String> testAPI(){
-        return new BaseResponse<>("Test");
-    }
-
-    /**
-     * 회원 조회 API
-     * [GET] /users
-     * 이메일 검색 조회 API
-     * [GET] /users? Email=
-     * @return BaseResponse<GetUserRes>
-     */
-    //Query String
-    @ResponseBody
-    @GetMapping("/getusers") // (GET) 127.0.0.1:9000/users
+    @Operation(summary = "회원 조회", description = "이메일을 사용하여 유저를 조회합니다.")
+    @GetMapping("/getUser")
     public BaseResponse<GetUserRes> getUsers(@RequestParam(required = true) String Email) {
         try{
             if(Email.length()==0){
@@ -64,6 +54,7 @@ public class UserController {
     }
 
     @ResponseBody
+    @Operation(summary = "회원 조회", description = "userIdx 사용하여 유저를 조회합니다.")
     @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/users/:userIdx
     public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx")int userIdx) {
         try{
@@ -75,15 +66,9 @@ public class UserController {
         }
     }
 
-    /**
-     * 회원가입 API
-     * [POST] /users
-     * @return BaseResponse<PostUserRes>
-     */
-    // Body
-
 
     @ResponseBody
+    @Operation(summary = "회원가입", description = "새로운 유저를 생성합니다.")
     @PostMapping("/create") // (POST) 127.0.0.1:9000/users
     public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
         System.out.println(postUserReq.getEmail());
@@ -105,12 +90,8 @@ public class UserController {
         }
     }
 
-    /**
-     * 유저정보변경 API
-     * [PATCH] /users/:userIdx
-     * @return BaseResponse<String>
-     */
     @ResponseBody
+    @Operation(summary = "유저정보 변경", description = "유저의 정보를 변경합니다.")
     @PatchMapping("/{userIdx}") // (PATCH) 127.0.0.1:9000/users/:userIdx
     public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
         try {
@@ -135,6 +116,7 @@ public class UserController {
 
     /**  로그인 API */
     @ResponseBody
+    @Operation(summary = "로그인", description = "유저 정보로 로그인 합니다.")
     @PostMapping("/login")
     public BaseResponse<PostUserRes> logIn(@RequestBody PostLoginReq postLoginReq){
         try {
