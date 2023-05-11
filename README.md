@@ -22,6 +22,11 @@ nohup python3 run.py &
 log >> nohup.out
 ```
 
+# Swagger Docs
+    jar 실행 후 접속하기 (2023.05.11 업데이트)
+
+-링크: <http://localhost:8080/swagger-ui/index.html>
+
 React Server : 3000
 ---
 
