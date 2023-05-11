@@ -19,10 +19,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    // Web
+    // Spring Boot Starter
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
     // Lombok
     implementation 'org.projectlombok:lombok'
@@ -35,8 +37,8 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.26'
     runtimeOnly 'mysql:mysql-connector-java'
 
-    // Spring Boot Starter
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // Swagger
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
 
     // Security, Authentication
     implementation 'org.springframework.boot:spring-boot-starter-security'
