@@ -24,7 +24,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
     // Lombok
     implementation 'org.projectlombok:lombok'
@@ -38,7 +37,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
 
     // Swagger
-    implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 
     // Security, Authentication
     implementation 'org.springframework.boot:spring-boot-starter-security'
