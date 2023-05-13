@@ -25,6 +25,10 @@ function MainPage(){
                     <button>SignUp</button>
                 </Link>
 
+                <Link to = './VncTest'>
+                    <button>VNC</button>
+                </Link>
+
                 <p>
                     MITRE ATT&CK Json file
                 </p>

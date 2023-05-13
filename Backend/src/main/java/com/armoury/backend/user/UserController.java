@@ -114,7 +114,6 @@ public class UserController {
         }
     }
 
-    /**  로그인 API */
     @ResponseBody
     @Operation(summary = "로그인", description = "유저 정보로 로그인 합니다.")
     @PostMapping("/login")
@@ -130,6 +129,17 @@ public class UserController {
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
+    }
+
+    @ResponseBody
+    @GetMapping("/openVNC")
+    public BaseResponse<String> vncConnect() {
+        String vncServerHost = "localhost";
+        int vncServerPort = 6901;
+        String vncPassword = "password";
+
+        String result = "https://" + vncServerHost + ":" + vncServerPort;
+        return new BaseResponse<>(result);
     }
 
 }
