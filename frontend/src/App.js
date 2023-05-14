@@ -5,7 +5,6 @@ import MainHome from './mainPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Tools from './Tools';
-import Training from './Training';
 
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
         <Route path = "SignIn" element = {<SignIn />}></Route>
         <Route path = "SignUp" element = {<SignUp />}></Route>
         <Route path = "tools" element = {<Tools />}></Route>
-        <Route path = "training" element = {<Training />}></Route>
       </Routes>
 
       

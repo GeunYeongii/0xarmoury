@@ -43,7 +43,7 @@ function MainPage(){
                         <div className="button-container">
                             <Link href ="#" color='#000000'>Matric</Link>
                             <Link href="/tools" color='#000000'>Tools</Link>
-                            <Link href ="training" color='#000000'>Training</Link>
+                            <Link href ="#" color='#000000'>Training</Link>
                             <Link href ="#" color='#000000'>Gallery</Link>
                             <Link href ="#" color='#000000'>My page</Link>
                         </div>
