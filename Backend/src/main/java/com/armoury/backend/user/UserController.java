@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import static com.armoury.backend.config.BaseResponseStatus.*;
 import static com.armoury.backend.utils.ValidationRegex.isRegexEmail;
 
@@ -137,6 +140,41 @@ public class UserController {
         String vncServerHost = "localhost";
         int vncServerPort = 6901;
         String vncPassword = "password";
+
+        ProcessBuilder builder = new ProcessBuilder();
+
+        builder.command("wimpty", "docker", "run", "--rm", "-it", "--shm-size=512m", "-p", "6901:6901", "-e", "VNC_PW=password", "kasmweb/desktop:1.8.0-edge");
+
+        try {
+            // 도커 컨테이너 실행
+            Process process = builder.start();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            String errorMessage = null;
+            while ((line = errorReader.readLine()) != null) {
+                errorMessage += line + "\n";
+            }
+
+            int exitCode = process.waitFor(); // 외부 프로세스의 실행이 완료될 때까지 대기
+
+            if (exitCode == 0) {
+                System.err.println("도커 컨테이너 실행 성공했습니다");
+            } else {
+                System.err.println("도커 컨테이너 실행 실패했습니다");
+                System.err.println("오류 메시지: " + errorMessage);
+            }
+        } catch (Exception e) {
+            // 예외 처리
+            e.printStackTrace();
+            System.err.println("도커 컨테이너 실행 중 예외가 발생했습니다: " + e.getMessage());
+        }
 
         String result = "https://" + vncServerHost + ":" + vncServerPort;
         return new BaseResponse<>(result);
