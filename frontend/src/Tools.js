@@ -14,6 +14,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { useState, useEffect } from 'react';
 
@@ -21,27 +22,35 @@ import { useState, useEffect } from 'react';
     const data = [
         {
           id: '1',
-          label: 'Applications',
+          label: 'Reconnaissance',
           children: [
-            { id: '2', label: 'Calendar' },
-            { id: '3', label: 'Email' },
+            { id: '2', label: 'Active Scanning' },
+            { id: '3', label: 'Gather Victim Host Information' },
           ],
         },
         {
           id: '4',
-          label: 'Documents',
+          label: 'Resource Development',
           children: [
             {
               id: '5',
-              label: 'OSS',
+              label: 'Acquire Access',
             },
             {
               id: '6',
-              label: 'MUI',
+              label: 'Acquire Infrastructure',
               children: [{ id: '7', label: 'index.js' }],
             },
           ],
         },
+        {
+            id: '7',
+            label: 'Initial Access',
+            children: [
+              { id: '8', label: 'Drive-by Compromise' },
+              { id: '9', label: 'Exploit Public-Facing Application' },
+            ],
+          }
       ];
     {/*
     const [data, setData] = useState([]);
@@ -57,7 +66,7 @@ import { useState, useEffect } from 'react';
         key={nodes.id} 
         nodeId={nodes.id}
         label={
-        <Typography sx={{ fontSize: 23}}>{nodes.label}</Typography>}
+        <Typography sx={{ fontSize: 19 , fontFamily: 'Verdana', pt: 0.5, pb: 0.5}}>{nodes.label}</Typography>}
         onClick={() => nodes.id>1 ? onSelect(nodes.id, nodes.label) : 0}
         >
         {/* id값으로 제일 상단의 트리아이템은 안불러오도록 지정?
@@ -69,7 +78,7 @@ import { useState, useEffect } from 'react';
             nodes={{
             ...node,
             label: (
-                <Typography sx={{ fontSize: 17 }}>{node.label}</Typography>
+                <Typography sx={{ fontSize: 15, fontFamily: 'Verdana'}}>{node.label}</Typography>
             ),
             }}
             onSelect={onSelect}
@@ -162,17 +171,24 @@ function Tools(){
             <div className = 'division-line'></div>
             <div className='container-body1'>
                 <div className='toolbox-left'>
+                    
+                    <div className='tools-title'>
+                     TOOLS LIST
+                    </div>
+                    <div className = 'tool-division-line2'></div>
                     <TreeView
                         aria-label="file system navigator"
                         defaultCollapseIcon={<ExpandMoreIcon />}
                         defaultExpandIcon={<ChevronRightIcon />}
-                        sx={{ height: 240, flexGrow: 1, width: '95%' }}
+                        sx={{ height: '95%', flexGrow: 1, width: '95%'
+                    }}
                         >
                         {data.map((node) => (
                             <RenderTree nodes={node} onSelect={handleSelect} key={node.id} />
                             ))}
                             
                     </TreeView> 
+                    <div className = 'tool-division-line2'></div>
                 </div>
                 <div className='toolbox-right'>
                     <div className='tool-container-top'>

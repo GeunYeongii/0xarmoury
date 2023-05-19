@@ -9,12 +9,16 @@
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  background-color: rgb(236, 236, 236);
+  background-color: rgb(245, 245, 245);
   border-radius: 5px;
   margin: 35px;
-  padding: 20px;
+  margin-right: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
   height: 75vh;
-  box-shadow: 0 0 8px rgb(158, 158, 158);
+  box-shadow: 0 0 5px rgb(151, 151, 151);
 }
 
 .toolbox-right {
@@ -122,6 +126,16 @@
   font-family: 'consolas';
 }
 
+.tools-title{
+  padding: 5px;
+  padding-top: 0;
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Verdana';
+  width: 97%;
+}
+
 .text-size {
   font-size: 30px;
   font-weight: 500;
@@ -138,4 +152,9 @@
 .tool-division-line{
   width:100%;
   border-top: 2px solid #000000;
+}
+
+.tool-division-line2{
+  width:100%;
+  border-top: 1px solid #000000;
 }
