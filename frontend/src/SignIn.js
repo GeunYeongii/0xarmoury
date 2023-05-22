@@ -30,15 +30,21 @@ export default function SignIn() {
     await axios
       .post('/users/login', postData)  //db 주소? api?
       .then(function (response) {
-        if (response.data.isSuccess){
+        if (response.data.code==1000){
           console.log(response, '성공');
           Navigate('/');
         }
+        else if(response.data.code==3014){
+          console.log('error');
+          setLoginError('로그인에 실패하였습니다. 다시한번 확인해 주세요.');
+        }
       })
+      {/* 
       .catch(function (err) {
         console.log(err);
         setLoginError('로그인에 실패하였습니다. 다시한번 확인해 주세요.');
       });
+      */}
   };
 
   //'SIGN IN'버튼 클릭하면 동작
