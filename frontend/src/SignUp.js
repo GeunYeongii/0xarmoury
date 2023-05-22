@@ -42,11 +42,17 @@ export default function SignUp() {
           console.log(response, '성공');
           Navigate('/SignIn');
         }
+        else{
+          console.log('error');
+          setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.');
+        }
       })
+      {/* 
       .catch(function (err) {
         console.log(err);
         setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.');
       });
+      */}
       // TODO: 입력된 정보를 서버에 전송하는 로직 작성
   };
 

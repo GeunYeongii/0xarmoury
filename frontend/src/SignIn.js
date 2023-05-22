@@ -30,11 +30,11 @@ export default function SignIn() {
     await axios
       .post('/users/login', postData)  //db 주소? api?
       .then(function (response) {
-        if (response.data.code==1000){
+        if (response.data.isSuccess){
           console.log(response, '성공');
           Navigate('/');
         }
-        else if(response.data.code==3014){
+        else{
           console.log('error');
           setLoginError('로그인에 실패하였습니다. 다시한번 확인해 주세요.');
         }
