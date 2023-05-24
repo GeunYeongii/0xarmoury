@@ -32,7 +32,13 @@ public class GalleryProvider {
     }
 
     public GetToolInfoRes getToolInfo(int postIdx, int userIdx) throws BaseException {
-        GetToolInfoRes toolInfo = galleryDao.getToolInfo(postIdx);
+        GetToolInfoRes toolInfo = null;
+        try {
+            toolInfo = galleryDao.getToolInfo(postIdx);
+        } catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+
         if (toolInfo.getUserIdx() != userIdx && toolInfo.getShare() == 0)
             throw new BaseException(INVALID_USER_JWT);
         return toolInfo;

@@ -98,8 +98,11 @@ public class GalleryController {
     public BaseResponse<String> deleteToolInfo(@PathVariable("postIdx") int postIdx){
         try {
             int userIdxByJwt = jwtService.getUserIdx();
-            galleryService.deleteToolInfo(postIdx, userIdxByJwt);
-            return new BaseResponse<>("공격도구 정보를 삭제하였습니다.");
+            int result = galleryService.deleteToolInfo(postIdx, userIdxByJwt);
+            if (result == 1)
+                return new BaseResponse<>("공격도구 정보를 삭제하였습니다.");
+            else
+                return new BaseResponse<>("공격도구 정보 삭제에 실패했습니다.");
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

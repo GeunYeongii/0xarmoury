@@ -1,6 +1,7 @@
 package com.armoury.backend.gallery;
 
 import com.armoury.backend.config.BaseException;
+import com.armoury.backend.gallery.model.GetToolSumInfoRes;
 import com.armoury.backend.gallery.model.PatchToolReq;
 import com.armoury.backend.gallery.model.PostToolReq;
 import org.slf4j.Logger;
@@ -8,8 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.armoury.backend.config.BaseResponseStatus.DATABASE_ERROR;
-import static com.armoury.backend.config.BaseResponseStatus.PATCH_EMPTY_TOOL;
+import static com.armoury.backend.config.BaseResponseStatus.*;
 
 @Service
 public class GalleryService {
@@ -37,7 +37,17 @@ public class GalleryService {
         }
     }
 
-    public void deleteToolInfo(int postIdx, int userIdx) throws BaseException {
-        galleryDao.deletePost(postIdx, userIdx);
+    public int deleteToolInfo(int postIdx, int userIdx) throws BaseException {
+        GetToolSumInfoRes summary = null;
+        try {
+            summary = galleryDao.summaryToolInfo(postIdx);
+        } catch(Exception exception){
+            throw new BaseException(WRONG_TOOL_INPUT_REQ);
+        }
+
+        if (summary.getUserIdx() != userIdx)
+            throw new BaseException(INVALID_USER_JWT);
+
+        return galleryDao.deletePost(postIdx, userIdx);
     }
 }

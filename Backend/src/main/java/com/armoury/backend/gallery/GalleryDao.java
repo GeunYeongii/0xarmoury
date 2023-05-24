@@ -43,6 +43,16 @@ public class GalleryDao {
                 postIdx);
     }
 
+    public GetToolSumInfoRes summaryToolInfo(int postIdx) {
+        String getQuery = "SELECT postIdx, userIdx, title FROM Post WHERE postIdx = ?";
+        return this.jdbcTemplate.queryForObject(getQuery,
+                (rs, rowNum) -> new GetToolSumInfoRes(
+                        rs.getInt("postIdx"),
+                        rs.getInt("userIdx"),
+                        rs.getString("title")
+                ), postIdx);
+    }
+
     public int createPost(int userIdx, String title, String defi, String contents, String url, int share) {
         String insertQuery = "INSERT INTO Post (userIdx, title, definition, contents, url, share) VALUES (?,?,?,?,?,?)";
         Object[] createParams = new Object[]{userIdx, title, defi, contents, url, share};
