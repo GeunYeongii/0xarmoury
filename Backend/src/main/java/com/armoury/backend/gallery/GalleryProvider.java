@@ -1,7 +1,7 @@
 package com.armoury.backend.gallery;
 
 import com.armoury.backend.config.BaseException;
-import com.armoury.backend.gallery.model.CusToolInfo;
+import com.armoury.backend.gallery.model.GetToolSumInfoReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,10 @@ public class GalleryProvider {
         this.galleryDao = galleryDao;
     }
 
-    public List<CusToolInfo> getPostInfo(int pageNum) throws BaseException {
+    public List<GetToolSumInfoReq> getPostInfo(int pageNum) throws BaseException {
         if (pageNum < 0)
             throw new BaseException(EMPTY_CONTENT);
-        List<CusToolInfo> infoList = galleryDao.getPostInfo(pageNum);
+        List<GetToolSumInfoReq> infoList = galleryDao.getPostInfo(pageNum);
         if (infoList.size() == 0)
             throw new BaseException(EMPTY_CONTENT);
         return infoList;

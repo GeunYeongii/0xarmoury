@@ -7,8 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CusToolInfo {
-    private int postIdx;
+public class PostToolReq {
     private int userIdx;
     private String title;
+    private String definition;
+    private String contents;
+    private String url;
+    private int share;
 }

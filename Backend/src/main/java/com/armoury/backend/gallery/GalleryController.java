@@ -2,8 +2,8 @@ package com.armoury.backend.gallery;
 
 import com.armoury.backend.config.BaseException;
 import com.armoury.backend.config.BaseResponse;
-import com.armoury.backend.gallery.model.CusToolInfo;
-import com.armoury.backend.gallery.model.CusToolInfoDetail;
+import com.armoury.backend.gallery.model.GetToolSumInfoReq;
+import com.armoury.backend.gallery.model.PostToolReq;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -33,9 +33,9 @@ public class GalleryController {
     @ResponseBody
     @Operation(summary = "게시물 목록 조회", description = "pageNumber를 사용하여 1,2,...,N까지의 게시물 목록을 조회합니다.")
     @GetMapping("/posts/{pageNumber}")
-    public BaseResponse<List<CusToolInfo>> getPostsInfo(@PathVariable("pageNumber") int pageNum){
+    public BaseResponse<List<GetToolSumInfoReq>> getPostsInfo(@PathVariable("pageNumber") int pageNum){
         try {
-            List<CusToolInfo> infoList = galleryProvider.getPostInfo(pageNum*5 - 5);
+            List<GetToolSumInfoReq> infoList = galleryProvider.getPostInfo(pageNum*5 - 5);
             return new BaseResponse<>(infoList);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -43,9 +43,9 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "공격 도구 업로드", description = "새로운 공격 도구의 정보를 업로느합니다. (Share : 공유 - 1 / 개인 - 0 )")
+    @Operation(summary = "공격 도구 업로드", description = "새로운 공격 도구의 정보를 업로드합니다. (Share : 공유 - 1 / 개인 - 0 )")
     @PostMapping("/posts/upload")
-    public BaseResponse<String> postNewAttackTool(@RequestBody CusToolInfoDetail toolInfo){
+    public BaseResponse<String> postNewAttackTool(@RequestBody PostToolReq toolInfo){
         // 데이터 검증 validation 필요
         // user validation 필요
         try {
@@ -55,4 +55,5 @@ public class GalleryController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
 }

@@ -1,7 +1,6 @@
 package com.armoury.backend.gallery;
 
-import com.armoury.backend.gallery.model.CusToolInfo;
-import com.armoury.backend.gallery.model.CusToolInfoDetail;
+import com.armoury.backend.gallery.model.GetToolSumInfoReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,10 +17,10 @@ public class GalleryDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<CusToolInfo> getPostInfo(int pageNum) {
+    public List<GetToolSumInfoReq> getPostInfo(int pageNum) {
         String getQuery = "SELECT postIdx, userIdx, title FROM Post ORDER BY postTime DESC LIMIT ?, 5;";
         return this.jdbcTemplate.query(getQuery,
-                (rs, rowNum) -> new CusToolInfo(
+                (rs, rowNum) -> new GetToolSumInfoReq(
                         rs.getInt("postIdx"),
                         rs.getInt("userIdx"),
                         rs.getString("title")
@@ -35,5 +34,9 @@ public class GalleryDao {
 
         String lastInsertIdQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
+    }
+
+    public void modifyPost(String title, String defi, String contents, String url, int share) {
+
     }
 }
