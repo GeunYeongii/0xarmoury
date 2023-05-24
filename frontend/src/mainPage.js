@@ -12,11 +12,13 @@ import Link from '@mui/material/Link';
 function MainPage(){
     const [jsonData, setHello] = useState('')
 
-  useEffect(() => {
+    {/* 
+    useEffect(() => {
       axios.get('/api/test')
       .then(response => setHello(response.data))
       .catch(error => console.log(error))
-  }, []);
+    }, []);
+    */}
 
     return(
         <div>
