@@ -46,7 +46,7 @@ function MainPage(){
                             <Link href ="#" color='#000000'>Matric</Link>
                             <Link href="#" color='#000000'>Tools</Link>
                             <Link href ="#" color='#000000'>Training</Link>
-                            <Link href ="./Gallery" color='#000000'>Gallery</Link>
+                            <Link href ="#" color='#0042ED'>Gallery</Link>
                             <Link href ="#" color='#000000'>My page</Link>
                         </div>
                     </div>
@@ -71,27 +71,12 @@ function MainPage(){
             <div className = 'division-line'></div>
             <div className='container-body1' >
                 <div className='container-body2'>
-                    <h3>This is main Page</h3>
+                    <h3>This is Gallery</h3>
 
-                    <p>
-                        MITRE ATT&CK Json file
-                    </p>
-
-                    <div>
-                        {JSON.stringify(jsonData)}
-                    </div>
-                    <Link href ="#"> {/*Matrix page link*/}
-                        <Button variant="contained" sx={{
-                            margin:1
-                            ,fontSize:15
-                            }}>
-                            <strong>Go to Matrix</strong>
-                        </Button>
-                    </Link>
+                    
+                    
                 </div>
-                <div className='container-body3'>
-                    <img src='/img/Main_logo.png' alt="Main_logo" width={'65%'} height={'65%'} />
-                </div>
+                
             </div>
         </div>
     );
