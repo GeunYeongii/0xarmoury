@@ -40,7 +40,7 @@ public class GalleryController {
 
     @ResponseBody
     @Operation(summary = "게시물 목록 조회", description = "pageNumber를 사용하여 1,2,...,N까지의 게시물 목록을 조회합니다.")
-    @GetMapping("/tool/{pageNumber}")
+    @GetMapping("/toolList/{pageNumber}")
     public BaseResponse<List<GetToolSumInfoRes>> getPostsInfo(@PathVariable("pageNumber") int pageNum){
         try {
             List<GetToolSumInfoRes> infoList = galleryProvider.getPostsInfo(pageNum*5 - 5);
