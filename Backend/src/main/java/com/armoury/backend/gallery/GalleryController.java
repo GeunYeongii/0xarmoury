@@ -3,6 +3,7 @@ package com.armoury.backend.gallery;
 import com.armoury.backend.config.BaseException;
 import com.armoury.backend.config.BaseResponse;
 import com.armoury.backend.gallery.model.GetToolSumInfoReq;
+import com.armoury.backend.gallery.model.PatchToolReq;
 import com.armoury.backend.gallery.model.PostToolReq;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -56,4 +57,17 @@ public class GalleryController {
         }
     }
 
+    @ResponseBody
+    @Operation(summary = "공격 도구 정보 수정", description = "공격 도구의 정보를 수정합니다.")
+    @PatchMapping("/posts/modify")
+    public BaseResponse<String> modifyToolInfo(@RequestBody PatchToolReq toolInfo) {
+        // 데이터 검증 validation 필요
+        // user validation 필요 (요청한 userIdx = 데이터의 userIdx)
+        try {
+            galleryService.modifyToolInfo(toolInfo);
+            return new BaseResponse<>("공격도구 정보 수정에 성공 하였습니다.");
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

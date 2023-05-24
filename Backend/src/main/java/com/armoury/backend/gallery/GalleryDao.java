@@ -36,7 +36,10 @@ public class GalleryDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 
-    public void modifyPost(String title, String defi, String contents, String url, int share) {
+    public int modifyPost(int postIdx, String title, String defi, String contents, String url, int share) {
+        String modifyQuery = "UPDATE Post SET title = ?, defi = ?, contents = ?, url = ?, share = ?";
+        Object modifyParams = new Object[]{title, defi, contents, url, share};
 
+        return this.jdbcTemplate.update(modifyQuery, modifyParams);
     }
 }
