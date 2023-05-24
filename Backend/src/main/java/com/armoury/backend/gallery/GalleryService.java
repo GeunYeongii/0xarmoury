@@ -36,4 +36,8 @@ public class GalleryService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public void deleteToolInfo(int postIdx, int userIdx) throws BaseException {
+        galleryDao.deletePost(postIdx, userIdx);
+    }
 }

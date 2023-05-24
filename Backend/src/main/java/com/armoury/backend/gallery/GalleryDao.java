@@ -42,4 +42,11 @@ public class GalleryDao {
 
         return this.jdbcTemplate.update(modifyQuery, modifyParams);
     }
+
+    public int deletePost(int postIdx, int userIdx) {
+        String deleteQuery = "DELETE FROM Post WHERE postIdx = ? AND userIdx = ?";
+        Object deleteParams = new Object[]{postIdx, userIdx};
+
+        return this.jdbcTemplate.update(deleteQuery, deleteParams);
+    }
 }
