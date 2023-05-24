@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetToolSumInfoReq {
+public class GetToolSumInfoRes {
     private int postIdx;
     private int userIdx;
     private String title;

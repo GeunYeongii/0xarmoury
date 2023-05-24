@@ -2,7 +2,8 @@ package com.armoury.backend.gallery;
 
 import com.armoury.backend.config.BaseException;
 import com.armoury.backend.config.BaseResponse;
-import com.armoury.backend.gallery.model.GetToolSumInfoReq;
+import com.armoury.backend.gallery.model.GetToolInfoRes;
+import com.armoury.backend.gallery.model.GetToolSumInfoRes;
 import com.armoury.backend.gallery.model.PatchToolReq;
 import com.armoury.backend.gallery.model.PostToolReq;
 import com.armoury.backend.utils.JwtService;
@@ -40,14 +41,28 @@ public class GalleryController {
     @ResponseBody
     @Operation(summary = "게시물 목록 조회", description = "pageNumber를 사용하여 1,2,...,N까지의 게시물 목록을 조회합니다.")
     @GetMapping("/tool/{pageNumber}")
-    public BaseResponse<List<GetToolSumInfoReq>> getPostsInfo(@PathVariable("pageNumber") int pageNum){
+    public BaseResponse<List<GetToolSumInfoRes>> getPostsInfo(@PathVariable("pageNumber") int pageNum){
         try {
-            List<GetToolSumInfoReq> infoList = galleryProvider.getPostInfo(pageNum*5 - 5);
+            List<GetToolSumInfoRes> infoList = galleryProvider.getPostsInfo(pageNum*5 - 5);
             return new BaseResponse<>(infoList);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    @ResponseBody
+    @Operation(summary = "공격 도구 정보 단일 조회", description = "공격 도구의 정보를 개별적으로 조회합니다.")
+    @GetMapping("/tool/{postIdx}")
+    public BaseResponse<GetToolInfoRes> getToolInfo(@PathVariable("postIdx") int postIdx){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            GetToolInfoRes getToolInfoRes= galleryProvider.getToolInfo(postIdx, userIdxByJwt);
+            return new BaseResponse<>(getToolInfoRes);
+        } catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
 
     @ResponseBody
     @Operation(summary = "공격 도구 업로드", description = "새로운 공격 도구의 정보를 업로드합니다. (Share : 공유 - 1 / 개인 - 0 )")

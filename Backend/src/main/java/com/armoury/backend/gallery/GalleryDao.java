@@ -1,6 +1,7 @@
 package com.armoury.backend.gallery;
 
-import com.armoury.backend.gallery.model.GetToolSumInfoReq;
+import com.armoury.backend.gallery.model.GetToolInfoRes;
+import com.armoury.backend.gallery.model.GetToolSumInfoRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,14 +18,29 @@ public class GalleryDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<GetToolSumInfoReq> getPostInfo(int pageNum) {
+    public List<GetToolSumInfoRes> getPostInfo(int pageNum) {
         String getQuery = "SELECT postIdx, userIdx, title FROM Post ORDER BY postTime DESC LIMIT ?, 5;";
         return this.jdbcTemplate.query(getQuery,
-                (rs, rowNum) -> new GetToolSumInfoReq(
+                (rs, rowNum) -> new GetToolSumInfoRes(
                         rs.getInt("postIdx"),
                         rs.getInt("userIdx"),
                         rs.getString("title")
                 ), pageNum);
+    }
+
+    public GetToolInfoRes getToolInfo(int postIdx) {
+        String getQuery = "SELECT userIdx, title, definition, contents, url, share, postTime FROM Post WHERE postIdx = ?";
+        return this.jdbcTemplate.queryForObject(getQuery,
+                (rs, rowNum) -> new GetToolInfoRes(
+                       rs.getInt("userIdx"),
+                       rs.getString("title"),
+                       rs.getString("definition"),
+                       rs.getString("contents"),
+                       rs.getString("url"),
+                       rs.getInt("share"),
+                       rs.getString("postTime")
+                ),
+                postIdx);
     }
 
     public int createPost(int userIdx, String title, String defi, String contents, String url, int share) {
