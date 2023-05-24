@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostInfo {
+public class CusToolInfo {
     private int postIdx;
     private int userIdx;
     private String title;
