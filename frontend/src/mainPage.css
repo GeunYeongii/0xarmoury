@@ -1,0 +1,84 @@
+.button-container{
+	display:flex;
+	flex-direction: row;
+	gap: 60px;
+	padding: 3px;
+	font-size: 20px;
+	font-weight: 500;
+  }
+
+  .outline-container{
+	border: 1px solid black;
+	padding: 3px;
+	padding-left: 30px;
+	padding-right: 30px;
+	margin-right: 40px;
+
+	display: inline-block; /*button 크기만큼*/
+  }
+
+  .outline-search{
+	border: 2px solid black;
+	border-radius: 5px;
+	/* border-radius: 5px;*/
+	display: inline-block; /*button 크기만큼*/
+
+  }
+
+  .container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-left: 65px;
+  }
+
+  .container-right {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin-top: 10px;
+	margin-right: 65px;
+  }
+
+  .container-body1 {
+	display: flex;
+	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+	padding: 30px;
+	font-size: 24px;
+	height: 80vh;
+  }
+
+  .container-body2 {
+	flex: 0.3;
+  	align-items: right;
+  	justify-content: right;
+	text-align: center;
+	font-size: 24px;
+  }
+
+  .container-body3 {
+	flex: 0.3;
+  	align-items: left;
+  	justify-content: left;
+	text-align: center;
+	font-size: 24px;
+  }
+
+  .sign-container{
+	display:flex;
+	flex-direction: row;
+	gap: 35px;
+	padding: 3px;
+	font-size: 18px;
+	font-weight: 500;
+	margin-right: 7px;
+  }
+
+  .division-line{
+	border-top: 2px solid #777777;
+	margin-left: 65px;
+	margin-right: 65px;
+	margin-top: 15px;
+  }
