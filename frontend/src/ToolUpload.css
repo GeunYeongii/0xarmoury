@@ -1,0 +1,77 @@
+.contents {
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	display: flex;
+	flex-direction: row;
+	padding: 30px;
+  }
+  
+  .Upload-Menu {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	padding: 30px;
+
+	font-size: 24px;
+	width: 25%;
+	margin-left: 50px;
+	margin-top: 5px;
+  }
+  
+  .Upload-Menu-sub {
+	flex: 1;
+	align-items: center;
+	justify-content: center;
+	margin-left: 10px;
+	margin-top: 30px;
+  }
+  
+  .Upload-Category-sub {
+	flex: 1;
+	margin-left: 10px;
+	
+  }
+  
+
+  .Gllery-division-line{
+	width: 70%;
+	border-top: 1.5px solid #000000;
+	margin-top: 30px;
+	margin-right: 10px;
+  }
+
+  .font-Title{
+	font-size: 20px;
+	margin-left: 10px;
+	margin-top: 10px;
+	font-family: 'ABeeZee';
+	font-style: italic;
+  }
+
+  .Upload-tool-line{
+	width: 100%;
+	margin-top: 10px;
+	border: 1px solid #E2E8F0;
+	margin-bottom: 25px;
+  }
+
+  .Upload-category-line{
+	width: 100%;
+	margin-top: 10px;
+	border: 1px solid #E2E8F0;
+  }
+
+
+  .font-name{
+	font-family: 'ABeeZee';
+	font-style: italic;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 22px;
+	color: #212B36;
+	
+  }
