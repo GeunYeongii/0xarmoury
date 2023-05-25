@@ -48,7 +48,7 @@ public class GalleryProvider {
         try {
             return galleryDao.getUserTools(userIdx);
         } catch (Exception exception){
-            throw new BaseException(WRONG_TOOL_INPUT_REQ);
+            throw new BaseException(EMPTY_OUTPUT);
         }
     }
 }

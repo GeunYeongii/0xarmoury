@@ -10,5 +10,7 @@ import lombok.Setter;
 public class GetToolSumInfoRes {
     private int postIdx;
     private int userIdx;
+    private String userName;
     private String title;
+    private String postTime;
 }

@@ -40,14 +40,14 @@ public class GalleryService {
     }
 
     public int deleteToolInfo(int postIdx, int userIdx) throws BaseException {
-        GetToolSumInfoRes summary = null;
+        int postUser = 0;
         try {
-            summary = galleryDao.summaryToolInfo(postIdx);
+            postUser = galleryDao.userWhoPostTool(postIdx);
         } catch(Exception exception){
             throw new BaseException(WRONG_TOOL_INPUT_REQ);
         }
 
-        if (summary.getUserIdx() != userIdx)
+        if (postUser != userIdx)
             throw new BaseException(INVALID_USER_JWT);
 
         return galleryDao.deletePost(postIdx, userIdx);

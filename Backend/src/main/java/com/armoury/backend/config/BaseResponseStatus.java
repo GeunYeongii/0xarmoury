@@ -36,7 +36,8 @@ public enum BaseResponseStatus {
 
     // gallery
     PATCH_EMPTY_TOOL(false, 2050, "존재하지 않는 도구에 대한 수정 요청입니다."),
-    WRONG_TOOL_INPUT_REQ(false, 2050, "공격 도구에 대한 올바르지 않는 입력값 요청입니다."),
+    WRONG_TOOL_INPUT_REQ(false, 2051, "공격 도구에 대한 올바르지 않는 입력값 요청입니다."),
+    EMPTY_OUTPUT(false, 2052, "요청에 대한 결과가 존재하지 않습니다."),
     /**
      * 3000 : Response 오류
      */
