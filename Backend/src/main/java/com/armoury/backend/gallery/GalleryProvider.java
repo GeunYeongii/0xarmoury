@@ -43,4 +43,12 @@ public class GalleryProvider {
             throw new BaseException(INVALID_USER_JWT);
         return toolInfo;
     }
+
+    public List<GetToolInfoRes> getUserTools(int userIdx) throws BaseException {
+        try {
+            return galleryDao.getUserTools(userIdx);
+        } catch (Exception exception){
+            throw new BaseException(WRONG_TOOL_INPUT_REQ);
+        }
+    }
 }

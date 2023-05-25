@@ -41,7 +41,7 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "게시물 목록 조회", description = "pageNumber를 사용하여 1,2,...,N까지의 게시물 목록을 조회합니다.")
+    @Operation(summary = "게시물 목록 조회", description = "pageNumber를 사용하여 1,2,...,N까지의 게시물 목록을 조회합니다. (현재 5개씩 조회)")
     @GetMapping("/toolList/{pageNumber}")
     public BaseResponse<List<GetToolSumInfoRes>> getPostsInfo(@PathVariable("pageNumber") int pageNum){
         try {
@@ -65,6 +65,18 @@ public class GalleryController {
         }
     }
 
+    @ResponseBody
+    @Operation(summary = "사용자의 공격 도구 정보 조회", description = "사용자가 포스팅한 모든 공격 도구 정보를 조회합니다.")
+    @GetMapping("/tool/myList")
+    public BaseResponse<List<GetToolInfoRes>> getUserTools(){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            List<GetToolInfoRes> toolList = galleryProvider.getUserTools(userIdxByJwt);
+            return new BaseResponse<>(toolList);
+        } catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
     @ResponseBody
     @Operation(summary = "공격 도구 업로드", description = "새로운 공격 도구의 정보를 업로드합니다. (Share : 공유 - 1 / 개인 - 0 )")

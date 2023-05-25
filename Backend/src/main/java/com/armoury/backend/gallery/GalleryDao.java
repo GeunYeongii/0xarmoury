@@ -43,6 +43,20 @@ public class GalleryDao {
                 postIdx);
     }
 
+    public List<GetToolInfoRes> getUserTools(int userIdx) {
+        String getQuery = "SELECT userIdx, title, definition, contents, url, share, postTime FROM Post WHERE userIdx = ?";
+        return this.jdbcTemplate.query(getQuery,
+                (rs, rowNum) -> new GetToolInfoRes(
+                        rs.getInt("userIdx"),
+                        rs.getString("title"),
+                        rs.getString("definition"),
+                        rs.getString("contents"),
+                        rs.getString("url"),
+                        rs.getInt("share"),
+                        rs.getString("postTime")
+                ) ,userIdx);
+    }
+
     public GetToolSumInfoRes summaryToolInfo(int postIdx) {
         String getQuery = "SELECT postIdx, userIdx, title FROM Post WHERE postIdx = ?";
         return this.jdbcTemplate.queryForObject(getQuery,
