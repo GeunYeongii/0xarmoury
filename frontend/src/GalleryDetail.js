@@ -16,6 +16,7 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function GalleryDetail(){
     const [data, setResponse] = useState([]);
@@ -117,13 +118,16 @@ function GalleryDetail(){
                         </div>
                         <div className='gallery-title-info'>
                             <div><AccountCircleIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C'}}/> {data.nickName} </div>
-                            <div>
+                            <div className='gallery-title-right'>
+                                {data.postTime}
                                 {data.userIdx == localStorage.getItem('userId')
-                                &&<IconButton aria-label="edit" sx={{height: 25, width: 25, verticalAlign: 'bottom', mr: '5px', mt: '2px'}}>
+                                &&<div><IconButton aria-label="edit" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
                                     <EditIcon  />
                                 </IconButton>
+                                <IconButton aria-label="edit" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
+                                    <DeleteIcon  />
+                                </IconButton></div>
                                 }
-                                {data.postTime}
                             </div>
                         </div>
 

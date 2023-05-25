@@ -35,6 +35,12 @@
     margin-right: 15px;
 }
 
+.gallery-title-right{
+    width: auto;
+    display: flex;
+    flex-direction: row;
+}
+
 .gallery-body{
     flex: 0.93;
     width: 100%;
