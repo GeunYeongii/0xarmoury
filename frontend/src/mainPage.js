@@ -20,12 +20,23 @@ function MainPage(){
     }, []);
     */}
 
+    const Logout = () => {
+        localStorage.removeItem("accessToken");
+    }
+
     return(
         <div>
             <div className='container-right'>
-                <div className="sign-container">
-                    <Link href ="./SignIn" color='#000000'>Sign In</Link>
-                    <Link href="./SignUp" color='#000000'>Sign Up</Link>
+                <div>
+                    <div>
+                    {
+                        localStorage.getItem("accessToken") == null
+                        ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
+                        <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
+                        :<div className="sign-container"><Link href ="#" color='#000000'>username</Link>
+                        <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
+                    }
+                    </div>
                 </div>
             </div>
             <div className="container">
