@@ -20,6 +20,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 function GalleryDetail(){
     const [data, setResponse] = useState([]);
+    const [comment, setComment] = useState([]);
     
     const {no} = useParams();
 
@@ -31,21 +32,80 @@ function GalleryDetail(){
       }, []);
     */}
 
-    useEffect(() => {GalleryDetail(no);});
+    useEffect(() => {GalleryDetail(no); CommentList(no);});
 
-      const GalleryDetail = async (no) => {
-
+    const GalleryDetail = async (no) => {
         try {
-          const response = await axios.get('/gallery/tool/' + no, {
+            const response = await axios.get('/gallery/tool/' + no, {
             headers: {
             'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
             }
-          });
-          setResponse(response.data.result);
+            });
+            setResponse(response.data.result);
         } catch (error) {
-          console.error('Gallery detail:', error);
+            console.error('Gallery detail:', error);
         }
-      };
+    };
+
+    const CommentList = async (no) => {
+        try {
+            const response = await axios.get('/gallery/comments/' + no, {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            });
+            setComment(response.data.result);
+
+            const processedData = response.data.result.map(item => ({
+                userId: item.userIdx,
+                nickName: item.nickName,
+                contents: item.contents,
+                postTime: item.postTime
+              }));
+              setComment(processedData);
+        } catch (error) {
+            console.error('Comment:', error);
+        }
+    };
+
+    const CreateComment = async (data) => {
+        const { postIdx, userIdx, contents } = data;
+        const postData = { postIdx, userIdx, contents };
+
+        console.log(postData);
+    
+        // post
+        await axios
+          .post('/gallery/comments/create', postData)  //db 주소? api?
+          .then(function (response) {
+            console.log(response.data.isSuccess);
+            if (response.data.isSuccess){
+              
+            }
+            else{
+                console.log('댓글 생성 실패');
+            }
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+    };
+
+    //'ADD COMMENT'버튼 클릭하면 동작
+  const SubmitComment = (event) => {
+    event.preventDefault(); // 기본 이벤트 동작 취소
+
+    const data = new FormData(event.currentTarget);
+    const joinData = {
+      postIdx: Number(no),
+      userIdx: Number(localStorage.getItem('userId')),
+      contents: data.get('comment'),
+    };
+
+    CreateComment(joinData);
+    console.log('comment upload');
+  }
+
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
@@ -144,19 +204,42 @@ function GalleryDetail(){
                             {data.definition} <br></br>
                             {data.contents}
                         </div>
-                        <TextField sx={{width: '99.5%', mt: '30px'}}
-                            id="standard-textarea"
-                            label="Comment"
-                            placeholder="Enter your comment"
-                            multiline
-                            rows={3}
-                            variant="filled"
-                        />
-                        <div className='gallery-body-right'>
-                            <Button sx={{backgroundColor: '#353535', '&:hover': {backgroundColor: '#232323'}}} variant="contained" endIcon={<AddCircleOutlineOutlinedIcon />}>
-                                Add Comment
-                            </Button>
-                        </div>
+                        <Box component="form" onSubmit={SubmitComment} noValidate sx={{ mt: 1 }}>
+                            <TextField sx={{width: '99.5%', mt: '30px'}}
+                                id="comment"
+                                name="comment"
+                                label="Comment"
+                                placeholder="Enter your comment"
+                                multiline
+                                rows={3}
+                                variant="filled"
+                            />
+                            <div className='gallery-body-right'>
+                                <Button type="submit" onSubmit={SubmitComment} sx={{backgroundColor: '#353535', '&:hover': {backgroundColor: '#232323'}}} variant="contained" endIcon={<AddCircleOutlineOutlinedIcon />}>
+                                    Add Comment
+                                </Button>
+                            </div>
+                        </Box>
+                        
+                        {comment.map((item) => (
+                            <div className='gallery-body-comment'>
+                                <div key={item.commentIdx} className='gallery-body-comment-title'>
+                                    {/*key값 경고, commentIdx 다르게 부여하면 아마 해결..? */}
+                                    <MessageOutlinedIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', mr: '3px', mt: '2px'}} />
+                                    <div className='gallery-comment-text1'>
+                                        {item.nickName}
+                                    </div>
+                                    <div className='gallery-comment-text2'>
+                                        {item.postTime}
+                                    </div>
+                                </div>
+                                <div className='gallery-body-comment-content'>
+                                    {item.contents}
+                                </div>
+                            
+                            </div>
+                        ))}
+                        {/* 
                         <div className='gallery-body-comment'>
                             <div className='gallery-body-comment-title'>
                                 <MessageOutlinedIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', mr: '3px', mt: '2px'}} />
@@ -171,37 +254,8 @@ function GalleryDetail(){
                                 this is comment <br></br> i want to sleep..............
                             </div>
                             
-                        </div>
-                        <div className='gallery-body-comment'>
-                            <div className='gallery-body-comment-title'>
-                                <MessageOutlinedIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', mr: '3px', mt: '2px'}} />
-                                <div className='gallery-comment-text1'>
-                                    Name2
-                                </div>
-                                <div className='gallery-comment-text2'>
-                                    2023-05-25
-                                </div>
-                            </div>
-                            <div className='gallery-body-comment-content'>
-                                this is comment <br></br> i want to sleep..............
-                            </div>
-                            
-                        </div>
-                        <div className='gallery-body-comment'>
-                            <div className='gallery-body-comment-title'>
-                                <MessageOutlinedIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', mr: '3px', mt: '2px'}} />
-                                <div className='gallery-comment-text1'>
-                                    Name3
-                                </div>
-                                <div className='gallery-comment-text2'>
-                                    2023-05-25
-                                </div>
-                            </div>
-                            <div className='gallery-body-comment-content'>
-                                this is comment <br></br> i want to sleep..............
-                            </div>
-                            
-                        </div>
+                        </div> */}
+                        
 
                     </div>
 
