@@ -3,83 +3,81 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 21px;
+  font-size: 20px;
 }
 
+.gallery-container-body {
+	display: flex;
+	flex-direction: row;
+  	justify-content: center;
+	padding: 30px;
+	font-size: 24px;
+	height: 80vh;
+  }
+  
 .tool-container-right{
 	display: flex;
 	  justify-content: flex-end;
 	  align-items: center;
   }
-  
-  .toolbox-left {
-	flex: 0.2;
-	align-items: center;
-	justify-content: center;
-	font-size: 24px;
-	background-color: rgb(245, 245, 245);
-	border-radius: 5px;
-	margin: 35px;
-	margin-right: 0px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	padding-right: 10px;
-	padding-left: 10px;
-	height: 75vh;
-	box-shadow: 0 0 5px rgb(151, 151, 151);
-  }
-  
+
   .toolbox-right {
 	flex: 0.8;
-	align-items: top;
-	justify-content: flex-start;
-	
-	margin-left: 20px;
-  }
-  
-  .tool-container-top{
-	height: 7%;
-	display: flex;
-	justify-content: space-between;
-	align-items: right;
-	width:100%;
-  }
-	
-  .toolbox-right-body{
-	height: 93%;
-	display: flex;
-	  flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	  font-size: 24px;
-	width:100%;
-  }
-  
-  .toolbox-half {
-	flex: 0.5;
 	display: flex;
 	flex-direction: column;
-	align-items: left;
+	align-items: flex-start;
+	justify-content: flex-start;
+	margin-left: 20px;
+	margin-top: 40px; /* Adjust the top margin as desired */
+  }
+  .toolbox-section {
+	flex: 1;
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
 	justify-content: center;
-	text-align: left;
-	font-size: 24px;
-	border-radius: 10px;
-	height: 100%;
-	padding: 10px;
+	margin-bottom: 10px; /* Adjust the spacing between sections as desired */
   }
 
-  .text-size {
-	font-size: 30px;
-  }
-  
-  .text-size2 {
-	margin-top: 15px;
-	margin-bottom: 10px;;
-	font-size: 20px;
-	font-weight: 500;
-	align-items: left;
-  }
-  
+  .Tool_name{
+    flex: 0.07;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Add this line to change the direction to column */
+    border-bottom: 1px solid;
+    margin-bottom: 50px;
+}
+
+	.Tool_title{
+		width: auto;
+		height: 100%;
+		font-size: 25px;
+		font-weight: 600;
+		margin-right: 10px;
+	}
+	
+	.Tool_info{
+		flex: 1;
+		height: 100%;
+		font-size: 20px;
+		display: flex;
+		justify-content: space-between;
+		margin-top: 21px;
+		margin-right: 15px;
+	}
+
+	.size {
+		font-size: 30px;
+		font-weight: 500;
+	}
+	
+	.custom-pagination {
+		font-size: 20px; /* Adjust the font size as desired */
+		padding: 10px; /* Adjust the padding as desired */
+		/* Add any other custom styles for the pagination component */
+	  }
+
   .tool-division-line{
 	width:90%;
 	border-top: 3px solid #000000;
