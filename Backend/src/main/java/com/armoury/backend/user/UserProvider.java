@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static com.armoury.backend.config.BaseResponseStatus.DATABASE_ERROR;
+import static com.armoury.backend.config.BaseResponseStatus.WRONG_USER;
 
 //Provider : Read의 비즈니스 로직 처리
 @Service
@@ -45,7 +46,7 @@ public class UserProvider {
             return getUsersRes;
         }
         catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
+            throw new BaseException(WRONG_USER);
         }
     }
 

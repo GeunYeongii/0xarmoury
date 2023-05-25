@@ -21,36 +21,32 @@ public class UserDao {
     }
 
     public List<GetUserRes> getUsers(){
-        String getUsersQuery = "select userIdx,name,nickName,email from User";
+        String getUsersQuery = "SELECT userIdx, nickName, email FROM User";
         return this.jdbcTemplate.query(getUsersQuery,
                 (rs,rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
-                        rs.getString("name"),
                         rs.getString("nickName"),
                         rs.getString("email")
                 ));
     }
 
     public GetUserRes getUsersByEmail(String email){
-        String getUsersByEmailQuery = "select userIdx,name,nickName,email from User where email=?";
+        String getUsersByEmailQuery = "SELECT userIdx, nickName, email FROM User WHERE email=?";
         String getUsersByEmailParams = email;
         return this.jdbcTemplate.queryForObject(getUsersByEmailQuery,
                 (rs, rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
-                        rs.getString("name"),
                         rs.getString("nickName"),
                         rs.getString("email")),
                 getUsersByEmailParams);
     }
 
-
     public GetUserRes getUsersByIdx(int userIdx){
-        String getUsersByIdxQuery = "select userIdx,name,nickName,email from User where userIdx=?";
+        String getUsersByIdxQuery = "SELECT userIdx,nickName,email FROM User WHERE userIdx=?";
         int getUsersByIdxParams = userIdx;
         return this.jdbcTemplate.queryForObject(getUsersByIdxQuery,
                 (rs, rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
-                        rs.getString("name"),
                         rs.getString("nickName"),
                         rs.getString("email")),
                 getUsersByIdxParams);
@@ -78,7 +74,6 @@ public class UserDao {
         }
     }
 
-
     public int createUser(PostUserReq postUserReq){
         String createUserQuery = "insert into User (nickName, email, pwd) VALUES (?,?,?)";
         Object[] createUserParams = new Object[]{ postUserReq.getNickName(), postUserReq.getEmail(), postUserReq.getPassword()};
@@ -103,8 +98,5 @@ public class UserDao {
 
         return this.jdbcTemplate.update(modifyUserNameQuery,modifyUserNameParams);
     }
-
-
-
 
 }
