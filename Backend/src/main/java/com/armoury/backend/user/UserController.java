@@ -68,7 +68,7 @@ public class UserController {
     @ResponseBody
     @Operation(summary = "회원가입", description = "새로운 유저를 생성합니다.")
     @PostMapping("/create") // (POST) 127.0.0.1:9000/users
-    public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
+    public BaseResponse<String> createUser(@RequestBody PostUserReq postUserReq) {
         System.out.println(postUserReq.getEmail());
         System.out.println(postUserReq.getPassword());
         System.out.println(postUserReq.getNickName());
@@ -80,10 +80,9 @@ public class UserController {
             return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
         }
         try{
-            PostUserRes postUserRes = userService.createUser(postUserReq);
-            return new BaseResponse<>(postUserRes);
+            userService.createUser(postUserReq);
+            return new BaseResponse<>("회원가입에 성공하였습니다.");
         } catch(BaseException exception){
-            System.out.println(exception);
             return new BaseResponse<>((exception.getStatus()));
         }
     }
