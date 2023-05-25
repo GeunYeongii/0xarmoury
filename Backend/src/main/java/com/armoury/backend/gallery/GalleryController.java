@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.armoury.backend.config.BaseResponseStatus.INVALID_USER_JWT;
+
 @RestController
 @RequestMapping("/gallery")
 @Tag(name = "Gallery", description = "갤러리와 관련된 기능 & 정보 제공")
@@ -85,8 +87,14 @@ public class GalleryController {
         // 데이터 검증 validation 필요
         // user validation 필요 (요청한 userIdx = 데이터의 userIdx)
         try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            System.out.println("확인1: "+toolInfo.getPostIdx()+" "+ toolInfo.getTitle()+" "+ toolInfo.getUserIdx());
+            if (userIdxByJwt != toolInfo.getUserIdx())
+                return new BaseResponse<>(INVALID_USER_JWT);
+            System.out.println("확인2: "+toolInfo.getPostIdx()+" "+ toolInfo.getTitle()+" "+ toolInfo.getUserIdx());
             galleryService.modifyToolInfo(toolInfo);
-            return new BaseResponse<>("공격도구 정보 수정에 성공 하였습니다.");
+            return new BaseResponse<>("공격도구 정보 수정에 성공하였습니다.");
+
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

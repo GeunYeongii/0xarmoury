@@ -62,16 +62,16 @@ public class GalleryDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 
-    public int modifyPost(int postIdx, String title, String defi, String contents, String url, int share) {
-        String modifyQuery = "UPDATE Post SET title = ?, defi = ?, contents = ?, url = ?, share = ?";
-        Object modifyParams = new Object[]{title, defi, contents, url, share};
+    public int modifyPost(int postIdx, String title, String definition, String contents, String url, int share) {
+        String modifyQuery = "UPDATE Post SET title = ?, definition = ?, contents = ?, url = ?, share = ? WHERE postIdx = ?";
+        Object[] modifyParams = new Object[]{title, definition, contents, url, share, postIdx};
 
         return this.jdbcTemplate.update(modifyQuery, modifyParams);
     }
 
     public int deletePost(int postIdx, int userIdx) {
         String deleteQuery = "DELETE FROM Post WHERE postIdx = ? AND userIdx = ?";
-        Object deleteParams = new Object[]{postIdx, userIdx};
+        Object[] deleteParams = new Object[]{postIdx, userIdx};
 
         return this.jdbcTemplate.update(deleteQuery, deleteParams);
     }

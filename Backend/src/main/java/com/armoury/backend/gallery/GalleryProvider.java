@@ -36,7 +36,7 @@ public class GalleryProvider {
         try {
             toolInfo = galleryDao.getToolInfo(postIdx);
         } catch (Exception exception){
-            throw new BaseException(DATABASE_ERROR);
+            throw new BaseException(WRONG_TOOL_INPUT_REQ);
         }
 
         if (toolInfo.getUserIdx() != userIdx && toolInfo.getShare() == 0)

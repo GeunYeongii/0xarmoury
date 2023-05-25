@@ -30,8 +30,10 @@ public class GalleryService {
         // 공유한 사용자와 수정 요청 사용자가 동일한지 검증 필요
         try {
             int result = galleryDao.modifyPost(toolInfo.getPostIdx(), toolInfo.getTitle(), toolInfo.getDefinition(), toolInfo.getContents(), toolInfo.getUrl(), toolInfo.getShare());
-            if (result == 0)
+            if (result == 0) {
+                System.out.println("확인3: "+toolInfo.getPostIdx()+" "+ toolInfo.getTitle()+" "+ toolInfo.getUserIdx());
                 throw new BaseException(PATCH_EMPTY_TOOL);
+            }
         } catch(Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
