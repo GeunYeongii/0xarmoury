@@ -26,26 +26,43 @@ const data = [
  */}
 
 function MainPage(){
-     const [data, setData] = useState([]);
+    const [galleryList, setGalleryList] = useState([]);
+     const [paginationCount, setPaginationCount] = useState(0);
+     const [currentPage, setCurrentPage] = useState(1);
 
-    useEffect(() => {
-        axios.get('gallery/toolList/1')
-        .then(response => {
-             const processedData = response.data.result.map(item => {
-          return {
+     useEffect(() => {
+        fetchPaginationCount();
+        fetchGalleryList(currentPage);
+      }, [currentPage]);
+    
+      const fetchPaginationCount = async () => {
+        try {
+          const response = await axios.get('gallery/get/pageNumber');
+          setPaginationCount(response.data.result);
+        } catch (error) {
+          console.error('Error fetching pagination count:', error);
+        }
+      };
+    
+      const fetchGalleryList = async (pageNum) => {
+        try {
+          const response = await axios.get(`gallery/toolList/${pageNum}`);
+          const processedData = response.data.result.map(item => ({
             postIdx: item.postIdx,
             name: item.title,
             userIdx: item.userIdx,
             userName: item.userName,
             postTime: item.postTime
-          };
-        });
-        setData(processedData);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-    }, []);
+          }));
+          setGalleryList(processedData);
+        } catch (error) {
+          console.error('Error fetching gallery list:', error);
+        }
+      };
+    
+      const handlePageChange = (event, newPage) => {
+        setCurrentPage(newPage);
+      };
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
@@ -116,7 +133,7 @@ function MainPage(){
             <div className='gallery-container-body'>
                 {/*게시판*/}
                 <div className='toolbox-right'>
-                {data.map((item) => (
+                {galleryList.map((item) => (
                     <div key={item.postIdx} className='Tool_name'>
                         <div className='Tool_title'>{item.name}</div>
                             <div className='Tool_info'>
@@ -135,7 +152,12 @@ function MainPage(){
                 ))}
                 <div className='toolbox-section'>
 
-                <Pagination count={10} size="large"/>
+                <Pagination
+                    count={paginationCount}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    size='large'
+                />
                 </div>
                 </div>
                 

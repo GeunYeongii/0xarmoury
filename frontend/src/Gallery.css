@@ -28,10 +28,10 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	margin-left: 20px;
-	margin-top: 40px; /* Adjust the top margin as desired */
+	margin-top: 20px; /* Adjust the top margin as desired */
   }
   .toolbox-section {
-	flex: 1;
+	flex: 0.5;
 	display: flex;
 	width: 100%;
 	flex-direction: column;
@@ -46,13 +46,13 @@
     display: flex;
     flex-direction: column; /* Add this line to change the direction to column */
     border-bottom: 1px solid;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 	.Tool_title{
 		width: auto;
 		height: 100%;
-		font-size: 25px;
+		font-size: 20px;
 		font-weight: 600;
 		margin-right: 10px;
 	}
@@ -72,12 +72,6 @@
 		font-weight: 500;
 	}
 	
-	.custom-pagination {
-		font-size: 20px; /* Adjust the font size as desired */
-		padding: 10px; /* Adjust the padding as desired */
-		/* Add any other custom styles for the pagination component */
-	  }
-
   .tool-division-line{
 	width:90%;
 	border-top: 3px solid #000000;
