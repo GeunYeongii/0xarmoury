@@ -134,7 +134,7 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "포스트의 댓글 조회하기", description = "postIdx에 해당하는 포스트의 모든 댓글를 조회합니다.")
+    @Operation(summary = "포스트의 댓글 조회", description = "postIdx에 해당하는 포스트의 모든 댓글를 조회합니다.")
     @GetMapping("comments/{postIdx}")
     public BaseResponse<List<PostCommentRes>> getComments(@PathVariable("postIdx") int postIdx) {
         try {
@@ -145,7 +145,7 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "포스트에 댓글 생성하기", description = "댓글을 달아서 무기고를 활성화하자. ○( ＾皿＾)っ Hehehe…")
+    @Operation(summary = "포스트에 댓글 생성", description = "댓글을 달아서 무기고를 활성화하자. ○( ＾皿＾)っ Hehehe…")
     @PostMapping("/comments/create")
     public BaseResponse<String> postComment(@RequestBody PostCommentReq postCommentReq){
         try {
@@ -158,7 +158,7 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "포스트 댓글 삭제하기", description = "댓글을 삭제합니다.")
+    @Operation(summary = "포스트 댓글 삭제", description = "댓글을 삭제합니다.")
     @DeleteMapping("/comments/delete/{commentIdx}")
     public BaseResponse<String> postComment(@PathVariable("commentIdx") int commentIdx){
         try {
@@ -174,7 +174,7 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "공격 도구 정보 수정", description = "공격 도구의 정보를 수정합니다.")
+    @Operation(summary = "포스트 댓글 수정", description = "댓글을 수정합니다.")
     @PatchMapping("/comments/modify")
     public BaseResponse<String> modifyToolInfo(@RequestBody PatchCommentReq patchCommentReq) {
         // 데이터 검증 validation 필요
