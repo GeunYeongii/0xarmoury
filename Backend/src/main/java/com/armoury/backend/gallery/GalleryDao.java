@@ -117,9 +117,28 @@ public class GalleryDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 
-    public int userWhoPostTool (int postIdx){
+    public int modifyComment(int commentIdx, String contents) {
+        String modifyQuery = "UPDATE Comments SET contents = ? WHERE commentIdx = ?";
+        Object[] modifyParams = new Object[]{contents, commentIdx};
+
+        return this.jdbcTemplate.update(modifyQuery, modifyParams);
+    }
+
+    public int deleteComment(int commentIdx, int userIdx) {
+        String deleteQuery = "DELETE FROM Comments WHERE commentIdx = ? AND userIdx = ?";
+        Object[] deleteParams = new Object[]{commentIdx, userIdx};
+
+        return this.jdbcTemplate.update(deleteQuery, deleteParams);
+    }
+
+    public int whoPostTool (int postIdx){
         String selectQuery = "SELECT userIdx FROM Post WHERE postIdx = ?";
-        return this.jdbcTemplate.queryForObject(selectQuery, new Object[]{postIdx}, Integer.class);
+        return this.jdbcTemplate.queryForObject(selectQuery, int.class, postIdx);
+    }
+
+    public int whoPostComment (int commentIdx){
+        String selectQuery = "SELECT userIdx FROM Comments WHERE commentIdx = ?";
+        return this.jdbcTemplate.queryForObject(selectQuery, int.class, commentIdx);
     }
 
     public int checkPostExist(int postIdx) {

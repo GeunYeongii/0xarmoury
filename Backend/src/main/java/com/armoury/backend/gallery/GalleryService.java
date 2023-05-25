@@ -1,6 +1,7 @@
 package com.armoury.backend.gallery;
 
 import com.armoury.backend.config.BaseException;
+import com.armoury.backend.gallery.model.PatchCommentReq;
 import com.armoury.backend.gallery.model.PatchToolReq;
 import com.armoury.backend.gallery.model.PostCommentReq;
 import com.armoury.backend.gallery.model.PostToolReq;
@@ -27,7 +28,7 @@ public class GalleryService {
     }
 
     public void modifyToolInfo(PatchToolReq toolInfo, int userIdx) throws BaseException {
-        if (!verifyUser_post(toolInfo.getPostIdx(), userIdx))
+        if (!verifyPostOwner(toolInfo.getPostIdx(), userIdx))
             throw new BaseException(INVALID_USER_JWT);
 
         try {
@@ -40,7 +41,7 @@ public class GalleryService {
     }
 
     public int deleteToolInfo(int postIdx, int userIdx) throws BaseException {
-        if (!verifyUser_post(postIdx, userIdx))
+        if (!verifyPostOwner(postIdx, userIdx))
             throw new BaseException(INVALID_USER_JWT);
         return galleryDao.deletePost(postIdx, userIdx);
     }
@@ -51,9 +52,39 @@ public class GalleryService {
         return galleryDao.createComment(userIdx, postCommentReq.getPostIdx(), postCommentReq.getContents());
     }
 
-    public boolean verifyUser_post(int postIdx, int reqUserIdx) throws BaseException{
+    public void modifyComment(PatchCommentReq req, int userIdx) throws BaseException {
+        if (!verifyCommentOwner(req.getCommentIdx(), userIdx))
+            throw new BaseException(INVALID_USER_JWT);
+
         try {
-            int postUser = galleryDao.userWhoPostTool(postIdx);
+            int result = galleryDao.modifyComment(req.getCommentIdx(), req.getContents());
+
+            if (result == 0)
+                throw new BaseException(PATCH_EMPTY_TOOL);
+        } catch(Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public int deleteComment(int commentIdx, int userIdx) throws BaseException {
+        if (!verifyCommentOwner(commentIdx, userIdx))
+            throw new BaseException(INVALID_USER_JWT);
+
+        return galleryDao.deleteComment(commentIdx, userIdx);
+    }
+
+    public boolean verifyPostOwner(int postIdx, int reqUserIdx) throws BaseException{
+        try {
+            int postUser = galleryDao.whoPostTool(postIdx);
+            return postUser == reqUserIdx;
+        } catch(Exception exception){
+            throw new BaseException(WRONG_TOOL_INPUT_REQ);
+        }
+    }
+
+    public boolean verifyCommentOwner(int commentIdx, int reqUserIdx) throws BaseException {
+        try {
+            int postUser = galleryDao.whoPostComment(commentIdx);
             return postUser == reqUserIdx;
         } catch(Exception exception){
             throw new BaseException(WRONG_TOOL_INPUT_REQ);
