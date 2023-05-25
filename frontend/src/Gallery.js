@@ -26,7 +26,7 @@ const data = [
  */}
 
 function Gallery(){
-    const [galleryList, setGalleryList] = useState([]);
+     const [galleryList, setGalleryList] = useState([]);
      const [paginationCount, setPaginationCount] = useState(0);
      const [currentPage, setCurrentPage] = useState(1);
 
@@ -66,6 +66,8 @@ function Gallery(){
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("nickName");
     }
 
     return(
@@ -77,7 +79,7 @@ function Gallery(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>username</Link>
+                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
                         <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                     }
                     </div>
@@ -136,7 +138,7 @@ function Gallery(){
                 {galleryList.map((item) => (
                     <div key={item.postIdx} className='Tool_name'>
                         <div className='Tool_title'>
-                            <Link href="./GalleryDetail" color='#050099'>{item.name}</Link>
+                            <Link href={`./GalleryDetail/${item.postIdx}`} color='#050099'>{item.name}</Link>
                             </div>
                             <div className='Tool_info'>
                                 <div>

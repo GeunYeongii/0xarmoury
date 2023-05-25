@@ -16,7 +16,7 @@ function App() {
         <Route path = "SignIn" element = {<SignIn />}></Route>
         <Route path = "SignUp" element = {<SignUp />}></Route>
         <Route path = "Gallery" element = {<Gallery />}></Route>
-        <Route path = "GalleryDetail" element = {<GalleryDetail />}></Route>
+        <Route path = "GalleryDetail/:no" element = {<GalleryDetail />}></Route>
         <Route path = "ToolUpload" element = {<ToolUpload />}></Route>
 
       </Routes>
