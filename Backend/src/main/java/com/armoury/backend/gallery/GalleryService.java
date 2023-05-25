@@ -27,7 +27,7 @@ public class GalleryService {
     }
 
     public void modifyToolInfo(PatchToolReq toolInfo, int userIdx) throws BaseException {
-        if (!verifyUser_post(toolInfo.getPostIdx(), userIdx))
+        if (!verifyPostOwner(toolInfo.getPostIdx(), userIdx))
             throw new BaseException(INVALID_USER_JWT);
 
         try {
@@ -40,7 +40,7 @@ public class GalleryService {
     }
 
     public int deleteToolInfo(int postIdx, int userIdx) throws BaseException {
-        if (!verifyUser_post(postIdx, userIdx))
+        if (!verifyPostOwner(postIdx, userIdx))
             throw new BaseException(INVALID_USER_JWT);
         return galleryDao.deletePost(postIdx, userIdx);
     }
@@ -51,9 +51,22 @@ public class GalleryService {
         return galleryDao.createComment(userIdx, postCommentReq.getPostIdx(), postCommentReq.getContents());
     }
 
-    public boolean verifyUser_post(int postIdx, int reqUserIdx) throws BaseException{
+    public int deleteComment(int commentIdx, int userIdx) throws BaseException {
+        int postUser = 0;
         try {
-            int postUser = galleryDao.userWhoPostTool(postIdx);
+            postUser = galleryDao.whoPostComment(commentIdx);
+        } catch(Exception exception) {
+            throw new BaseException(WRONG_TOOL_INPUT_REQ);
+        }
+        if (postUser != userIdx)
+            throw new BaseException(INVALID_USER_JWT);
+
+        return galleryDao.deleteComment(commentIdx, userIdx);
+    }
+
+    public boolean verifyPostOwner(int postIdx, int reqUserIdx) throws BaseException{
+        try {
+            int postUser = galleryDao.whoPostTool(postIdx);
             return postUser == reqUserIdx;
         } catch(Exception exception){
             throw new BaseException(WRONG_TOOL_INPUT_REQ);

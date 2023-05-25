@@ -157,4 +157,20 @@ public class GalleryController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    @ResponseBody
+    @Operation(summary = "포스트 댓글 삭제하기", description = "댓글을 삭제합니다.")
+    @DeleteMapping("/comments/delete/{commentIdx}")
+    public BaseResponse<String> postComment(@PathVariable("commentIdx") int commentIdx){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            int result = galleryService.deleteComment(commentIdx, userIdxByJwt);
+            if (result == 1)
+                return new BaseResponse<>("댓글을 삭제하였습니다.");
+            else
+                return new BaseResponse<>("댓글 삭제에 실패했습니다.");
+        } catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }
