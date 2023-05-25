@@ -117,6 +117,13 @@ public class GalleryDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 
+    public int modifyComment(int commentIdx, String contents) {
+        String modifyQuery = "UPDATE Comments SET contents = ? WHERE commentIdx = ?";
+        Object[] modifyParams = new Object[]{contents, commentIdx};
+
+        return this.jdbcTemplate.update(modifyQuery, modifyParams);
+    }
+
     public int deleteComment(int commentIdx, int userIdx) {
         String deleteQuery = "DELETE FROM Comments WHERE commentIdx = ? AND userIdx = ?";
         Object[] deleteParams = new Object[]{commentIdx, userIdx};

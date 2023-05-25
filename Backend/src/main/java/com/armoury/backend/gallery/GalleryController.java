@@ -105,7 +105,6 @@ public class GalleryController {
     @PatchMapping("/tool/modify")
     public BaseResponse<String> modifyToolInfo(@RequestBody PatchToolReq toolInfo) {
         // 데이터 검증 validation 필요
-        // user validation 필요 (요청한 userIdx = 데이터의 userIdx)
         try {
             int userIdxByJwt = jwtService.getUserIdx();
             if (userIdxByJwt != toolInfo.getUserIdx())
@@ -170,6 +169,21 @@ public class GalleryController {
             else
                 return new BaseResponse<>("댓글 삭제에 실패했습니다.");
         } catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @Operation(summary = "공격 도구 정보 수정", description = "공격 도구의 정보를 수정합니다.")
+    @PatchMapping("/comments/modify")
+    public BaseResponse<String> modifyToolInfo(@RequestBody PatchCommentReq patchCommentReq) {
+        // 데이터 검증 validation 필요
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            galleryService.modifyComment(patchCommentReq, userIdxByJwt);
+            return new BaseResponse<>("댓글 수정에 성공하였습니다.");
+
+        } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
     }

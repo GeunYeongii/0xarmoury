@@ -1,6 +1,7 @@
 package com.armoury.backend.gallery;
 
 import com.armoury.backend.config.BaseException;
+import com.armoury.backend.gallery.model.PatchCommentReq;
 import com.armoury.backend.gallery.model.PatchToolReq;
 import com.armoury.backend.gallery.model.PostCommentReq;
 import com.armoury.backend.gallery.model.PostToolReq;
@@ -51,14 +52,22 @@ public class GalleryService {
         return galleryDao.createComment(userIdx, postCommentReq.getPostIdx(), postCommentReq.getContents());
     }
 
-    public int deleteComment(int commentIdx, int userIdx) throws BaseException {
-        int postUser = 0;
+    public void modifyComment(PatchCommentReq req, int userIdx) throws BaseException {
+        if (!verifyCommentOwner(req.getCommentIdx(), userIdx))
+            throw new BaseException(INVALID_USER_JWT);
+
         try {
-            postUser = galleryDao.whoPostComment(commentIdx);
-        } catch(Exception exception) {
-            throw new BaseException(WRONG_TOOL_INPUT_REQ);
+            int result = galleryDao.modifyComment(req.getCommentIdx(), req.getContents());
+
+            if (result == 0)
+                throw new BaseException(PATCH_EMPTY_TOOL);
+        } catch(Exception exception){
+            throw new BaseException(DATABASE_ERROR);
         }
-        if (postUser != userIdx)
+    }
+
+    public int deleteComment(int commentIdx, int userIdx) throws BaseException {
+        if (!verifyCommentOwner(commentIdx, userIdx))
             throw new BaseException(INVALID_USER_JWT);
 
         return galleryDao.deleteComment(commentIdx, userIdx);
@@ -67,6 +76,15 @@ public class GalleryService {
     public boolean verifyPostOwner(int postIdx, int reqUserIdx) throws BaseException{
         try {
             int postUser = galleryDao.whoPostTool(postIdx);
+            return postUser == reqUserIdx;
+        } catch(Exception exception){
+            throw new BaseException(WRONG_TOOL_INPUT_REQ);
+        }
+    }
+
+    public boolean verifyCommentOwner(int commentIdx, int reqUserIdx) throws BaseException {
+        try {
+            int postUser = galleryDao.whoPostComment(commentIdx);
             return postUser == reqUserIdx;
         } catch(Exception exception){
             throw new BaseException(WRONG_TOOL_INPUT_REQ);
