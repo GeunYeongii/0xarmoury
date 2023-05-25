@@ -136,7 +136,7 @@ public class GalleryController {
 
     @ResponseBody
     @Operation(summary = "포스트의 댓글 조회하기", description = "postIdx에 해당하는 포스트의 모든 댓글를 조회합니다.")
-    @GetMapping("comments/list")
+    @GetMapping("comments/{postIdx}")
     public BaseResponse<List<PostCommentRes>> getComments(@PathVariable("postIdx") int postIdx) {
         try {
             return new BaseResponse<>(galleryProvider.getComments(postIdx));

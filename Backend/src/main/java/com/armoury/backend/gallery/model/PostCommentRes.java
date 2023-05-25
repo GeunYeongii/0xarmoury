@@ -10,7 +10,7 @@ import lombok.Setter;
 public class PostCommentRes {
     private int commentIdx;
     private int userIdx;
-    private String userName;
+    private String nickName;
     private String contents;
     private String postTime;
 }
