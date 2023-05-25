@@ -34,6 +34,8 @@ public enum BaseResponseStatus {
     POST_USERS_EMPTY_PASSWORD(false,2018, "비밀번호를 입력해주세요."),
 
 
+    // gallery
+    PATCH_EMPTY_TOOL(false, 2050, "존재하지 않는 도구에 대한 수정 요청입니다."),
     /**
      * 3000 : Response 오류
      */

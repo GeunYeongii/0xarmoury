@@ -1,8 +1,11 @@
 package com.armoury.backend.config;
 
+
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,7 +18,9 @@ public class SpringDocsConfig {
                 .version("1.0.0")
                 .description("Cyber1 - 사이버 무기고 프로젝트");
         return new OpenAPI()
-                .components(new Components())
-                .info(info);
+                .components(new Components().addSecuritySchemes("JWT",
+                        new SecurityScheme().type(SecurityScheme.Type.APIKEY).in(SecurityScheme.In.HEADER).name("X-ACCESS-TOKEN")))
+                .info(info)
+                .addSecurityItem(new SecurityRequirement().addList("JWT"));
     }
 }
