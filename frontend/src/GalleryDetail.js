@@ -14,7 +14,7 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-function MainPage(){
+function GalleryDetail(){
     const [jsonData, setHello] = useState('')
 
     {/* 
@@ -176,5 +176,5 @@ function MainPage(){
     );
 }
 
-export default MainPage;
+export default GalleryDetail;
 
