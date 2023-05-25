@@ -98,7 +98,7 @@ function MainPage(){
                             <Link href ="#" color='#000000'>Matric</Link>
                             <Link href="#" color='#000000'>Tools</Link>
                             <Link href ="#" color='#000000'>Training</Link>
-                            <Link href ="#" color='#0042ED'>Gallery</Link>
+                            <Link href ="./Gallery" color='#0042ED'>Gallery</Link>
                             <Link href ="#" color='#000000'>My page</Link>
                         </div>
                     </div>
@@ -123,6 +123,7 @@ function MainPage(){
 
             <div className='container_Header'>
                 <h2><strong>Gallery</strong></h2>
+                <Link href ="./GalleryDetail" color='#0042ED'>detail</Link>
             </div>
             <div className='tool-division-line'></div>
 
