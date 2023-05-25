@@ -18,21 +18,32 @@ public class GalleryDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public Integer countTotalPost() {
+        String countQuery = "SELECT COUNT(*) FROM Post";
+        return this.jdbcTemplate.queryForObject(countQuery, Integer.class);
+    }
+
     public List<GetToolSumInfoRes> getPostInfo(int pageNum) {
-        String getQuery = "SELECT postIdx, userIdx, title FROM Post ORDER BY postTime DESC LIMIT ?, 5;";
+        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.postTime FROM Post AS p \n" +
+                "JOIN User AS u ON p.userIdx = u.userIdx \n" +
+                "ORDER BY postTime DESC LIMIT ?, 5;";
         return this.jdbcTemplate.query(getQuery,
                 (rs, rowNum) -> new GetToolSumInfoRes(
                         rs.getInt("postIdx"),
                         rs.getInt("userIdx"),
-                        rs.getString("title")
+                        rs.getString("nickName"),
+                        rs.getString("title"),
+                        rs.getString("postTime")
                 ), pageNum);
     }
 
     public GetToolInfoRes getToolInfo(int postIdx) {
-        String getQuery = "SELECT userIdx, title, definition, contents, url, share, postTime FROM Post WHERE postIdx = ?";
+        String getQuery = "SELECT p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
+                "JOIN User AS u ON p.userIdx = u.userIdx WHERE postIdx = ?";
         return this.jdbcTemplate.queryForObject(getQuery,
                 (rs, rowNum) -> new GetToolInfoRes(
                        rs.getInt("userIdx"),
+                       rs.getString("nickName"),
                        rs.getString("title"),
                        rs.getString("definition"),
                        rs.getString("contents"),
@@ -41,6 +52,22 @@ public class GalleryDao {
                        rs.getString("postTime")
                 ),
                 postIdx);
+    }
+
+    public List<GetToolInfoRes> getUserTools(int userIdx) {
+        String getQuery = "SELECT p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
+                "JOIN User AS u ON p.userIdx = u.userIdx WHERE p.userIdx = ?";
+        return this.jdbcTemplate.query(getQuery,
+                (rs, rowNum) -> new GetToolInfoRes(
+                        rs.getInt("userIdx"),
+                        rs.getString("nickName"),
+                        rs.getString("title"),
+                        rs.getString("definition"),
+                        rs.getString("contents"),
+                        rs.getString("url"),
+                        rs.getInt("share"),
+                        rs.getString("postTime")
+                ) ,userIdx);
     }
 
     public int createPost(int userIdx, String title, String defi, String contents, String url, int share) {
@@ -52,17 +79,22 @@ public class GalleryDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 
-    public int modifyPost(int postIdx, String title, String defi, String contents, String url, int share) {
-        String modifyQuery = "UPDATE Post SET title = ?, defi = ?, contents = ?, url = ?, share = ?";
-        Object modifyParams = new Object[]{title, defi, contents, url, share};
+    public int modifyPost(int postIdx, String title, String definition, String contents, String url, int share) {
+        String modifyQuery = "UPDATE Post SET title = ?, definition = ?, contents = ?, url = ?, share = ? WHERE postIdx = ?";
+        Object[] modifyParams = new Object[]{title, definition, contents, url, share, postIdx};
 
         return this.jdbcTemplate.update(modifyQuery, modifyParams);
     }
 
     public int deletePost(int postIdx, int userIdx) {
         String deleteQuery = "DELETE FROM Post WHERE postIdx = ? AND userIdx = ?";
-        Object deleteParams = new Object[]{postIdx, userIdx};
+        Object[] deleteParams = new Object[]{postIdx, userIdx};
 
         return this.jdbcTemplate.update(deleteQuery, deleteParams);
+    }
+
+    public int userWhoPostTool (int postIdx){
+        String selectQuery = "SELECT userIdx FROM Post WHERE postIdx = ?";
+        return this.jdbcTemplate.queryForObject(selectQuery, new Object[]{postIdx}, Integer.class);
     }
 }

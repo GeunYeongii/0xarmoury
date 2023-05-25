@@ -22,6 +22,17 @@ public class GalleryProvider {
         this.galleryDao = galleryDao;
     }
 
+    public Integer getPageNum() throws BaseException{
+        try {
+            int postNumInPage = 5;
+            int totalPostNum = galleryDao.countTotalPost();
+            return totalPostNum / postNumInPage + 1;
+        } catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+
+    }
+
     public List<GetToolSumInfoRes> getPostsInfo(int pageNum) throws BaseException {
         if (pageNum < 0)
             throw new BaseException(EMPTY_CONTENT);
@@ -32,9 +43,23 @@ public class GalleryProvider {
     }
 
     public GetToolInfoRes getToolInfo(int postIdx, int userIdx) throws BaseException {
-        GetToolInfoRes toolInfo = galleryDao.getToolInfo(postIdx);
+        GetToolInfoRes toolInfo = null;
+        try {
+            toolInfo = galleryDao.getToolInfo(postIdx);
+        } catch (Exception exception){
+            throw new BaseException(WRONG_TOOL_INPUT_REQ);
+        }
+
         if (toolInfo.getUserIdx() != userIdx && toolInfo.getShare() == 0)
             throw new BaseException(INVALID_USER_JWT);
         return toolInfo;
+    }
+
+    public List<GetToolInfoRes> getUserTools(int userIdx) throws BaseException {
+        try {
+            return galleryDao.getUserTools(userIdx);
+        } catch (Exception exception){
+            throw new BaseException(EMPTY_OUTPUT);
+        }
     }
 }

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.armoury.backend.config.BaseResponseStatus.INVALID_USER_JWT;
+
 @RestController
 @RequestMapping("/gallery")
 @Tag(name = "Gallery", description = "갤러리와 관련된 기능 & 정보 제공")
@@ -39,7 +41,19 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "게시물 목록 조회", description = "pageNumber를 사용하여 1,2,...,N까지의 게시물 목록을 조회합니다.")
+    @Operation(summary = "게시물 목록 페이지 수 반환 (int)", description = "게시글 조회에 사용되는 pageNumber의 전체 값을 반환합니다. 전체 개시글 수 / 5 + 1")
+    @GetMapping("get/pageNumber")
+    public BaseResponse<Integer> getPostsInfo(){
+        try {
+            Integer pageNum = galleryProvider.getPageNum();
+            return new BaseResponse<>(pageNum);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @Operation(summary = "게시물 목록 조회", description = "pageNumber를 사용하여 1,2,...,N까지의 게시물 목록을 조회합니다. (현재 5개씩 조회)")
     @GetMapping("/toolList/{pageNumber}")
     public BaseResponse<List<GetToolSumInfoRes>> getPostsInfo(@PathVariable("pageNumber") int pageNum){
         try {
@@ -63,6 +77,18 @@ public class GalleryController {
         }
     }
 
+    @ResponseBody
+    @Operation(summary = "사용자의 공격 도구 정보 조회", description = "사용자가 포스팅한 모든 공격 도구 정보를 조회합니다.")
+    @GetMapping("/tool/myList")
+    public BaseResponse<List<GetToolInfoRes>> getUserTools(){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            List<GetToolInfoRes> toolList = galleryProvider.getUserTools(userIdxByJwt);
+            return new BaseResponse<>(toolList);
+        } catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
     @ResponseBody
     @Operation(summary = "공격 도구 업로드", description = "새로운 공격 도구의 정보를 업로드합니다. (Share : 공유 - 1 / 개인 - 0 )")
@@ -85,8 +111,14 @@ public class GalleryController {
         // 데이터 검증 validation 필요
         // user validation 필요 (요청한 userIdx = 데이터의 userIdx)
         try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            System.out.println("확인1: "+toolInfo.getPostIdx()+" "+ toolInfo.getTitle()+" "+ toolInfo.getUserIdx());
+            if (userIdxByJwt != toolInfo.getUserIdx())
+                return new BaseResponse<>(INVALID_USER_JWT);
+            System.out.println("확인2: "+toolInfo.getPostIdx()+" "+ toolInfo.getTitle()+" "+ toolInfo.getUserIdx());
             galleryService.modifyToolInfo(toolInfo);
-            return new BaseResponse<>("공격도구 정보 수정에 성공 하였습니다.");
+            return new BaseResponse<>("공격도구 정보 수정에 성공하였습니다.");
+
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
@@ -98,8 +130,11 @@ public class GalleryController {
     public BaseResponse<String> deleteToolInfo(@PathVariable("postIdx") int postIdx){
         try {
             int userIdxByJwt = jwtService.getUserIdx();
-            galleryService.deleteToolInfo(postIdx, userIdxByJwt);
-            return new BaseResponse<>("공격도구 정보를 삭제하였습니다.");
+            int result = galleryService.deleteToolInfo(postIdx, userIdxByJwt);
+            if (result == 1)
+                return new BaseResponse<>("공격도구 정보를 삭제하였습니다.");
+            else
+                return new BaseResponse<>("공격도구 정보 삭제에 실패했습니다.");
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
