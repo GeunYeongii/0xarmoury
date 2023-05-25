@@ -29,13 +29,15 @@ function MainPage(){
      const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('gallery/posts/1')
+        axios.get('gallery/toolList/1')
         .then(response => {
              const processedData = response.data.result.map(item => {
           return {
             postIdx: item.postIdx,
             name: item.title,
-            username: item.userIdx,
+            userIdx: item.userIdx,
+            userName: item.userName,
+            postTime: item.postTime
           };
         });
         setData(processedData);
@@ -119,23 +121,21 @@ function MainPage(){
                         <div className='Tool_title'>{item.name}</div>
                             <div className='Tool_info'>
                                 <div>
-                                <AccountCircleIcon sx={{ height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C' }} /> {item.username} 
+                                <AccountCircleIcon sx={{ height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C' }} /> {item.userName} 
                                 </div>
-                                {/**
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <IconButton aria-label="delete" style={{ marginRight: '5px' }}>
                                     <ChatBubbleIcon sx={{ fontSize: 30, color: 'black' }} />
                                 </IconButton>
-                                <div>{item.date}</div>
+                                <div>{item.postTime}</div>
                                  
                             </div>
-                            */}
                         </div>
                     </div>
                 ))}
                 <div className='toolbox-section'>
 
-                <Pagination count={10} className="custom-pagination"/>
+                <Pagination count={10} size="large"/>
                 </div>
                 </div>
                 
