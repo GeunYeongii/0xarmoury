@@ -8,17 +8,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
+import './ToolUpload.css';
 
-function MainPage(){
-    const [jsonData, setHello] = useState('')
-
-    {/* 
-    useEffect(() => {
-      axios.get('/api/test')
-      .then(response => setHello(response.data))
-      .catch(error => console.log(error))
-    }, []);
-    */}
+function ToolUpload(){
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
@@ -81,32 +73,11 @@ function MainPage(){
             </div>
             <div className = 'division-line'></div>
             <div className='container-body1' >
-                <div className='container-body2'>
-                    <h3>This is main Page</h3>
-
-                    <p>
-                        MITRE ATT&CK Json file
-                    </p>
-
-                    <div>
-                        {JSON.stringify(jsonData)}
-                    </div>
-                    <Link href ="#"> {/*Matrix page link*/}
-                        <Button variant="contained" sx={{
-                            margin:1
-                            ,fontSize:15
-                            }}>
-                            <strong>Go to Matrix</strong>
-                        </Button>
-                    </Link>
-                </div>
-                <div className='container-body3'>
-                    <img src='/img/Main_logo.png' alt="Main_logo" width={'65%'} height={'65%'} />
-                </div>
+                This is ToolUpload Page
             </div>
         </div>
     );
 }
 
-export default MainPage;
+export default ToolUpload;
 

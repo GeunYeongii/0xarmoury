@@ -32,6 +32,7 @@ export default function SignIn() {
       .then(function (response) {
         if (response.data.isSuccess){
           console.log(response, '성공');
+          localStorage.setItem("accessToken", response.data.result.jwt);
           Navigate('/');
         }
         else{
