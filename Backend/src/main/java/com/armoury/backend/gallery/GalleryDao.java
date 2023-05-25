@@ -72,8 +72,8 @@ public class GalleryDao {
 
     public int createPost(int userIdx, String title, String defi, String contents, String url, int share) {
         String insertQuery = "INSERT INTO Post (userIdx, title, definition, contents, url, share) VALUES (?,?,?,?,?,?)";
-        Object[] createParams = new Object[]{userIdx, title, defi, contents, url, share};
-        this.jdbcTemplate.update(insertQuery, createParams);
+        Object[] insertParams = new Object[]{userIdx, title, defi, contents, url, share};
+        this.jdbcTemplate.update(insertQuery, insertParams);
 
         String lastInsertIdQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
@@ -93,8 +93,22 @@ public class GalleryDao {
         return this.jdbcTemplate.update(deleteQuery, deleteParams);
     }
 
+    public int createComment(int userIdx, int postIdx, String contents){
+        String insertQuery = "INSERT INTO Comments (postIdx, userIdx, contents) VALUES (?,?,?)";
+        Object[] insertParams = new Object[]{postIdx, userIdx, contents};
+        this.jdbcTemplate.update(insertQuery, insertParams);
+
+        String lastInsertIdQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
+    }
+
     public int userWhoPostTool (int postIdx){
         String selectQuery = "SELECT userIdx FROM Post WHERE postIdx = ?";
         return this.jdbcTemplate.queryForObject(selectQuery, new Object[]{postIdx}, Integer.class);
+    }
+
+    public int checkPostExist(int postIdx) {
+        String checkQuery = "SELECT EXISTS(SELECT postIdx FROM Post WHERE postIdx = ?)";
+        return this.jdbcTemplate.queryForObject(checkQuery, int.class, postIdx);
     }
 }

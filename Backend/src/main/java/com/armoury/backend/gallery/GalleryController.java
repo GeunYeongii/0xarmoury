@@ -2,17 +2,13 @@ package com.armoury.backend.gallery;
 
 import com.armoury.backend.config.BaseException;
 import com.armoury.backend.config.BaseResponse;
-import com.armoury.backend.gallery.model.GetToolInfoRes;
-import com.armoury.backend.gallery.model.GetToolSumInfoRes;
-import com.armoury.backend.gallery.model.PatchToolReq;
-import com.armoury.backend.gallery.model.PostToolReq;
+import com.armoury.backend.gallery.model.*;
 import com.armoury.backend.utils.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -112,11 +108,9 @@ public class GalleryController {
         // user validation 필요 (요청한 userIdx = 데이터의 userIdx)
         try {
             int userIdxByJwt = jwtService.getUserIdx();
-            System.out.println("확인1: "+toolInfo.getPostIdx()+" "+ toolInfo.getTitle()+" "+ toolInfo.getUserIdx());
             if (userIdxByJwt != toolInfo.getUserIdx())
                 return new BaseResponse<>(INVALID_USER_JWT);
-            System.out.println("확인2: "+toolInfo.getPostIdx()+" "+ toolInfo.getTitle()+" "+ toolInfo.getUserIdx());
-            galleryService.modifyToolInfo(toolInfo);
+            galleryService.modifyToolInfo(toolInfo, userIdxByJwt);
             return new BaseResponse<>("공격도구 정보 수정에 성공하였습니다.");
 
         } catch(BaseException exception){
@@ -136,6 +130,19 @@ public class GalleryController {
             else
                 return new BaseResponse<>("공격도구 정보 삭제에 실패했습니다.");
         } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @Operation(summary = "공격 도구 포스트에 코멘트 생성하기", description = "코멘트를 달아서 무기고를 활성화하자. ○( ＾皿＾)っ Hehehe…")
+    @PostMapping("/comments/create")
+    public BaseResponse<String> postComment(@RequestBody PostCommentReq postCommentReq){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            int commentIdx = galleryService.postComment(userIdxByJwt, postCommentReq);
+            return new BaseResponse<>("새로운 코멘트(commentIdx: " + commentIdx + ") 생성에 성공 하였습니다.");
+        } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
     }
