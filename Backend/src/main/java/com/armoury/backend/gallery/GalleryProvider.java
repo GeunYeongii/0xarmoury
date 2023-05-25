@@ -3,6 +3,7 @@ package com.armoury.backend.gallery;
 import com.armoury.backend.config.BaseException;
 import com.armoury.backend.gallery.model.GetToolInfoRes;
 import com.armoury.backend.gallery.model.GetToolSumInfoRes;
+import com.armoury.backend.gallery.model.PostCommentRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,14 @@ public class GalleryProvider {
     public List<GetToolInfoRes> getUserTools(int userIdx) throws BaseException {
         try {
             return galleryDao.getUserTools(userIdx);
+        } catch (Exception exception){
+            throw new BaseException(EMPTY_OUTPUT);
+        }
+    }
+
+    public List<PostCommentRes> getComments(int postIdx) throws BaseException {
+        try {
+            return galleryDao.getComments(postIdx);
         } catch (Exception exception){
             throw new BaseException(EMPTY_OUTPUT);
         }

@@ -135,13 +135,24 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "공격 도구 포스트에 코멘트 생성하기", description = "코멘트를 달아서 무기고를 활성화하자. ○( ＾皿＾)っ Hehehe…")
+    @Operation(summary = "포스트의 댓글 조회하기", description = "postIdx에 해당하는 포스트의 모든 댓글를 조회합니다.")
+    @GetMapping("comments/list")
+    public BaseResponse<List<PostCommentRes>> getComments(@PathVariable("postIdx") int postIdx) {
+        try {
+            return new BaseResponse<>(galleryProvider.getComments(postIdx));
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @Operation(summary = "포스트에 댓글 생성하기", description = "댓글을 달아서 무기고를 활성화하자. ○( ＾皿＾)っ Hehehe…")
     @PostMapping("/comments/create")
     public BaseResponse<String> postComment(@RequestBody PostCommentReq postCommentReq){
         try {
             int userIdxByJwt = jwtService.getUserIdx();
             int commentIdx = galleryService.postComment(userIdxByJwt, postCommentReq);
-            return new BaseResponse<>("새로운 코멘트(commentIdx: " + commentIdx + ") 생성에 성공 하였습니다.");
+            return new BaseResponse<>("새로운 댓글(commentIdx: " + commentIdx + ") 생성에 성공 하였습니다.");
         } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

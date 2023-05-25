@@ -2,6 +2,7 @@ package com.armoury.backend.gallery;
 
 import com.armoury.backend.gallery.model.GetToolInfoRes;
 import com.armoury.backend.gallery.model.GetToolSumInfoRes;
+import com.armoury.backend.gallery.model.PostCommentRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -91,6 +92,20 @@ public class GalleryDao {
         Object[] deleteParams = new Object[]{postIdx, userIdx};
 
         return this.jdbcTemplate.update(deleteQuery, deleteParams);
+    }
+
+    public List<PostCommentRes> getComments(int postIdx) {
+        String getQuery = "SELECT c.commentIdx, c.userIdx, u.nickName, c.contents, c.postTime From Comments AS c \n"
+                + "JOIN User AS u ON c.userIdx = u.userIdx WHERE c.postIdx = ?"; // + ORDER BY c.postTime ASC
+        return this.jdbcTemplate.query(getQuery,
+                (rs, rowNum) -> new PostCommentRes(
+                        rs.getInt("commentIdx"),
+                        rs.getInt("userIdx"),
+                        rs.getString("nickName"),
+                        rs.getString("contents"),
+                        rs.getString("postTime")
+                )
+                ,postIdx);
     }
 
     public int createComment(int userIdx, int postIdx, String contents){
