@@ -18,6 +18,11 @@ public class GalleryDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public Integer countTotalPost() {
+        String countQuery = "SELECT COUNT(*) FROM Post";
+        return this.jdbcTemplate.queryForObject(countQuery, Integer.class);
+    }
+
     public List<GetToolSumInfoRes> getPostInfo(int pageNum) {
         String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.postTime FROM Post AS p \n" +
                 "JOIN User AS u ON p.userIdx = u.userIdx \n" +

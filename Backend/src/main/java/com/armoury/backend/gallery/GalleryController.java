@@ -41,6 +41,18 @@ public class GalleryController {
     }
 
     @ResponseBody
+    @Operation(summary = "게시물 목록 페이지 수 반환 (int)", description = "게시글 조회에 사용되는 pageNumber의 전체 값을 반환합니다. 전체 개시글 수 / 5 + 1")
+    @GetMapping("get/pageNumber")
+    public BaseResponse<Integer> getPostsInfo(){
+        try {
+            Integer pageNum = galleryProvider.getPageNum();
+            return new BaseResponse<>(pageNum);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
     @Operation(summary = "게시물 목록 조회", description = "pageNumber를 사용하여 1,2,...,N까지의 게시물 목록을 조회합니다. (현재 5개씩 조회)")
     @GetMapping("/toolList/{pageNumber}")
     public BaseResponse<List<GetToolSumInfoRes>> getPostsInfo(@PathVariable("pageNumber") int pageNum){
