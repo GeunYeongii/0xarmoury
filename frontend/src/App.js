@@ -5,6 +5,7 @@ import MainHome from './mainPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Gallery from './Gallery';
+import GalleryDetail from './GalleryDetail';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path = "SignIn" element = {<SignIn />}></Route>
         <Route path = "SignUp" element = {<SignUp />}></Route>
         <Route path = "Gallery" element = {<Gallery />}></Route>
+        <Route path = "GalleryDetail" element = {<GalleryDetail />}></Route>
       </Routes>
 
       
