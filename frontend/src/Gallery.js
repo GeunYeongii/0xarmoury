@@ -126,6 +126,7 @@ function Gallery(){
 
             <div className='container_Header'>
                 <h2><strong>Gallery</strong></h2>
+                <Link href='./ToolUpload'>Upload</Link>
             </div>
             <div className='tool-division-line'></div>
 
