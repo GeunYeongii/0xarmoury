@@ -134,7 +134,7 @@ function Gallery(){
 
             <div className='gallery-container-body'>
                 {/*게시판*/}
-                <div className='toolbox-right'>
+                <div className='gallery-toolbox-right'>
                 {galleryList.map((item) => (
                     <div key={item.postIdx} className='Tool_name'>
                         <div className='Tool_title'>
