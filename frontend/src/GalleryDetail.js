@@ -24,6 +24,8 @@ function GalleryDetail(){
     
     const {no} = useParams();
 
+    const commentId = 0;
+
     {/* 
     useEffect(() => {
         axios.get(`/gallery/tool/${no}`)
@@ -57,7 +59,8 @@ function GalleryDetail(){
             setComment(response.data.result);
 
             const processedData = response.data.result.map(item => ({
-                userId: item.userIdx,
+                commentIdx: item.commentIdx,
+                userIdx: item.userIdx,
                 nickName: item.nickName,
                 contents: item.contents,
                 postTime: item.postTime
@@ -72,18 +75,42 @@ function GalleryDetail(){
         const { postIdx, userIdx, contents } = data;
         const postData = { postIdx, userIdx, contents };
 
-        console.log(postData);
-    
         // post
         await axios
-          .post('/gallery/comments/create', postData)  //db 주소? api?
+          .post('/gallery/comments/create', postData, {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            })  //db 주소? api?
           .then(function (response) {
-            console.log(response.data.isSuccess);
+            console.log(response.data.code);
             if (response.data.isSuccess){
-              
+                console.log('성공!!');
             }
             else{
                 console.log('댓글 생성 실패');
+            }
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+    };
+
+    const DeleteComment = async (commantId) => {
+        // delete
+        await axios
+          .delete('/gallery/comments/delete/' + commantId, {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            }) 
+          .then(function (response) {
+            console.log(response.data.code);
+            if (response.data.isSuccess){
+                console.log('성공!!');
+            }
+            else{
+                console.log('실패');
             }
           })
           .catch(function (err) {
@@ -103,7 +130,6 @@ function GalleryDetail(){
     };
 
     CreateComment(joinData);
-    console.log('comment upload');
   }
 
 
@@ -231,6 +257,12 @@ function GalleryDetail(){
                                     </div>
                                     <div className='gallery-comment-text2'>
                                         {item.postTime}
+                                    </div>
+                                    <div className='gallery-comment-right'>
+                                        {item.userIdx == localStorage.getItem('userId')
+                                        &&<IconButton onClick={() => DeleteComment(item.commentIdx)} aria-label="delete" sx={{height: 22, width: 22, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
+                                            <DeleteIcon  />
+                                        </IconButton>}
                                     </div>
                                 </div>
                                 <div className='gallery-body-comment-content'>
