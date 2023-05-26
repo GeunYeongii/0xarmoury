@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 // import {BrowserRouter as Router, Routes, Route, Link, Switch} from 'react-router-dom';  // eslint-disable-line no-unused-vars 
 import axios from 'axios';
 import Button from '@mui/material/Button';
@@ -21,10 +21,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function GalleryDetail(){
     const [data, setResponse] = useState([]);
     const [comment, setComment] = useState([]);
+    const Navigate = useNavigate();
     
     const {no} = useParams();
-
-    const commentId = 0;
 
     {/* 
     useEffect(() => {
@@ -48,6 +47,22 @@ function GalleryDetail(){
             console.error('Gallery detail:', error);
         }
     };
+
+    const handleDelete = () => {
+        console.log('버튼 클릭', no);
+		axios.delete(`/gallery/tool/delete/${no}`, {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            })
+		  .then((response) => {
+			console.log('삭제 요청 성공:', response);
+            Navigate('/Gallery');
+		  })
+		  .catch((error) => {
+			console.error('삭제 요청 실패:', error);
+		  });
+	  };
 
     const CommentList = async (no) => {
         try {
@@ -210,7 +225,7 @@ function GalleryDetail(){
                                 &&<div><IconButton aria-label="edit" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
                                     <EditIcon  />
                                 </IconButton>
-                                <IconButton aria-label="edit" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
+                                <IconButton onClick={() => handleDelete()} aria-label="delete" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
                                     <DeleteIcon  />
                                 </IconButton></div>
                                 }
