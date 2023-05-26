@@ -222,7 +222,7 @@ function GalleryDetail(){
                             <div className='gallery-title-right'>
                                 {data.postTime}
                                 {data.userIdx == localStorage.getItem('userId')
-                                &&<div><IconButton aria-label="edit" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
+                                &&<div><IconButton href={'../ToolEdit/'+ no} aria-label="edit" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
                                     <EditIcon  />
                                 </IconButton>
                                 <IconButton onClick={() => handleDelete()} aria-label="delete" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>

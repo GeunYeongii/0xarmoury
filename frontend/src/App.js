@@ -8,6 +8,7 @@ import Gallery from './Gallery';
 import GalleryDetail from './GalleryDetail';
 import ToolUpload from './ToolUpload';
 import MyTools from './MyTools';
+import ToolEdit from './ToolEdit';
 function App() {
   return (
     <Router>
@@ -19,6 +20,7 @@ function App() {
         <Route path = "GalleryDetail/:no" element = {<GalleryDetail />}></Route>
         <Route path = "ToolUpload" element = {<ToolUpload />}></Route>
         <Route path = "MyTools" element = {<MyTools/>}></Route>
+        <Route path = "ToolEdit/:no" element = {<ToolEdit />}></Route>
 
       </Routes>
 

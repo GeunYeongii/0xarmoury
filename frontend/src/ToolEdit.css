@@ -1,0 +1,65 @@
+.contents {
+    display: flex;
+	flex-direction: row;
+  	justify-content: center;
+	padding: 30px;
+	font-size: 24px;
+	height: 80vh;
+  }
+  
+  
+  .Upload-Menu-sub {
+	flex: 0.6;
+	align-items: center;
+	justify-content: center;
+	margin-right: 30px;
+	margin-top: 30px;
+  }
+  
+  .Upload-Category-sub {
+	flex: 0.4;
+	margin-left: 10px;
+	
+  }
+  
+
+  .Gllery-division-line{
+	width: 70%;
+	border-top: 1.5px solid #000000;
+	margin-top: 30px;
+	margin-right: 10px;
+  }
+
+  .font-Title{
+	font-size: 20px;
+	margin-left: 10px;
+	margin-top: 10px;
+	font-family: 'ABeeZee';
+	font-style: italic;
+  }
+
+  .Upload-tool-line{
+	width: 100%;
+	margin-top: 10px;
+	border: 1px solid #E2E8F0;
+	margin-bottom: 25px;
+  }
+
+  .Upload-category-line{
+	width: 100%;
+	margin-top: 10px;
+	border: 1px solid #E2E8F0;
+  }
+
+
+  .font-name{
+	font-family: 'ABeeZee';
+	font-style: italic;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 22px;
+	color: #212B36;
+	
+  }
