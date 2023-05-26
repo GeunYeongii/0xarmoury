@@ -16,7 +16,13 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import React, { useState, useEffect } from 'react';
+import AddIcon from '@mui/icons-material/Add';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
+import Modal from '@mui/material/Modal';
+
 
     {/*테스트 용 data */}
     const data = [
@@ -61,6 +67,23 @@ import { useState, useEffect } from 'react';
             .catch(error => console.log(error))
         }, []);
  */}
+    const LightTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+    ))(({ theme }) => ({
+        [`& .${tooltipClasses.arrow}`]: {
+            color: theme.palette.common.black,
+          },
+        [`& .${tooltipClasses.tooltip}`]: {
+        backgroundColor: theme.palette.common.white,
+        color: 'rgba(0, 0, 0, 0.87)',
+        boxShadow: theme.shadows[1],
+        fontSize: 15,
+        border: `1px solid ${theme.palette.grey[700]}`,
+        borderRadius: theme.shape.borderRadius,
+        padding: '5px'
+        },
+    }));
+
     const RenderTree = ({nodes, onSelect}) => (
         <TreeItem 
         key={nodes.id} 
@@ -88,13 +111,70 @@ import { useState, useEffect } from 'react';
     : null}
     </TreeItem>
 );
-
+    
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+  
 function Tools(){
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const [selectedId, setSelectedId] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState(null);
     const [str, setStr] = useState(null);
-    const [selectedDefinition, setSelectedDefinition] = useState(null);
+    const [Toolcode, setToolCode] = useState("여기는 표식체계 자리");
+    const [Tooldefintion, setTooldefinition]=useState("여기는 툴 설명\n아 여기네ㅎ");
+    const [Tooloption, setTooloption]=useState("여기는 옵션 설명\n제발돼라ㅏㅏㅏㅏ");
+    const [ToolMITRE, setToolMITRE]=useState("여기는 마이터 설명\n개행확인");
+    const [ToolWiki, setToolWiki] = useState("기본 위키 내용\n여기두");
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedWiki, setEditedWiki] = useState(ToolWiki);
+  
+    const handleEdit = () => {
+      setIsEditing(true);
+      setEditedWiki(ToolWiki);
+    };
+  
+    const handleSave = () => {
+        // 수정된 정보를 서버로 전송
+        const updatedData = {
+          id: selectedId, // 수정한 데이터의 id
+          wiki: editedWiki, // 수정한 내용
+        };
+      
+        axios.put('API 위키 수정', updatedData)
+          .then(response => {
+            // 서버 응답 처리
+            console.log(response.data);
+            setToolWiki(editedWiki); // 수정한 내용으로 업데이트
+            setIsEditing(false); // 편집 모드 종료
+          })
+          .catch(error => {
+            // 오류 처리
+            console.log(error);
+          });
+      };
+  
+    const handleCancel = () => {
+      setIsEditing(false);
+    };
+  
+    const handleChange = (event) => {
+      setEditedWiki(event.target.value);
+    };
+
+
 
     const CircularJSON = require('circular-json');
 
@@ -111,13 +191,25 @@ function Tools(){
           setStr(jsonObject.label);
         }
 
-        /* 정상 작동하는지는 모르겠지만 일단 데이터베이스에서 Definiton받아오는 코드//
+        /*
         useEffect(() => {
-            axios.get('/api/data/${id}')
-            .then(response => setSelectedDefinition(response.data))
-            .catch(error => console.log(error))
-        }, []);
-        */
+            fetchData(id);
+        }, [id]);
+
+        const fetchData = async (id) => {
+            try {
+            const response = await axios.get(`tools/${id}`);
+            const { definition, kaliInfo, mitreInfo, wikiInfo, code} = response.data.result;
+            setTooldefinition(definition);
+            setTooloption(kaliInfo);
+            setToolMITRE(mitreInfo);
+            setToolWiki(wikiInfo);
+            setToolcode(code);
+            } catch (error) {
+            console.error('Error fetching data:', error);
+            }
+        };
+          */
     };
 
     const Logout = () => {
@@ -203,9 +295,9 @@ function Tools(){
                 </div>
                 <div className='toolbox-right'>
                     <div className='tool-container-top'>
-                    <div className='text-size'>
-                        {str} 
-                    </div>
+                    <LightTooltip title={Toolcode} placement="top-start" arrow>
+                        <Button sx={{color: "black", fontSize:"20px"}}>{str}</Button>
+                    </LightTooltip>
                        
                         <div className='tool-container-right'>
                          <Button sx={{color: '#000000'}}>edit</Button>
@@ -223,31 +315,53 @@ function Tools(){
                                 Definition
                             </div>
                             <div className='toolbox-definition'>
-                                <p>Nmap is a utility for network exploration or security auditing. It supports ping scanning (determine which hosts are up), many port scanning techniques, version detection (determine service protocols and application versions listening behind ports), and TCP/IP fingerprinting (remote host OS or device identification). Nmap also offers flexible target and port specification, decoy/stealth scanning, sunRPC scanning, and more. Most Unix and Windows platforms are supported in both GUI and commandline modes. Several popular handheld devices are also supported, including the Sharp Zaurus and the iPAQ.
-                                    </p>
-                                {/*<div>{selectedDefinition}</div> database에서 받아오면이렇게*/}
+                                <p>{Tooldefintion && Tooldefintion.split('\n').map((line, index) => (
+                                    <React.Fragment key={index}>
+                                        {line}
+                                        <br />
+                                    </React.Fragment>
+                                ))}</p>
                             </div>
                             <div className='text-size2'>
                                 Options
                             </div>
                             <div className='toolbox-option'>
-                                <p>Nmap is a utility for network exploration or security auditing. It supports ping scanning (determine which hosts are up), many port scanning techniques, version detection (determine service protocols and application versions listening behind ports), and TCP/IP fingerprinting (remote host OS or device identification). Nmap also offers flexible target and port specification, decoy/stealth scanning, sunRPC scanning, and more. Most Unix and Windows platforms are supported in both GUI and commandline modes. Several popular handheld devices are also supported, including the Sharp Zaurus and the iPAQ.
-                                </p>
-                                <p>Nmap is a utility for network exploration or security auditing. It supports ping scanning (determine which hosts are up), many port scanning techniques, version detection (determine service protocols and application versions listening behind ports), and TCP/IP fingerprinting (remote host OS or device identification). Nmap also offers flexible target and port specification, decoy/stealth scanning, sunRPC scanning, and more. Most Unix and Windows platforms are supported in both GUI and commandline modes. Several popular handheld devices are also supported, including the Sharp Zaurus and the iPAQ.
-                                </p>
-                                <p>Nmap is a utility for network exploration or security auditing. It supports ping scanning (determine which hosts are up), many port scanning techniques, version detection (determine service protocols and application versions listening behind ports), and TCP/IP fingerprinting (remote host OS or device identification). Nmap also offers flexible target and port specification, decoy/stealth scanning, sunRPC scanning, and more. Most Unix and Windows platforms are supported in both GUI and commandline modes. Several popular handheld devices are also supported, including the Sharp Zaurus and the iPAQ.
-                                </p>
-                                <p>Nmap is a utility for network exploration or security auditing. It supports ping scanning (determine which hosts are up), many port scanning techniques, version detection (determine service protocols and application versions listening behind ports), and TCP/IP fingerprinting (remote host OS or device identification). Nmap also offers flexible target and port specification, decoy/stealth scanning, sunRPC scanning, and more. Most Unix and Windows platforms are supported in both GUI and commandline modes. Several popular handheld devices are also supported, including the Sharp Zaurus and the iPAQ.
-                                    </p>
-                                    <p>Nmap is a utility for network exploration or security auditing. It supports ping scanning (determine which hosts are up), many port scanning techniques, version detection (determine service protocols and application versions listening behind ports), and TCP/IP fingerprinting (remote host OS or device identification). Nmap also offers flexible target and port specification, decoy/stealth scanning, sunRPC scanning, and more. Most Unix and Windows platforms are supported in both GUI and commandline modes. Several popular handheld devices are also supported, including the Sharp Zaurus and the iPAQ.
-                                    </p>
+                                <p>{Tooloption && Tooloption.split('\n').map((line, index) => (
+                                    <React.Fragment key={index}>
+                                        {line}
+                                        <br />
+                                    </React.Fragment>
+                                ))}</p>
 
                             </div>
                             <div className='text-size2'>
                                 MITRE ATT&CK
+                                <IconButton aria-label="Open Modal" sx={{color:"black"}} onClick={handleOpen}>
+                                    <ImageSearchIcon/>
+                                </IconButton>
+                                <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                    >
+                                    <Box sx={style}>
+                                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                                        Text in a modal
+                                        </Typography>
+                                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                                        </Typography>
+                                    </Box>
+                                </Modal>
                             </div>
                             <div className='toolbox-mitre'>
-                                
+                                <p>{ToolMITRE && ToolMITRE.split('\n').map((line, index) => (
+                                    <React.Fragment key={index}>
+                                        {line}
+                                        <br />
+                                    </React.Fragment>
+                                ))}</p>
                             </div>
                         </div>
 
@@ -255,18 +369,39 @@ function Tools(){
                             <div className='text-size2'>
                                 Execute
                             </div>
-                            <div className='toolbox-exec'>
+                            <iframe className="toolbox-exec"src="http://localhost:5901/cast"></iframe>
 
-                            </div>
+
                             <div className='text-size2'>
                                 Wiki
                                 <IconButton aria-label="edit">
-                                    <EditIcon sx={{width: 20, height: 20}} />
+                                    <EditIcon onClick={handleEdit} sx={{width: 20, height: 20}} />
                                 </IconButton>
                             </div>
-                            <div className='toolbox-wiki'>
-
-                            </div>
+                            {isEditing ? (
+                                <div>
+                                <textarea 
+                                className='toolbox-wiki' 
+                                value={editedWiki}
+                                onChange={handleChange} 
+                                rows={14} // 원하는 세로 길이로 조정
+                                style={{ resize: 'none', height: 'auto' }} // 크기 조절 비활성화 및 자동 높이 조정
+                                 />
+                                 <div style={{ display: "flex", gap: "10px" }}>
+                                <Button variant="outlined" onClick={handleSave} sx={{color:"bluek", borderColor: "blue"}}>Save</Button>
+                                <Button variant="outlined" onClick={handleCancel} sx={{color:"red", borderColor: "red"}}>Cancel</Button>
+                                </div>
+                                </div>
+                            ) : (
+                                <div className='toolbox-wiki'>
+                                <p>{ToolWiki && ToolWiki.split('\n').map((line, index) => (
+                                <React.Fragment key={index}>
+                                    {line}
+                                    <br />
+                                </React.Fragment>
+                            ))}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                
