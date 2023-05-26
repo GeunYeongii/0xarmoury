@@ -83,7 +83,7 @@ function ToolUpload(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>username</Link>
+                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
                         <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                     }
                     </div>
