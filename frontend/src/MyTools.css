@@ -1,0 +1,41 @@
+.MyTools-contents {
+	width: 1300x;
+	height: 100%;
+	background-color: white;
+	display: flex;
+	flex-direction: row;
+	padding-top: 30px;
+	padding-right: 30px;
+  }
+  
+  .MyTools-Menu {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 30px;
+
+	font-size: 24px;
+	width: 25%;
+	margin-left: 50px;
+	margin-top: 5px;
+  }
+  
+  .MyTools-Menu-sub {
+	flex: 1;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	margin-left: 10px;
+	margin-top: 30px;
+  }
+
+  .MyTools-right {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	padding-left: 30px;
+	margin-top: 20px; /* Adjust the top margin as desired */
+  }
