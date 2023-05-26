@@ -42,7 +42,6 @@ public class GalleryProvider {
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
-
     }
 
     public List<GetToolSumInfoRes> getPostsInfo(int pageNum) throws BaseException {

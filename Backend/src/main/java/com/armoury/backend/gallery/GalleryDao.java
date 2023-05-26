@@ -44,10 +44,11 @@ public class GalleryDao {
     }
 
     public GetToolInfoRes getToolInfo(int postIdx) {
-        String getQuery = "SELECT p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
-                "JOIN User AS u ON p.userIdx = u.userIdx WHERE postIdx = ?";
+        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
+                "JOIN User AS u ON p.userIdx = u.userIdx WHERE p.postIdx = ?";
         return this.jdbcTemplate.queryForObject(getQuery,
                 (rs, rowNum) -> new GetToolInfoRes(
+                       rs.getInt("postIdx"),
                        rs.getInt("userIdx"),
                        rs.getString("nickName"),
                        rs.getString("title"),
@@ -61,12 +62,13 @@ public class GalleryDao {
     }
 
     public List<GetToolInfoRes> getUserTools(int userIdx, int pageNum) {
-        String getQuery = "SELECT p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
+        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
                 "JOIN User AS u ON p.userIdx = u.userIdx WHERE p.userIdx = ? ORDER BY p.postTime DESC LIMIT ?, 5";
         Object[] getParams = new Object[]{userIdx, pageNum};
 
         return this.jdbcTemplate.query(getQuery,
                 (rs, rowNum) -> new GetToolInfoRes(
+                        rs.getInt("postIdx"),
                         rs.getInt("userIdx"),
                         rs.getString("nickName"),
                         rs.getString("title"),
