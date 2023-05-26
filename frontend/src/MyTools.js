@@ -230,7 +230,7 @@ function MyTools(){
 									</IconButton>
 									
 									</div>
-									<div className='Tool_info'>
+									<div className='My_Tool_info'>
 										<div>
 										<AccountCircleIcon sx={{ height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C' }} /> { localStorage.getItem('nickName')} 
 										</div>
@@ -238,11 +238,6 @@ function MyTools(){
 										<IconButton aria-label="Download">
 											<DownloadIcon />
 										</IconButton>
-										<Link href={'./ToolUpload/${item.postIdx}'} sx={{ color: 'black', textDecorationColor: 'black' }} >
-											<IconButton aria-label="Edit">
-											<EditIcon />
-										</IconButton>
-										</Link>
 										{/*postIdx로 ToolUpload페이지에 자동으로 입력되게 해서 수정...보류 */}
 										<IconButton aria-label="delete" onClick={() => handleDelete(item.postIdx)}>
 											<DeleteIcon />
