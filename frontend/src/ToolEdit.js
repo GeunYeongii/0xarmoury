@@ -222,7 +222,7 @@ function ToolEdit(){
                 <div className='font-name' style={{ marginTop: '5px' }}>Category</div>
                 <div className='Upload-category-line'></div>
                 <div className='Upload-Category-sub'>
-                <FormControlLabel control={<Checkbox />} label="Web" sx={{
+                <FormControlLabel control={<Checkbox defaultChecked/>} label="Web" sx={{
                     marginLeft: "10px",
                     width: "100px"
                 }}/> 
@@ -247,7 +247,7 @@ function ToolEdit(){
             </Box>
             <div className='Upload-Category-sub'>
             <FormControlLabel
-                control={<Checkbox onChange={handleCheckboxChange} />}
+                control={<Checkbox onChange={handleCheckboxChange} defaultChecked/>}
                 label="Do you want to share?"
                 sx={{
                     justifyContent:"flex-start"
