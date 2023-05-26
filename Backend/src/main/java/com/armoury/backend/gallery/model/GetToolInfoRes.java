@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetToolInfoRes {
+    private int postIdx;
     private int userIdx;
     private String nickName;
     private String title;
