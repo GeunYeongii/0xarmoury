@@ -48,7 +48,7 @@ public class UserService {
         if (user.getPwd().equals(encryptPwd)) {
             int userIdx = user.getUserIdx();
             String jwt = jwtService.createJwt(userIdx);
-            return new PostUserRes(userIdx, jwt);
+            return new PostUserRes(userIdx, user.getNickName(), user.getGrade(), jwt);
         } else {
             throw new BaseException(FAILED_TO_LOGIN);
         }
@@ -56,7 +56,7 @@ public class UserService {
 
 
 
-    public PostUserRes createUser(PostUserReq postUserReq) throws BaseException {
+    public void createUser(PostUserReq postUserReq) throws BaseException {
         // 이메일 중복 확인
         if(userProvider.checkEmail(postUserReq.getEmail()) ==1){
             throw new BaseException(POST_USERS_EXISTS_EMAIL);
@@ -72,8 +72,6 @@ public class UserService {
         }
         try{
             int userIdx = userDao.createUser(postUserReq);
-            String jwt = jwtService.createJwt(userIdx);
-            return new PostUserRes(userIdx, jwt);
         } catch (Exception exception) {
             System.out.println(exception);
             throw new BaseException(DATABASE_ERROR);

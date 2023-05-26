@@ -20,12 +20,25 @@ function MainPage(){
     }, []);
     */}
 
+    const Logout = () => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("nickName");
+    }
+
     return(
         <div>
             <div className='container-right'>
-                <div className="sign-container">
-                    <Link href ="./SignIn" color='#000000'>Sign In</Link>
-                    <Link href="./SignUp" color='#000000'>Sign Up</Link>
+                <div>
+                    <div>
+                    {
+                        localStorage.getItem("accessToken") == null
+                        ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
+                        <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
+                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                        <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
+                    }
+                    </div>
                 </div>
             </div>
             <div className="container">
@@ -46,7 +59,7 @@ function MainPage(){
                             <Link href ="#" color='#000000'>Matric</Link>
                             <Link href="#" color='#000000'>Tools</Link>
                             <Link href ="#" color='#000000'>Training</Link>
-                            <Link href ="#" color='#000000'>Gallery</Link>
+                            <Link href ="./Gallery" color='#000000'>Gallery</Link>
                             <Link href ="#" color='#000000'>My page</Link>
                         </div>
                     </div>
