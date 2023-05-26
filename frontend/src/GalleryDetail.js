@@ -186,7 +186,7 @@ function GalleryDetail(){
                     <div className='outline-container'>
                         <div className="button-container">
                             <Link href ="#" color='#000000'>Matric</Link>
-                            <Link href="#" color='#000000'>Tools</Link>
+                            <Link href="../Tools" color='#000000'>Tools</Link>
                             <Link href ="#" color='#000000'>Training</Link>
                             <Link href ="../Gallery" sx={{ color: data.share === 0 ? 'black' : '#0042ED', textDecorationColor: data.share === 0 ? '#848484' : '#0042ED',}}>Gallery</Link>
                             <Link href ="#" color='#000000'>My page</Link>
