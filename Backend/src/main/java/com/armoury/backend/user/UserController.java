@@ -55,10 +55,9 @@ public class UserController {
 
     @ResponseBody
     @Operation(summary = "회원 조회", description = "userIdx 사용하여 유저를 조회합니다.")
-    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/users/:userIdx
-    public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx")int userIdx) {
+    @GetMapping("/{userIdx}")
+    public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx") int userIdx) {
         try{
-
             GetUserRes getUsersRes = userProvider.getUsersByIdx(userIdx);
             return new BaseResponse<>(getUsersRes);
         } catch(BaseException exception){
@@ -66,11 +65,10 @@ public class UserController {
         }
     }
 
-
     @ResponseBody
     @Operation(summary = "회원가입", description = "새로운 유저를 생성합니다.")
     @PostMapping("/create") // (POST) 127.0.0.1:9000/users
-    public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
+    public BaseResponse<String> createUser(@RequestBody PostUserReq postUserReq) {
         System.out.println(postUserReq.getEmail());
         System.out.println(postUserReq.getPassword());
         System.out.println(postUserReq.getNickName());
@@ -82,10 +80,9 @@ public class UserController {
             return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
         }
         try{
-            PostUserRes postUserRes = userService.createUser(postUserReq);
-            return new BaseResponse<>(postUserRes);
+            userService.createUser(postUserReq);
+            return new BaseResponse<>("회원가입에 성공하였습니다.");
         } catch(BaseException exception){
-            System.out.println(exception);
             return new BaseResponse<>((exception.getStatus()));
         }
     }
@@ -95,14 +92,10 @@ public class UserController {
     @PatchMapping("/{userIdx}") // (PATCH) 127.0.0.1:9000/users/:userIdx
     public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
         try {
-            /* TODO: jwt는 다음주차에서 배울 내용입니다!
-            jwt에서 idx 추출.
             int userIdxByJwt = jwtService.getUserIdx();
-            userIdx와 접근한 유저가 같은지 확인
             if(userIdx != userIdxByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
-            */
 
             PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getNickName());
             userService.modifyUserName(patchUserReq);
@@ -114,7 +107,6 @@ public class UserController {
         }
     }
 
-    /**  로그인 API */
     @ResponseBody
     @Operation(summary = "로그인", description = "유저 정보로 로그인 합니다.")
     @PostMapping("/login")

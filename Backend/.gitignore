@@ -38,3 +38,6 @@ out/
 
 ### setting ###
 **/application.yml
+
+## secreat file
+/src/main/java/com/armoury/backend/config/secret
