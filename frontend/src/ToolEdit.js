@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 // import {BrowserRouter as Router, Routes, Route, Link, Switch} from 'react-router-dom';  // eslint-disable-line no-unused-vars 
 import axios from 'axios';
 import Button from '@mui/material/Button';
@@ -23,32 +23,17 @@ import FormHelperTexts from '@mui/material/FormHelperText';
 function ToolEdit(){
     const [PostError, setpostError] = useState('');
     const [postSuccess, setpostSuccess] = useState('');
-    const [data, setResponse] = useState([]);
     const Navigate = useNavigate();
+    const Location = useLocation();
+    const data = Location.state;
 
     const {no} = useParams();
-
-    useEffect(() => {GalleryDetail(no);});
-
-    const GalleryDetail = async () => {
-        try {
-            const response = await axios.get('/gallery/tool/' + no, {
-            headers: {
-            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
-            }
-            });
-            setResponse(response.data.result);
-            console.log(data)
-        } catch (error) {
-            console.error('Gallery detail:', error);
-        }
-    };
 
     const [formData, setFormData] = useState({
         postIdx: no,
         userIdx: data.userIdx,
         title: data.title,
-        definition: '왜 안되지',
+        definition: data.definition,
         contents: data.contents,
         url: data.url,
         share: 1
