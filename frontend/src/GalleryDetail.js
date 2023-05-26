@@ -222,12 +222,17 @@ function GalleryDetail(){
                     <div className='gallery-division-line'></div>
 
                     <div className='gallery-body'>
+                        <div className='gallery-text-title'>Tool Download</div>
                         <div className='gallery-body-tool'>
                             <DownloadForOfflineOutlinedIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', mr: '2px', color: 'black'}}/>
                             <Link sx={{color: '#050099'}}>{data.url}</Link>
                         </div>
+                        <div className='gallery-text-title'>Definition</div>
                         <div className='gallery-body-maintext'>
-                            {data.definition} <br></br>
+                            {data.definition}
+                        </div>
+                        <div className='gallery-text-title'>How to use</div>
+                        <div className='gallery-body-option'>
                             {data.contents}
                         </div>
                         <Box component="form" onSubmit={SubmitComment} noValidate sx={{ mt: 1 }}>
