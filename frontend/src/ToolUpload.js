@@ -24,7 +24,6 @@ function ToolUpload(){
     const [postSuccess, setpostSuccess] = useState('');
 
     const [formData, setFormData] = useState({
-        userIdx:1,
         title: 'Namp+brLuteforce',
         definition: 'My Nmap is King',
         contents: 'Options...',
@@ -50,17 +49,21 @@ function ToolUpload(){
       };
 
       const sendDataToServer = () => {
-        axios.post('gallery/tool/upload', formData)
+        axios.post('gallery/tool/upload', formData, {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            })
           .then(response => {
+            if (response.data.isSuccess){
             // 성공적으로 데이터를 전송한 경우에 수행할 작업
             console.log(response);
             setpostSuccess("도구 등록에 성공하셨습니다.")
+            }
+            else{
+                setpostError('도구 등록에 실패하였습니다. 다시 한번 시도 주세요.');
+            }
           })
-          .catch(error => {
-            // 데이터 전송 중에 발생한 오류 처리
-            console.error(error);
-            setpostError('도구 등록에 실패하였습니다. 다시 한번 시도 주세요.');
-          });
       };
 
     const Logout = () => {
@@ -282,20 +285,21 @@ function ToolUpload(){
                 }}/> 
                 </div>  
             </Box>
+            <div className='Upload-Category-sub'>
             <FormControlLabel
                 control={<Checkbox onChange={handleCheckboxChange} />}
                 label="Do you want to share?"
                 sx={{
-                    marginLeft: '90px',
-                    marginBottom: '10px'
+                    justifyContent:"flex-start"
                 }}
                 />
+                </div>
+            <div className='Upload-Category-sub'>
             <Button variant="outlined" style={{ 
                 color: '#FF5C60', 
                 borderColor: '#FF5C60', 
-                marginLeft: '130px',
-                marginRight: "5px", 
-                fontSize: '11px', 
+                fontSize: '11px',
+                justifyContent:"flex-start", 
                 fontWeight: '700'
                 }}>
                 Cancel
@@ -308,8 +312,10 @@ function ToolUpload(){
                  }}>
                 Upload
             </Button>
+
             <FormHelperTexts sx={{color: '#DB0000'}}>{PostError}</FormHelperTexts>
             <FormHelperTexts sx={{color: '#0000FF'}}>{postSuccess}</FormHelperTexts>
+            </div>
             </div>
             
             </div>

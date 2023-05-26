@@ -24,6 +24,11 @@ public class GalleryDao {
         return this.jdbcTemplate.queryForObject(countQuery, Integer.class);
     }
 
+    public Integer countTotalUserPost(int userIdx) {
+        String countQuery = "SELECT COUNT(*) FROM Post WHERE userIdx = ?";
+        return this.jdbcTemplate.queryForObject(countQuery, Integer.class, userIdx);
+    }
+
     public List<GetToolSumInfoRes> getPostInfo(int pageNum) {
         String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.postTime FROM Post AS p \n" +
                 "JOIN User AS u ON p.userIdx = u.userIdx \n" +
@@ -55,9 +60,11 @@ public class GalleryDao {
                 postIdx);
     }
 
-    public List<GetToolInfoRes> getUserTools(int userIdx) {
+    public List<GetToolInfoRes> getUserTools(int userIdx, int pageNum) {
         String getQuery = "SELECT p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
-                "JOIN User AS u ON p.userIdx = u.userIdx WHERE p.userIdx = ?";
+                "JOIN User AS u ON p.userIdx = u.userIdx WHERE p.userIdx = ? ORDER BY p.postTime DESC LIMIT ?, 5";
+        Object[] getParams = new Object[]{userIdx, pageNum};
+
         return this.jdbcTemplate.query(getQuery,
                 (rs, rowNum) -> new GetToolInfoRes(
                         rs.getInt("userIdx"),
@@ -68,7 +75,7 @@ public class GalleryDao {
                         rs.getString("url"),
                         rs.getInt("share"),
                         rs.getString("postTime")
-                ) ,userIdx);
+                ), getParams);
     }
 
     public int createPost(int userIdx, String title, String defi, String contents, String url, int share) {

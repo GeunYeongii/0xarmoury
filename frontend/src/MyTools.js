@@ -23,6 +23,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import ShareIcon from '@mui/icons-material/Share';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { blue } from '@mui/material/colors';
 
 function MyTools(){
 
@@ -31,7 +32,11 @@ function MyTools(){
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const handleDelete = (postIdx) => {
-		axios.delete(`/gallery/tool/delete/${postIdx}`)
+		axios.delete(`/gallery/tool/delete/${postIdx}`, {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            })
 		  .then((response) => {
 			console.log('삭제 요청 성공:', response);
 			// 갤러리 목록 다시 불러오기
@@ -166,7 +171,8 @@ function MyTools(){
 						borderColor:"black",
 						":hover": { borderColor: "black" },
 						boxShadow: 2,
-					}}startIcon={<BuildIcon sx={{color: "#0404B4" }}/>}>
+						bgcolor: "#EDEEFA",
+					}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
 						My tool             
 					</Button>
 

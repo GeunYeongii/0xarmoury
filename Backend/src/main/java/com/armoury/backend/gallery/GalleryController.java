@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.armoury.backend.config.BaseResponseStatus.EMPTY_INPUT_REQ;
 import static com.armoury.backend.config.BaseResponseStatus.INVALID_USER_JWT;
 
 @RestController
@@ -74,12 +75,26 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "사용자의 공격 도구 정보 조회", description = "사용자가 포스팅한 모든 공격 도구 정보를 조회합니다.")
-    @GetMapping("/tool/myList")
-    public BaseResponse<List<GetToolInfoRes>> getUserTools(){
+    @Operation(summary = "사용자의 공격도구 페이지 수 반환 (int)", description = "사용자(개인) 공격도구 게시글 조회에 사용되는 pageNumber의 전체 값을 반환합니다. 사용자 개시글 수 / 5 + 1\n"
+                                                                                + "JWT 토큰을 헤더에 포함해주세요.")
+    @GetMapping("get/myList/pageNumber")
+    public BaseResponse<Integer> getUserToolPage(){
         try {
             int userIdxByJwt = jwtService.getUserIdx();
-            List<GetToolInfoRes> toolList = galleryProvider.getUserTools(userIdxByJwt);
+            Integer pageNum = galleryProvider.getUserToolPageNum(userIdxByJwt);
+            return new BaseResponse<>(pageNum);
+        } catch(BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @Operation(summary = "사용자의 공격 도구 정보 조회", description = "사용자가 포스팅한 공격 도구 정보를 조회합니다. (5개씩: 1, .., N)")
+    @GetMapping("/tool/myList/{pageNumber}")
+    public BaseResponse<List<GetToolInfoRes>> getUserTools(@PathVariable("pageNumber") int pageNum){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            List<GetToolInfoRes> toolList = galleryProvider.getUserTools(userIdxByJwt, (pageNum-1)*5);
             return new BaseResponse<>(toolList);
         } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -90,10 +105,11 @@ public class GalleryController {
     @Operation(summary = "공격 도구 업로드", description = "새로운 공격 도구의 정보를 업로드합니다. (Share : 공유 - 1 / 개인 - 0 )")
     @PostMapping("/tool/upload")
     public BaseResponse<String> postNewAttackTool(@RequestBody PostToolReq toolInfo){
-        // 데이터 검증 validation 필요
-        // user validation 필요
         try {
-            int postIdx = galleryService.postNewAttackTool(toolInfo);
+            int userIdxByJwt = jwtService.getUserIdx();
+            if (toolInfo.getTitle().isBlank())
+                return new BaseResponse<>(EMPTY_INPUT_REQ);
+            int postIdx = galleryService.postNewAttackTool(userIdxByJwt, toolInfo);
             return new BaseResponse<>("새로운 공격 도구(postIdx: " + postIdx + ") 업로드에 성공 하였습니다.");
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
