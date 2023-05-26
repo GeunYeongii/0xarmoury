@@ -23,8 +23,8 @@ public class GalleryService {
         this.galleryDao = galleryDao;
     }
 
-    public int postNewAttackTool(PostToolReq toolInfo) throws BaseException {
-        return galleryDao.createPost(toolInfo.getUserIdx(), toolInfo.getTitle(), toolInfo.getDefinition(), toolInfo.getContents(), toolInfo.getUrl(), toolInfo.getShare());
+    public int postNewAttackTool(int userIdx, PostToolReq toolInfo) throws BaseException {
+        return galleryDao.createPost(userIdx, toolInfo.getTitle(), toolInfo.getDefinition(), toolInfo.getContents(), toolInfo.getUrl(), toolInfo.getShare());
     }
 
     public void modifyToolInfo(PatchToolReq toolInfo, int userIdx) throws BaseException {

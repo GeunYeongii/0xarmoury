@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.armoury.backend.config.BaseResponseStatus.EMPTY_INPUT_REQ;
 import static com.armoury.backend.config.BaseResponseStatus.INVALID_USER_JWT;
 
 @RestController
@@ -90,10 +91,11 @@ public class GalleryController {
     @Operation(summary = "공격 도구 업로드", description = "새로운 공격 도구의 정보를 업로드합니다. (Share : 공유 - 1 / 개인 - 0 )")
     @PostMapping("/tool/upload")
     public BaseResponse<String> postNewAttackTool(@RequestBody PostToolReq toolInfo){
-        // 데이터 검증 validation 필요
-        // user validation 필요
         try {
-            int postIdx = galleryService.postNewAttackTool(toolInfo);
+            int userIdxByJwt = jwtService.getUserIdx();
+            if (toolInfo.getTitle().isBlank())
+                return new BaseResponse<>(EMPTY_INPUT_REQ);
+            int postIdx = galleryService.postNewAttackTool(userIdxByJwt, toolInfo);
             return new BaseResponse<>("새로운 공격 도구(postIdx: " + postIdx + ") 업로드에 성공 하였습니다.");
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
