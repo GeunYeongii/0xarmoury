@@ -247,7 +247,7 @@ function GalleryDetail(){
                         <div className='gallery-text-title'>Tool Download</div>
                         <div className='gallery-body-tool'>
                             <DownloadForOfflineOutlinedIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', mr: '2px', color: 'black'}}/>
-                            <Link sx={{color: '#050099'}}>{data.url}</Link>
+                            <Link href={data.url} target="_blank" sx={{color: '#050099'}}>{data.url}</Link>
                         </div>
                         <div className='gallery-text-title'>Definition</div>
                         <div className='gallery-body-maintext'>
