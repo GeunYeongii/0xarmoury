@@ -54,7 +54,11 @@ function MyTools(){
    
 	 const fetchPaginationCount = async () => {
 	   try {
-		 const response = await axios.get('gallery/get/pageNumber'); // --> gallery/tool/myPageNumber (사용자의 List 페이지)
+		 const response = await axios.get('gallery/get/myList/pageNumber', {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            }); // --> gallery/tool/myPageNumber (사용자의 List 페이지)
 		 setPaginationCount(response.data.result);
 	   } catch (error) {
 		 console.error('Error fetching pagination count:', error);
@@ -63,7 +67,11 @@ function MyTools(){
    
 	 const fetchGalleryList = async (pageNum) => {
 	   try {
-		 const response = await axios.get(`gallery/toolList/${pageNum}`); // --> gallery/tool/myList/$(pageNum)
+		 const response = await axios.get(`gallery/tool/myList/${pageNum}`, {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            }); // --> gallery/tool/myList/$(pageNum)
 		 const processedData = response.data.result.map(item => ({
 		   postIdx: item.postIdx,
 		   name: item.title,
@@ -224,7 +232,7 @@ function MyTools(){
 									</div>
 									<div className='Tool_info'>
 										<div>
-										<AccountCircleIcon sx={{ height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C' }} /> {item.userName} 
+										<AccountCircleIcon sx={{ height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C' }} /> { localStorage.getItem('nickName')} 
 										</div>
 										<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 										<IconButton aria-label="Download">

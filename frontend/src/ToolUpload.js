@@ -18,8 +18,10 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormHelperTexts from '@mui/material/FormHelperText';
+import { useNavigate } from 'react-router-dom';
 
 function ToolUpload(){
+    const Navigate = useNavigate();
     const [PostError, setpostError] = useState('');
     const [postSuccess, setpostSuccess] = useState('');
 
@@ -58,7 +60,9 @@ function ToolUpload(){
             if (response.data.isSuccess){
             // 성공적으로 데이터를 전송한 경우에 수행할 작업
             console.log(response);
-            setpostSuccess("도구 등록에 성공하셨습니다.")
+            setpostSuccess("도구 등록에 성공하셨습니다.");
+            Navigate('/MyTools')
+
             }
             else{
                 setpostError('도구 등록에 실패하였습니다. 다시 한번 시도 주세요.');
@@ -147,15 +151,15 @@ function ToolUpload(){
                 }}startIcon={<HistoryIcon sx={{color: "#000000" }}/>}>
                     Packaging History           
                 </Button>
-                <Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-                    color:"black",
-                    borderColor:"black",
-                    ":hover": { borderColor: "black" },
-                    boxShadow: 2,
-                }}startIcon={<BuildIcon sx={{color: "#0404B4" }}/>}>
-                    My tool             
+                <Button href='./MyTools' variant="outlined" size="large" style={{width:"60%"}} sx={{
+                        color:"black",
+                        borderColor:"black",
+                        ":hover": { borderColor: "black" },
+                        boxShadow: 2,
+                    }}startIcon={<BuildIcon sx={{color: "#0404B4" }}/>}>
+                        My tool             
                 </Button>
-
+                    
                 <h4>Settings</h4>
                 <Button variant="outlined" size="large" style={{width:"60%"}} sx={{
                     color:"black",
