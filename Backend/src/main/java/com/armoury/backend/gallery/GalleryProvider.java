@@ -34,6 +34,17 @@ public class GalleryProvider {
 
     }
 
+    public Integer getUserToolPageNum(int userIdx) throws BaseException{
+        try {
+            int postNumInPage = 5;
+            int totalPostNum = galleryDao.countTotalUserPost(userIdx);
+            return totalPostNum / postNumInPage + 1;
+        } catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+
+    }
+
     public List<GetToolSumInfoRes> getPostsInfo(int pageNum) throws BaseException {
         if (pageNum < 0)
             throw new BaseException(EMPTY_CONTENT);

@@ -75,6 +75,20 @@ public class GalleryController {
     }
 
     @ResponseBody
+    @Operation(summary = "사용자의 공격도구 페이지 수 반환 (int)", description = "사용자(개인) 공격도구 게시글 조회에 사용되는 pageNumber의 전체 값을 반환합니다. 사용자 개시글 수 / 5 + 1\n"
+                                                                                + "JWT 토큰을 헤더에 포함해주세요.")
+    @GetMapping("get/myList/pageNumber")
+    public BaseResponse<Integer> getUserToolPage(){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            Integer pageNum = galleryProvider.getUserToolPageNum(userIdxByJwt);
+            return new BaseResponse<>(pageNum);
+        } catch(BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
     @Operation(summary = "사용자의 공격 도구 정보 조회", description = "사용자가 포스팅한 공격 도구 정보를 조회합니다. (5개씩: 1, .., N)")
     @GetMapping("/tool/myList/{pageNumber}")
     public BaseResponse<List<GetToolInfoRes>> getUserTools(@PathVariable("pageNumber") int pageNum){
