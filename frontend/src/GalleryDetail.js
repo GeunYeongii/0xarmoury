@@ -244,11 +244,21 @@ function GalleryDetail(){
                         </div>
                         <div className='gallery-text-title'>Definition</div>
                         <div className='gallery-body-maintext'>
-                            {data.definition}
+                            {data.definition && data.definition.split('\n').map((line, index) => (
+                                <React.Fragment key={index}>
+                                    {line}
+                                    <br />
+                                </React.Fragment>
+                            ))}
                         </div>
                         <div className='gallery-text-title'>How to use</div>
                         <div className='gallery-body-option'>
-                            {data.contents}
+                            {data.contents && data.contents.split('\n').map((line, index) => (
+                                <React.Fragment key={index}>
+                                    {line}
+                                    <br />
+                                </React.Fragment>
+                            ))}
                         </div>
                         <Box component="form" onSubmit={SubmitComment} noValidate sx={{ mt: 1 }}>
                             <TextField sx={{width: '99.5%', mt: '30px'}}
@@ -286,7 +296,12 @@ function GalleryDetail(){
                                     </div>
                                 </div>
                                 <div className='gallery-body-comment-content'>
-                                    {item.contents}
+                                    {item.contents && item.contents.split('\n').map((line, index) => (
+                                            <React.Fragment key={index}>
+                                                {line}
+                                                <br />
+                                            </React.Fragment>
+                                    ))}
                                 </div>
                             
                             </div>
