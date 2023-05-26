@@ -17,6 +17,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { useState, useEffect } from 'react';
+import React from 'react'
 
     {/*테스트 용 data */}
     const data = [
@@ -90,7 +91,6 @@ import { useState, useEffect } from 'react';
 );
 
 function Tools(){
-
     const [selectedId, setSelectedId] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState(null);
     const [str, setStr] = useState(null);
@@ -243,6 +243,9 @@ function Tools(){
                         <div className='toolbox-half'>
                             <div className='text-size2'>
                                 Execute
+                                <div className="App">
+                                    <iframe src="http://localhost:5901/cast" width={500} height={280}></iframe>
+                                </div>
                             </div>
                             <div className='toolbox-exec'>
 
@@ -264,4 +267,5 @@ function Tools(){
 		</div>
 		);
 }
+
 export default Tools;
