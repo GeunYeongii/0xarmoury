@@ -247,7 +247,7 @@ function ToolEdit(){
             </Box>
             <div className='Upload-Category-sub'>
             <FormControlLabel
-                control={<Checkbox onChange={handleCheckboxChange} defaultChecked/>}
+                control={<Checkbox onChange={handleCheckboxChange} defaultChecked={data.share === 0 ? false : true}/>}
                 label="Do you want to share?"
                 sx={{
                     justifyContent:"flex-start"

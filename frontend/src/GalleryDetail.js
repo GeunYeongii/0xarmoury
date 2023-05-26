@@ -228,6 +228,7 @@ function GalleryDetail(){
                                             title: data.title, 
                                             definition: data.definition, 
                                             contents: data.contents, 
+                                            share: data.share,
                                             url: data.url } })} aria-label="edit" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
                                     <EditIcon  />
                                 </IconButton>
