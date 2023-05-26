@@ -75,12 +75,12 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "사용자의 공격 도구 정보 조회", description = "사용자가 포스팅한 모든 공격 도구 정보를 조회합니다.")
-    @GetMapping("/tool/myList")
-    public BaseResponse<List<GetToolInfoRes>> getUserTools(){
+    @Operation(summary = "사용자의 공격 도구 정보 조회", description = "사용자가 포스팅한 공격 도구 정보를 조회합니다. (5개씩: 1, .., N)")
+    @GetMapping("/tool/myList/{pageNumber}")
+    public BaseResponse<List<GetToolInfoRes>> getUserTools(@PathVariable("pageNumber") int pageNum){
         try {
             int userIdxByJwt = jwtService.getUserIdx();
-            List<GetToolInfoRes> toolList = galleryProvider.getUserTools(userIdxByJwt);
+            List<GetToolInfoRes> toolList = galleryProvider.getUserTools(userIdxByJwt, (pageNum-1)*5);
             return new BaseResponse<>(toolList);
         } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));

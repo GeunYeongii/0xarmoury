@@ -56,12 +56,13 @@ public class GalleryProvider {
         return toolInfo;
     }
 
-    public List<GetToolInfoRes> getUserTools(int userIdx) throws BaseException {
-        try {
-            return galleryDao.getUserTools(userIdx);
-        } catch (Exception exception){
-            throw new BaseException(EMPTY_OUTPUT);
-        }
+    public List<GetToolInfoRes> getUserTools(int userIdx, int pageNum) throws BaseException {
+        if (pageNum < 0)
+            throw new BaseException(EMPTY_CONTENT);
+        List<GetToolInfoRes> toolList = galleryDao.getUserTools(userIdx, pageNum);
+        if (toolList.size() == 0)
+            throw new BaseException(EMPTY_CONTENT);
+        return toolList;
     }
 
     public List<PostCommentRes> getComments(int postIdx) throws BaseException {
