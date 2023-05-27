@@ -11,8 +11,9 @@ public class GetToolRes {
     private int toolIdx;
     private String toolName;
     private String definition;
-    private String kaliInfo;
+    private String options;
     private String mitreInfo;
     private String wikiInfo;
     private String toolUrl;
+    private String aml;
 }

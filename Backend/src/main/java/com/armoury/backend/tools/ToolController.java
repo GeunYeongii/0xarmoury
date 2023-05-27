@@ -24,7 +24,7 @@ public class ToolController {
     }
 
     @ResponseBody
-    @Operation(summary = "공격 도구 정보 조회", description = "toolIdx 사용하여 공격 도구 정보 조회합니다.")
+    @Operation(summary = "공식 공격 도구 개별 정보 조회 by toolIdx", description = "toolIdx 사용하여 공격 도구 정보 조회합니다.")
     @GetMapping("/{toolIdx}")
     public BaseResponse<GetToolRes> getToolByIdx (@PathVariable("toolIdx")int toolIdx){
         try{
@@ -35,5 +35,16 @@ public class ToolController {
         }
     }
 
+    @ResponseBody
+    @Operation(summary = "공식 공격 도구 개별 정보 조회 by 도구 이름", description = "도구 이름을 사용하여 공격 도구 정보 조회합니다.")
+    @GetMapping("/toolName/")
+    public BaseResponse<GetToolRes> getToolByIdx (@RequestParam(required = true) String toolName){
+        try{
+            GetToolRes toolRes = toolProvider.getToolByName(toolName);
+            return new BaseResponse<>(toolRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }
 
