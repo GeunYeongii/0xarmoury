@@ -111,6 +111,12 @@
 .toolbox-exec{
   flex: 0.5;
   width:97%;
+  height: 100%;
+}
+.fullscreen {
+  flex:0.8;
+  width: 100vh;
+  height: 100vh;
 }
 
 .toolbox-wiki{
@@ -124,6 +130,10 @@
   overflow-y:auto;
   overflow-x: hidden;
   font-family: 'consolas';
+}
+.toolbox-wiki-fullscreen{
+  flex: 0.2;
+  height: 100%;
 }
 
 .tools-title{
