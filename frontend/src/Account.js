@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import './mainPage.css';
 import './MyTools.css';
 import './ToolUpload.css';
+import './Account.css';
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
@@ -15,78 +16,22 @@ import HistoryIcon from '@mui/icons-material/History';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
-import IconButton from '@mui/material/IconButton';
-import {Pagination} from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import DownloadIcon from '@mui/icons-material/Download';
-import ShareIcon from '@mui/icons-material/Share';
-import DeleteIcon from '@mui/icons-material/Delete';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
 
-function MyTools(){
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+  flexGrow: 1,
+}));
 
-	const [galleryList, setGalleryList] = useState([]);
-	const [paginationCount, setPaginationCount] = useState(0);
-	const [currentPage, setCurrentPage] = useState(1);
 
-	const handleDelete = (postIdx) => {
-		axios.delete(`/gallery/tool/delete/${postIdx}`, {
-            headers: {
-            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
-            }
-            })
-		  .then((response) => {
-			console.log('삭제 요청 성공:', response);
-			// 갤러리 목록 다시 불러오기
-			fetchGalleryList(currentPage);
-		  })
-		  .catch((error) => {
-			console.error('삭제 요청 실패:', error);
-		  });
-	  };
-
-	useEffect(() => {
-	   fetchPaginationCount();
-	   fetchGalleryList(currentPage);
-	 }, [currentPage]);
-   
-	 const fetchPaginationCount = async () => {
-	   try {
-		 const response = await axios.get('gallery/get/myList/pageNumber', {
-            headers: {
-            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
-            }
-            }); // --> gallery/tool/myPageNumber (사용자의 List 페이지)
-		 setPaginationCount(response.data.result);
-	   } catch (error) {
-		 console.error('Error fetching pagination count:', error);
-	   }
-	 };
-   
-	 const fetchGalleryList = async (pageNum) => {
-	   try {
-		 const response = await axios.get(`gallery/tool/myList/${pageNum}`, {
-            headers: {
-            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
-            }
-            }); // --> gallery/tool/myList/$(pageNum)
-		 const processedData = response.data.result.map(item => ({
-		   postIdx: item.postIdx,
-		   name: item.title,
-		   userIdx: item.userIdx,
-		   userName: item.userName,
-		   postTime: item.postTime,
-		   share: item.share
-		 }));
-		 setGalleryList(processedData);
-	   } catch (error) {
-		 console.error('Error fetching gallery list:', error);
-	   }
-	 };
-   
-	 const handlePageChange = (event, newPage) => {
-	   setCurrentPage(newPage);
-	 };
-
+function Account(){
     const Logout = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
@@ -124,9 +69,9 @@ function MyTools(){
                 <div className='container-right'>
                     <div className='outline-container'>
                         <div className="button-container">
-                            <Link href ="./Matrix" color='#000000'>Matrix</Link>
+                            <Link href ="#" color='#000000'>Matric</Link>
                             <Link href="./Tools" color='#000000'>Tools</Link>
-                            <Link href ="./Training" color='#000000'>Training</Link>
+                            <Link href ="#" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
                             <Link href ="/MyTools" color='#0042ED'>My page</Link>
                         </div>
@@ -150,8 +95,8 @@ function MyTools(){
                 </div>
             </div>
             <div className = 'division-line'></div>
-            <div className='MyTools-contents'>
-				<div className='MyTools-Menu' >
+            <div className='Account-contents'>
+				<div className='Account-Menu' >
 					<h4>Personalization</h4>
 					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
 						color:"black",
@@ -171,34 +116,34 @@ function MyTools(){
 					}}startIcon={<HistoryIcon sx={{color: "#000000" }}/>}>
 						Packaging History           
 					</Button>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
+					<Button href='/Mytools' variant="outlined" size="large" style={{width:"60%"}} sx={{
 						color:"black",
 						borderColor:"black",
 						":hover": { borderColor: "black" },
 						boxShadow: 2,
-						bgcolor: "#EDEEFA",
 					}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
 						My tool             
 					</Button>
 
 					<h4>Settings</h4>
-					<Button href="./Account" variant="outlined" size="large" style={{width:"60%"}} sx={{
+					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
 						color:"black",
 						borderColor:"black",
 						":hover": { borderColor: "black" },
 						boxShadow: 2,
 						marginBottom: "20px",
+						bgcolor: "#EDEEFA",
 					}}startIcon={<AccountCircleIcon />}>
 					Account          
 					</Button>
-					<Button variant="outlined" size="large" style={{width:"60%" }} sx={{
+					<Button herf= "/Account"variant="outlined" size="large" style={{width:"60%" }} sx={{
 						color:"black",
 						borderColor:"black",
 						":hover": { borderColor: "black" },
 						boxShadow: 2,
 						marginBottom: "20px",
 
-					}}startIcon={<LockIcon />}>
+					}}startIcon={<LockIcon/>}>
 						<div className='font-align'>Security</div>
 					</Button> 
 					<Link href='./ToolUpload'>
@@ -212,53 +157,23 @@ function MyTools(){
 					}}startIcon={<CloudUploadIcon/>}>Upload my Tool</Button>
 					</Link>
 				</div>
-				<div className='MyTools-Menu-sub' style={{ marginTop: '30px' }}>
+				<div className='Account-Menu-sub' style={{ marginTop: '30px' }}>
 						
-					{/*게시판*/}
-					<div className='MyTools-right'>
-					
-						{galleryList.map((item) => (
-							<div key={item.postIdx} className='Tool_name'>
-								<div className='Tool_title'>
-									<Link href={`./GalleryDetail/${item.postIdx}`} color='#050099'>{item.name}</Link>
-									<IconButton aria-label="share" sx={{ color: item.share === 0 ? 'black' : 'gray' }}>
-										{/*item.share값이 0이면 검정색, 1이면 회색 */}
-										<ShareIcon />
-									</IconButton>
-									
-									</div>
-									<div className='My_Tool_info'>
-										<div>
-										<AccountCircleIcon sx={{ height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C' }} /> { localStorage.getItem('nickName')} 
-										</div>
-										<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-										<IconButton aria-label="Download">
-											<DownloadIcon />
-										</IconButton>
-										{/*postIdx로 ToolUpload페이지에 자동으로 입력되게 해서 수정...보류 */}
-										<IconButton aria-label="delete" onClick={() => handleDelete(item.postIdx)}>
-											<DeleteIcon />
-										</IconButton>
-										
-									</div>
-								</div>
-							</div>
-						))}
-                	<div className='toolbox-section'>
-
-                <Pagination
-                    count={paginationCount}
-                    page={currentPage}
-                    onChange={handlePageChange}
-                    size='large'
-                />
-                </div>
-				</div>
+					<div className='Page-Title'>Account</div>
+					<div className='Account-division-line'></div>
+					<Box sx={{ width: '80%' }}>
+						<Stack spacing={{ xs: 2, sm: 1 }} direction="row" useFlexGap flexWrap="wrap">
+							<Item>Long content</Item>
+							<Item>Item 1</Item>
+							<Item>Item 2</Item>
+						</Stack>
+					</Box>
+			
 				</div>
 			</div>
 		</div>
     );
 }
 
-export default MyTools;
+export default Account;
 

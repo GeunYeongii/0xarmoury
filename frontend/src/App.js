@@ -6,11 +6,14 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Matrix from './Matrix';
 import Tools from './Tools';
+import Training from './Training';
 import Gallery from './Gallery';
 import GalleryDetail from './GalleryDetail';
 import ToolUpload from './ToolUpload';
 import MyTools from './MyTools';
 import ToolEdit from './ToolEdit';
+import Account from './Account';
+
 function App() {
   return (
     <Router>
@@ -20,11 +23,13 @@ function App() {
         <Route path = "SignUp" element = {<SignUp />}></Route>
         <Route path = "Matrix" element = {<Matrix />}></Route>
         <Route path = "Tools" element = {<Tools />}></Route>
+        <Route path = "Training" element = {<Training />}></Route>
         <Route path = "Gallery" element = {<Gallery />}></Route>
         <Route path = "GalleryDetail/:no" element = {<GalleryDetail />}></Route>
         <Route path = "ToolUpload" element = {<ToolUpload />}></Route>
         <Route path = "MyTools" element = {<MyTools/>}></Route>
         <Route path = "ToolEdit/:no" element = {<ToolEdit />}></Route>
+        <Route path = "Account" element = {<Account/>}></Route>
 
       </Routes>
 

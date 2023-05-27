@@ -14,15 +14,14 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
-import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import React, { useState, useEffect } from 'react';
-import AddIcon from '@mui/icons-material/Add';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import Modal from '@mui/material/Modal';
-
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
     {/*테스트 용 data */}
     const data = [
@@ -129,6 +128,7 @@ function Tools(){
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [fullscreen, setFullscreen] = useState(false);
 
     const [selectedId, setSelectedId] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState("Title");
@@ -176,6 +176,10 @@ function Tools(){
 
 
     const CircularJSON = require('circular-json');
+
+    const handleOpenFullscreen = () => {
+        setFullscreen(!fullscreen);
+    };
 
     const handleSelect = (id) => {
         setSelectedId(id);
@@ -239,9 +243,9 @@ function Tools(){
                 <div className='container-right'>
                     <div className='outline-container'>
                         <div className="button-container">
-                            <Link href ="#" color='#000000'>Matric</Link>
+                            <Link href ="./Matrix" color='#000000'>Matrix</Link>
                             <Link href="./tools" color='#0042ED'>Tools</Link>
-                            <Link href ="#" color='#000000'>Training</Link>
+                            <Link href ="./Training" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
                             <Link href ="./MyTools" color='#000000'>My page</Link>
                         </div>
@@ -361,8 +365,15 @@ function Tools(){
                         <div className='toolbox-half'>
                             <div className='text-size2'>
                                 Execute
+                                <IconButton aria-label="expand screen">
+                                    {fullscreen ? (
+                                        <FullscreenExitIcon onClick={handleOpenFullscreen} sx={{ width: 20, height: 20, color: "#000000" }} />
+                                    ) : (
+                                        <FullscreenIcon onClick={handleOpenFullscreen} sx={{ width: 20, height: 20, color: "#000000" }} />
+                                    )}
+                                </IconButton>
                             </div>
-                            <iframe className="toolbox-exec"src="http://localhost:5901/cast"></iframe>
+                            <iframe className={`toolbox-exec ${fullscreen ? 'fullscreen' : ''}`} src="http://localhost:5901/cast"></iframe>
 
 
                             <div className='text-size2'>
@@ -386,7 +397,7 @@ function Tools(){
                                 </div>
                                 </div>
                             ) : (
-                                <div className='toolbox-wiki'>
+                                <div className={`toolbox-wiki ${fullscreen ? 'toolbox-wiki-fullscreen' : ''}`}>
                                 <p>{ToolWiki && ToolWiki.split('\n').map((line, index) => (
                                 <React.Fragment key={index}>
                                     {line}

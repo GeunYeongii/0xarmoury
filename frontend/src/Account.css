@@ -1,0 +1,44 @@
+.Page-Title{
+	font-size: 20px;
+	font-weight: 500;
+}
+
+
+.Account-division-line{
+	margin-top: 10px;
+	border: 1px solid #000000;
+	width: 80%;
+  }
+
+  .Account-contents {
+	width: 1300x;
+	height: 100%;
+	background-color: white;
+	display: flex;
+	flex-direction: row;
+	padding-top: 30px;
+	padding-right: 30px;
+  }
+  
+  .Account-Menu {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 30px;
+
+	font-size: 24px;
+	width: 25%;
+	margin-left: 50px;
+	margin-top: 5px;
+  }
+  
+  .Account-Menu-sub {
+	flex: 1;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	justify-content: flex-start;
+	margin-left: 10px;
+	margin-top: 30px;
+  }
