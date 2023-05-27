@@ -21,6 +21,7 @@ import React, { useState, useEffect } from 'react';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import Modal from '@mui/material/Modal';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
     {/*테스트 용 data */}
     const data = [
@@ -127,6 +128,7 @@ function Tools(){
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [fullscreen, setFullscreen] = useState(false);
 
     const [selectedId, setSelectedId] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState("Title");
@@ -176,8 +178,8 @@ function Tools(){
     const CircularJSON = require('circular-json');
 
     const handleOpenFullscreen = () => {
-        window.open('http://localhost:5901/cast', '_blank', 'fullscreen=yes');
-      };
+        setFullscreen(!fullscreen);
+    };
 
     const handleSelect = (id) => {
         setSelectedId(id);
@@ -363,11 +365,15 @@ function Tools(){
                         <div className='toolbox-half'>
                             <div className='text-size2'>
                                 Execute
-                                <IconButton aria-label="edit">
-                                    <FullscreenIcon onClick={handleOpenFullscreen} sx={{width: 20, height: 20, color:"#000000"}} />
+                                <IconButton aria-label="expand screen">
+                                    {fullscreen ? (
+                                        <FullscreenExitIcon onClick={handleOpenFullscreen} sx={{ width: 20, height: 20, color: "#000000" }} />
+                                    ) : (
+                                        <FullscreenIcon onClick={handleOpenFullscreen} sx={{ width: 20, height: 20, color: "#000000" }} />
+                                    )}
                                 </IconButton>
                             </div>
-                            <iframe className="toolbox-exec"src="http://localhost:5901/cast"></iframe>
+                            <iframe className={`toolbox-exec ${fullscreen ? 'fullscreen' : ''}`} src="http://localhost:5901/cast"></iframe>
 
 
                             <div className='text-size2'>
@@ -391,7 +397,7 @@ function Tools(){
                                 </div>
                                 </div>
                             ) : (
-                                <div className='toolbox-wiki'>
+                                <div className={`toolbox-wiki ${fullscreen ? 'toolbox-wiki-fullscreen' : ''}`}>
                                 <p>{ToolWiki && ToolWiki.split('\n').map((line, index) => (
                                 <React.Fragment key={index}>
                                     {line}
