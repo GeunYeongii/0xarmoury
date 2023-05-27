@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Routes, Route, Link, Switch} from 'react-router
 import MainHome from './mainPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import Matrix from './Matrix';
 import Tools from './Tools';
 import Gallery from './Gallery';
 import GalleryDetail from './GalleryDetail';
@@ -17,6 +18,7 @@ function App() {
         <Route path = "/" element = {<MainHome />}></Route>
         <Route path = "SignIn" element = {<SignIn />}></Route>
         <Route path = "SignUp" element = {<SignUp />}></Route>
+        <Route path = "Matrix" element = {<Matrix />}></Route>
         <Route path = "Tools" element = {<Tools />}></Route>
         <Route path = "Gallery" element = {<Gallery />}></Route>
         <Route path = "GalleryDetail/:no" element = {<GalleryDetail />}></Route>
