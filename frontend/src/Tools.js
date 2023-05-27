@@ -131,8 +131,7 @@ function Tools(){
     const handleClose = () => setOpen(false);
 
     const [selectedId, setSelectedId] = useState(null);
-    const [selectedLabel, setSelectedLabel] = useState(null);
-    const [str, setStr] = useState(null);
+    const [selectedLabel, setSelectedLabel] = useState("Title");
     const [Toolcode, setToolCode] = useState("여기는 표식체계 자리");
     const [Tooldefintion, setTooldefinition]=useState("여기는 툴 설명\n아 여기네ㅎ");
     const [Tooloption, setTooloption]=useState("여기는 옵션 설명\n제발돼라ㅏㅏㅏㅏ");
@@ -178,39 +177,33 @@ function Tools(){
 
     const CircularJSON = require('circular-json');
 
-
-    const handleSelect = (id, label) => {
+    const handleSelect = (id) => {
         setSelectedId(id);
-        setSelectedLabel(label);
-        const jsonObject = JSON.parse(CircularJSON.stringify({ label }));
-        // 'children' 있으면 Str에 children value저장
-        if (jsonObject && jsonObject.label && jsonObject.label.props && jsonObject.label.props.children) {
-          setStr(jsonObject.label.props.children);
-        } else {
-            //  'children' 앖으면 Str에 label저장
-          setStr(jsonObject.label);
-        }
 
-        /*
-        useEffect(() => {
-            fetchData(id);
-        }, [id]);
-
-        const fetchData = async (id) => {
-            try {
-            const response = await axios.get(`tools/${id}`);
-            const { definition, kaliInfo, mitreInfo, wikiInfo, code} = response.data.result;
+        fetchData(id)
+          .then((response) => {
+            const { toolName, definition, options, mitreInfo, wikiInfo, aml } = response.data.result;
+            setSelectedLabel(toolName);
             setTooldefinition(definition);
-            setTooloption(kaliInfo);
+            setTooloption(options);
             setToolMITRE(mitreInfo);
             setToolWiki(wikiInfo);
-            setToolcode(code);
-            } catch (error) {
+            setToolCode(aml);
+            // setToolCode(code);
+          })
+          .catch((error) => {
             console.error('Error fetching data:', error);
-            }
-        };
-          */
-    };
+          });
+      };
+      
+      async function fetchData(id) {
+        try {
+          const response = await axios.get(`tools/${id}`);
+          return response;
+        } catch (error) {
+          throw error;
+        }
+      }
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
@@ -296,7 +289,7 @@ function Tools(){
                 <div className='toolbox-right'>
                     <div className='tool-container-top'>
                     <LightTooltip title={Toolcode} placement="top-start" arrow>
-                        <Button sx={{color: "black", fontSize:"20px"}}>{str}</Button>
+                        <Button sx={{color: "black", fontSize:"20px"}}>{selectedLabel}</Button>
                     </LightTooltip>
                        
                         <div className='tool-container-right'>

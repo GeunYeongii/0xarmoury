@@ -60,7 +60,7 @@ function MainPage(){
                             <Link href="./Tools" color='#000000'>Tools</Link>
                             <Link href ="#" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
-                            <Link href ="#" color='#000000'>My page</Link>
+                            <Link href ="./Mytools" color='#000000'>My page</Link>
                         </div>
                     </div>
                     
