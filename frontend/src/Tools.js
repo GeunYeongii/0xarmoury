@@ -14,15 +14,13 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
-import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import React, { useState, useEffect } from 'react';
-import AddIcon from '@mui/icons-material/Add';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import Modal from '@mui/material/Modal';
-
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 
     {/*테스트 용 data */}
     const data = [
@@ -176,6 +174,10 @@ function Tools(){
 
 
     const CircularJSON = require('circular-json');
+
+    const handleOpenFullscreen = () => {
+        window.open('http://localhost:5901/cast', '_blank', 'fullscreen=yes');
+      };
 
     const handleSelect = (id) => {
         setSelectedId(id);
@@ -361,6 +363,9 @@ function Tools(){
                         <div className='toolbox-half'>
                             <div className='text-size2'>
                                 Execute
+                                <IconButton aria-label="edit">
+                                    <FullscreenIcon onClick={handleOpenFullscreen} sx={{width: 20, height: 20, color:"#000000"}} />
+                                </IconButton>
                             </div>
                             <iframe className="toolbox-exec"src="http://localhost:5901/cast"></iframe>
 

@@ -8,33 +8,28 @@ import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import TreeItem from '@mui/lab/TreeItem';
-import TreeView from '@mui/lab/TreeView';
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
-import BuildCircleIcon from '@mui/icons-material/BuildCircle';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { useState, useEffect, React } from 'react';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useTheme } from '@mui/material/styles';
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  border: '1px solid #A6A6A6',
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: 'balck',
-  flexGrow: 1,
-}));
+  const Item = styled(Paper)(({ theme, isActive }) => ({
+    backgroundColor: isActive ? '#6799FF' : (theme.palette.mode === 'dark' ? '#1A2027' : '#fff'),
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    marginLeft: theme.spacing(0.5),
+    marginRight: theme.spacing(0.5),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    flexGrow: 1,
+  }));
+
 
 
     {/*테스트 용 data */}
@@ -117,6 +112,17 @@ function Matrix(){
 
     const [category, setCategory] = useState('');
     const [tool, setTool] = useState('');
+
+    const theme = useTheme();
+    const [activeItemIds, setActiveItemIds] = useState([]);
+     
+    useEffect(() => {
+      // 서버에서 받아온 데이터 예시
+      const simulatedServerData = { itemIds: ['RC-1', 'RC-3', 'RC-10'] };
+  
+      // 서버에서 받아온 아이템 식별자로 활성 아이템 설정
+      setActiveItemIds(simulatedServerData.itemIds);
+    }, []);
 
     const handleChange1 = (event) => {
       setCategory(event.target.value);
@@ -290,16 +296,16 @@ function Matrix(){
                     <div className='matrix-box-content'>
                       <Box sx={{ width: 110, margin: 1 }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Active Scanning</Item>
-                          <Item>Gather Victim Host Information</Item>
-                          <Item>Gather Victim Identity Information</Item>
-                          <Item>Gather Victim Network Information</Item>
-                          <Item>Gather Victim Org Information</Item>
-                          <Item>Phishing for Information</Item>
-                          <Item>Search Closed Sources</Item>
-                          <Item>Search Open Technical Databases</Item>
-                          <Item>Search Open Websites/ Domains</Item>
-                          <Item>Search Victim-Owned Websites</Item>
+                          <Item key="RC-1" isActive={activeItemIds.includes('RC-1')}>Active Scanning</Item>
+                          <Item key="RC-2" isActive={activeItemIds.includes('RC-2')}>Gather Victim Host Information</Item>
+                          <Item key="RC-3" isActive={activeItemIds.includes('RC-3')}>Gather Victim Identity Information</Item>
+                          <Item key="RC-4" isActive={activeItemIds.includes('RC-4')}>Gather Victim Network Information</Item>
+                          <Item key="RC-5" isActive={activeItemIds.includes('RC-5')}>Gather Victim Org Information</Item>
+                          <Item key="RC-6" isActive={activeItemIds.includes('RC-6')}>Phishing for Information</Item>
+                          <Item key="RC-7" isActive={activeItemIds.includes('RC-7')}>Search Closed Sources</Item>
+                          <Item key="RC-8" isActive={activeItemIds.includes('RC-8')}>Search Open Technical Databases</Item>
+                          <Item key="RC-9" isActive={activeItemIds.includes('RC-9')}>Search Open Websites/ Domains</Item>
+                          <Item key="RC-10" isActive={activeItemIds.includes('RC-10')}>Search Victim-Owned Websites</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
