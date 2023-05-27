@@ -23,10 +23,9 @@ import { useTheme } from '@mui/material/styles';
     backgroundColor: isActive ? '#6799FF' : (theme.palette.mode === 'dark' ? '#1A2027' : '#fff'),
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    marginLeft: theme.spacing(0.5),
-    marginRight: theme.spacing(0.5),
+    border: '1px solid #A6A6A6',
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: 'black',
     flexGrow: 1,
   }));
 
@@ -34,46 +33,52 @@ import { useTheme } from '@mui/material/styles';
 
     {/*테스트 용 data */}
     const testdata = [
-        {
-          id: '1',
-          label: 'Reconnaissance',
-          children: [
-            { id: '2', label: 'Active Scanning' },
-            { id: '3', label: 'Gather Victim Host Information' },
-          ],
-        },
-        {
-          id: '4',
-          label: 'Resource Development',
-          children: [
-            {
-              id: '5',
-              label: 'Acquire Access',
-            },
-            {
-              id: '6',
-              label: 'Acquire Infrastructure',
-              children: [{ id: '7', label: 'index.js' }],
-            },
-          ],
-        },
-        {
-            id: '7',
-            label: 'Initial Access',
-            children: [
-              { id: '8', label: 'Drive-by Compromise' },
-              { id: '9', label: 'Exploit Public-Facing Application' },
-            ],
-          }
+        {id: '1',
+         label: 'Information Gathering',},
+        {id: '2',
+         label: 'Vulnerability Analysis',},
+        {id: '3',
+         label: 'Web Application Analysis',},
+        {id: '4',
+         label: 'Database Assessment',},
       ];
     {/*
-    const [data, setData] = useState([]);
+    const [categorylist, setCategorylist] = useState([]);
+    const [toollist, setToollist] = useState([]);
 
-    useEffect(() => {
-            axios.get('/api/test/)
-            .then(response => setData(response.data))
-            .catch(error => console.log(error))
-        }, []);
+    useEffect(() => {CategoryList()});
+
+    const CategoryList = async () => {
+        try {
+            const response = await axios.get('**category path**');
+            setCategorylist(response.data.result);
+
+            const processedCategory = response.data.result.map(item => ({
+                categoryIdx: item.categoryIdx,
+                categoryName: item.categoryName,
+                categoryCode: item.categoryCode,
+              }));
+              setCategorylist(processedCategory);
+        } catch (error) {
+            console.error('Category:', error);
+        }
+    };
+
+    const ToolList = async () => {
+        try {
+            const response = await axios.get('**tool path**');
+            setToollist(response.data.result);
+
+            const processedTool = response.data.result.map(item => ({
+                toolIdx: item.toolIdx,
+                toolName: item.toolName,
+                toolCode: item.toolCode,
+              }));
+              setToollist(processedTool);
+        } catch (error) {
+            console.error('Tool:', error);
+        }
+    };
  */}
     const RenderTree = ({nodes, onSelect}) => (
         <TreeItem 
@@ -129,7 +134,7 @@ function Matrix(){
     };
 
     const handleChange2 = (event) => {
-      setTool(event.target.value);
+      setTool(event.target.value); //=> tool select 박스 반영되도록 수정
     };
 
     const CircularJSON = require('circular-json');
@@ -240,14 +245,9 @@ function Matrix(){
                   MenuProps={MenuProps}
                   sx={{ maxHeight: '45px', fontSize: '15px'}}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {testdata.map((item) => (
+                    <MenuItem value={item.id}> {item.label}</MenuItem>
+                  ))}
                 </Select>
               </FormControl>
 
@@ -262,14 +262,9 @@ function Matrix(){
                   MenuProps={MenuProps}
                   sx={{ maxHeight: '45px', fontSize: '15px' }}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {testdata.map((item) => (
+                    <MenuItem value={item.id}> {item.label}</MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </div>
