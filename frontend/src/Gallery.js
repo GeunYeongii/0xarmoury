@@ -104,7 +104,7 @@ function Gallery(){
                             <Link href="./Tools" color='#000000'>Tools</Link>
                             <Link href ="#" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#0042ED'>Gallery</Link>
-                            <Link href ="#" color='#000000'>My page</Link>
+                            <Link href ="./MyTools" color='#000000'>My page</Link>
                         </div>
                     </div>
                     
@@ -128,7 +128,6 @@ function Gallery(){
 
             <div className='container_Header'>
                 <h2><strong>Gallery</strong></h2>
-                <Link href='./MyTools'>Upload</Link>
             </div>
             <div className='tool-division-line'></div>
 
