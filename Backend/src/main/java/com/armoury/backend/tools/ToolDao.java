@@ -17,32 +17,34 @@ public class ToolDao {
     }
 
     public GetToolRes getToolByIdx(int toolIdx) {
-        String getToolQuery = "SELECT toolIdx, toolName, definition, kaliInfo, mitreInfo, wikiInfo, toolUrl" +
+        String getToolQuery = "SELECT toolIdx, toolName, definition, options, mitreInfo, wikiInfo, toolUrl, aml \n" +
                 " FROM Tool WHERE toolIdx = ?";
         return this.jdbcTemplate.queryForObject(getToolQuery,
                 (rs, rowNum) -> new GetToolRes(
                         rs.getInt("toolIdx"),
                         rs.getString("toolName"),
                         rs.getString("definition"),
-                        rs.getString("kaliInfo"),
+                        rs.getString("options"),
                         rs.getString("mitreInfo"),
                         rs.getString("wikiInfo"),
-                        rs.getString("toolUrl")),
+                        rs.getString("toolUrl"),
+                        rs.getString("aml")),
                 toolIdx);
     }
 
     public GetToolRes getToolByName(String toolName) {
-        String getToolQuery = "SELECT toolIdx, toolName, definition, kaliInfo, mitreInfo, wikiInfo, toolUrl" +
+        String getToolQuery = "SELECT toolIdx, toolName, definition, options, mitreInfo, wikiInfo, toolUrl, aml \n" +
                 " FROM Tool WHERE toolName = ?";
         return this.jdbcTemplate.queryForObject(getToolQuery,
                 (rs, rowNum) -> new GetToolRes(
                         rs.getInt("toolIdx"),
                         rs.getString("toolName"),
                         rs.getString("definition"),
-                        rs.getString("kaliInfo"),
+                        rs.getString("options"),
                         rs.getString("mitreInfo"),
                         rs.getString("wikiInfo"),
-                        rs.getString("toolUrl")),
+                        rs.getString("toolUrl"),
+                        rs.getString("aml")),
                 toolName);
     }
 }
