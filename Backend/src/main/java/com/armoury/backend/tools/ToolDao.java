@@ -59,4 +59,14 @@ public class ToolDao {
                         rs.getString("toolName")
                 ), categoryIdx);
     }
+
+    public String getAMLByIdx(int toolIdx) {
+        String getToolQuery = "SELECT aml FROM Tool WHERE toolIdx = ?";
+        return this.jdbcTemplate.queryForObject(getToolQuery, String.class, toolIdx);
+    }
+
+    public String getAMLByName(String toolName) {
+        String getToolQuery = "SELECT aml FROM Tool WHERE toolName = ?";
+        return this.jdbcTemplate.queryForObject(getToolQuery, String.class, toolName);
+    }
 }

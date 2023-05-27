@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.armoury.backend.config.BaseResponseStatus.DATABASE_ERROR;
@@ -50,5 +51,41 @@ public class ToolProvider {
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
+    }
+
+    public List<String> getAMLByIdx(int toolIdx) throws BaseException{
+        try{
+            String aml = toolDao.getAMLByIdx(toolIdx);
+            return extractAML(aml);
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<String> getAMLByName(String toolName) throws BaseException{
+        try{
+            String aml = toolDao.getAMLByName(toolName);
+            return extractAML(aml);
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<String> extractAML(String aml) {
+        List<String> list = new ArrayList<>();
+        String[] sections = aml.split(":");
+
+        for (String section : sections) {
+            String prefix = section.substring(0, 2);
+            String valuesString = section.substring(3, section.length() - 1);
+            String[] values = valuesString.split(",");
+
+            for (String value : values) {
+                list.add(prefix + "-" + value);
+            }
+        }
+        return list;
     }
 }
