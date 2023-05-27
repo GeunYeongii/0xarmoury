@@ -27,6 +27,7 @@ import { useTheme } from '@mui/material/styles';
     textAlign: 'center',
     color: 'black',
     flexGrow: 1,
+    minWidth: '95px'
   }));
 
 

@@ -9,6 +9,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 function MainPage(){
     const [jsonData, setHello] = useState('')
@@ -90,7 +94,21 @@ function MainPage(){
                     <div> 어쩌죠? </div>
                 </div>
                 <div className='training-right'>
-
+                <Card sx={{ minWidth: 1300, backgroundColor: '#EAEAEA' }} elevation={4}>
+                    <CardContent>
+                        <Typography variant="h5" component="div">
+                        benevolent
+                        </Typography>
+                        <Typography variant="body2">
+                        well meaning and kindly.
+                        <br />
+                        {'"a benevolent smile"'}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small">Learn More</Button>
+                    </CardActions>
+                </Card>
                 </div>
             </div>
         </div>
