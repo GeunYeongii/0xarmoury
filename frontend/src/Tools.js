@@ -247,10 +247,10 @@ function Tools(){
                     <div className='outline-container'>
                         <div className="button-container">
                             <Link href ="#" color='#000000'>Matric</Link>
-                            <Link href="/tools" color='#0042ED'>Tools</Link>
+                            <Link href="./tools" color='#0042ED'>Tools</Link>
                             <Link href ="#" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
-                            <Link href ="#" color='#000000'>My page</Link>
+                            <Link href ="./MyTools" color='#000000'>My page</Link>
                         </div>
                     </div>
                     

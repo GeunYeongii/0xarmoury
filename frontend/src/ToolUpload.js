@@ -50,6 +50,9 @@ function ToolUpload(){
         }));
       };
 
+      const BacktoMytool=()=>{
+        Navigate('/MyTools')
+      }
       const sendDataToServer = () => {
         axios.post('gallery/tool/upload', formData, {
             headers: {
@@ -108,7 +111,7 @@ function ToolUpload(){
                             <Link href="./Tools" color='#000000'>Tools</Link>
                             <Link href ="#" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
-                            <Link href ="#" color='#000000'>My page</Link>
+                            <Link href ="./MyTools" color='#000000'>My page</Link>
                         </div>
                     </div>
                     
@@ -299,7 +302,7 @@ function ToolUpload(){
                 />
                 </div>
             <div className='Upload-Category-sub'>
-            <Button variant="outlined" style={{ 
+            <Button onClick={BacktoMytool}variant="outlined" style={{ 
                 color: '#FF5C60', 
                 borderColor: '#FF5C60', 
                 fontSize: '11px',
