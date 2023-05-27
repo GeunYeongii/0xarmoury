@@ -23,7 +23,7 @@ log >> nohup.out
 ```
 
 # Swagger Docs
-    jar 실행 후 접속하기 (2023.05.25 업데이트)
+    jar 실행 후 접속하기 (2023.05.28 업데이트)
 
 -링크: <http://localhost:8080/swagger-ui/index.html>
 
