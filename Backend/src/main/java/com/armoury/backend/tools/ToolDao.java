@@ -1,11 +1,13 @@
 package com.armoury.backend.tools;
 
 import com.armoury.backend.tools.model.GetToolRes;
+import com.armoury.backend.tools.model.GetToolSumInfoRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Repository
 public class ToolDao {
@@ -46,5 +48,15 @@ public class ToolDao {
                         rs.getString("toolUrl"),
                         rs.getString("aml")),
                 toolName);
+    }
+
+    public List<GetToolSumInfoRes>  getSumInfoByCategory(int categoryIdx) {
+        String getQuery = "SELECT t.toolIdx, t.toolName FROM Tool AS t WHERE t.toolIdx IN \n" +
+                "(SELECT tc.toolIdx FROM ToolCategoryInfo AS tc WHERE tc.categoryIdx = ?)";
+        return this.jdbcTemplate.query(getQuery,
+                (rs, rowNum) -> new GetToolSumInfoRes(
+                        rs.getInt("toolIdx"),
+                        rs.getString("toolName")
+                ), categoryIdx);
     }
 }

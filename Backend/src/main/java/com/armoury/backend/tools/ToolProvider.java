@@ -2,11 +2,13 @@ package com.armoury.backend.tools;
 
 import com.armoury.backend.config.BaseException;
 import com.armoury.backend.tools.model.GetToolRes;
-import com.armoury.backend.user.model.GetUserRes;
+import com.armoury.backend.tools.model.GetToolSumInfoRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static com.armoury.backend.config.BaseResponseStatus.DATABASE_ERROR;
 
@@ -33,6 +35,16 @@ public class ToolProvider {
     public GetToolRes getToolByName(String toolName) throws BaseException{
         try{
             GetToolRes getToolRes = toolDao.getToolByName(toolName);
+            return getToolRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetToolSumInfoRes> getToolsByCategoryIdx(int categoryIdx) throws BaseException{
+        try{
+            List<GetToolSumInfoRes> getToolRes = toolDao.getSumInfoByCategory(categoryIdx);
             return getToolRes;
         }
         catch (Exception exception) {

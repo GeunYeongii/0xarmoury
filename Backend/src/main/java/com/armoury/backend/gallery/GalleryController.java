@@ -75,8 +75,8 @@ public class GalleryController {
     }
 
     @ResponseBody
-    @Operation(summary = "사용자의 공격도구 페이지 수 반환 (int)", description = "사용자(개인) 공격도구 게시글 조회에 사용되는 pageNumber의 전체 값을 반환합니다. 사용자 개시글 수 / 5 + 1\n"
-                                                                                + "JWT 토큰을 헤더에 포함해주세요.")
+    @Operation(summary = "사용자의 공격도구 페이지 수 반환 (int)", description = "사용자(개인) 공격도구 게시글 조회에 사용되는 pageNumber의 전체 값을 반환합니다. 사용자 개시글 수 / 5 + 1"
+                                                                                + "</br>JWT 토큰을 헤더에 포함해주세요.")
     @GetMapping("get/myList/pageNumber")
     public BaseResponse<Integer> getUserToolPage(){
         try {

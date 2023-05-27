@@ -23,6 +23,7 @@ public enum BaseResponseStatus {
     INVALID_USER_JWT(false, 2003, "권한이 없는 유저의 접근입니다."),
     EMPTY_CONTENT(false, 2004, "요청한 정보가 없습니다."),
     EMPTY_INPUT_REQ(false, 2005, "요청 데이터를 확인해주세요."),
+    WRONG_INPUT_REQ(false, 2006, "요청 데이터를 확인해주세요."),
 
     // users
     USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
