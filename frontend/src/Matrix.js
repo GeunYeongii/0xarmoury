@@ -18,6 +18,20 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { useState, useEffect } from 'react';
 import ApexChart from 'react-apexcharts'
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  marginLeft: theme.spacing(0.5),
+  marginRight: theme.spacing(0.5),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+  flexGrow: 1,
+}));
 
 
     {/*테스트 용 data */}
@@ -162,7 +176,6 @@ function Matrix(){
           },
         ],
       };
-    
 
     return(
         <div>
@@ -243,14 +256,310 @@ function Matrix(){
                 </div>
                             
                 <div className='matrix-box-right'>
-                    <div >
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                        <Item>Reconnaissance</Item>
+                        <Item>Active Scanning</Item>
+                        <Item>Gather Victim Host Information</Item>
+                        <Item>Gather Victim Identity Information</Item>
+                        <Item>Gather Victim Network Information</Item>
+                        <Item>Gather Victim Org Information</Item>
+                        <Item>Phishing for Information</Item>
+                        <Item>Search Closed Sources</Item>
+                        <Item>Search Open Technical Databases</Item>
+                        <Item>Search Open Websites/Domains</Item>
+                        <Item>Search Victim-Owned Websites</Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Resource Development</Item>
+                        <Item>Acquire Access</Item>
+                        <Item>Acquire Infrastructure</Item>
+                        <Item>Compromise Accounts</Item>
+                        <Item>Compromise Infrastructure</Item>
+                        <Item>Develop Capabilities</Item>
+                        <Item>Establish Accounts</Item>
+                        <Item>Obtain Capabilities</Item>
+                        <Item>Stage Capabilities</Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Initial Access</Item>
+                        <Item>Drive-by Compromise</Item>
+                        <Item>Exploit Public-Facing Application</Item>
+                        <Item>External Remote Services</Item>
+                        <Item>Hardware Additions</Item>
+                        <Item>Phishing</Item>
+                        <Item>Replication Through Removable Media</Item>
+                        <Item>Supply Chain Compromise</Item>
+                        <Item>Trusted Relationship</Item>
+                        <Item>Valid Accounts</Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Execution</Item>
+                        <Item>Cloud Administration Command</Item>
+                        <Item>Command and Scripting Interpreter</Item>
+                        <Item>Container Administration Command</Item>
+                        <Item>Deploy Container</Item>
+                        <Item>Exploitation for Client Execution</Item>
+                        <Item>Inter-Process Communication</Item>
+                        <Item>Native API</Item>
+                        <Item>Scheduled Task/Job</Item>
+                        <Item>Serverless Execution</Item>
+                        <Item>Shared Modules</Item>
+                        <Item>Software Deployment Tools</Item>
+                        <Item>System Services</Item>
+                        <Item>User Execution</Item>
+                        <Item>Windows Management Instrumentation</Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Persistence</Item>
+                        <Item>Account Manipulation</Item>
+                        <Item>BITS Jobs</Item>
+                        <Item>Boot or Logon Autostart Execution</Item>
+                        <Item>Boot or Logon Initialization Scripts</Item>
+                        <Item>Browser Extensions</Item>
+                        <Item>Compromise Client Software Binary</Item>
+                        <Item>Create Account</Item>
+                        <Item>Create or Modify System Process</Item>
+                        <Item>Event Triggered Execution</Item>
+                        <Item>External Remote Services</Item>
+                        <Item>Hijack Execution Flow</Item>
+                        <Item>Implant Internal Image</Item>
+                        <Item>Modify Authentication Process</Item>
+                        <Item>Office Application Startup</Item>
+                        <Item>Pre-OS Boot</Item>
+                        <Item>Scheduled Task/Job</Item>
+                        <Item>Server Software Component</Item>
+                        <Item>Traffic Signaling</Item>
+                        <Item>Valid Accounts</Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Privilege Escalation</Item>
+                        <Item>Abuse Elevation Control Mechanism</Item>
+                        <Item>Access Token Manipulation</Item>
+                        <Item>Boot or Logon Autostart Execution</Item>
+                        <Item>Boot or Logon Initialization Scripts</Item>
+                        <Item>Create or Modify System Process</Item>
+                        <Item>Domain Policy Modification</Item>
+                        <Item>Escape to Host</Item>
+                        <Item>Event Triggered Execution</Item>
+                        <Item>Exploitation for Privilege Escalation</Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Defense Evasion</Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Credential Access</Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Discovery</Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Lateral Movement</Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Collection</Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Command and Control</Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Exfiltration</Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                      </Stack>
+                    </Box>
+                    <Box sx={{ width: 110 }}>
+                      <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+                      <Item>Impact</Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                        <Item></Item>
+                      </Stack>
+                    </Box>
+                      {/* 
                         <ApexChart
                             options={options} 
                             series={options.series} 
                             type="heatmap" 
                             height={350}
-                        />
-                    </div>
+                        />*/}
                 </div>
             </div>
 		</div>
