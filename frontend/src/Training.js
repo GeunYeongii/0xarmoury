@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import './mainPage.css';
+import './Training.css';
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
@@ -58,7 +59,7 @@ function MainPage(){
                         <div className="button-container">
                             <Link href ="./Matrix" color='#000000'>Matrix</Link>
                             <Link href="./Tools" color='#000000'>Tools</Link>
-                            <Link href ="./Training" color='#000000'>Training</Link>
+                            <Link href ="./Training" color='#0042ED'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
                             <Link href ="./Mytools" color='#000000'>My page</Link>
                         </div>
@@ -83,27 +84,13 @@ function MainPage(){
             </div>
             <div className = 'division-line'></div>
             <div className='container-body1' >
-                <div className='container-body2'>
-                    <h3>This is main Page</h3>
-
-                    <p>
-                        MITRE ATT&CK Json file
-                    </p>
-
-                    <div>
-                        {JSON.stringify(jsonData)}
-                    </div>
-                    <Link href ="#"> {/*Matrix page link*/}
-                        <Button variant="contained" sx={{
-                            margin:1
-                            ,fontSize:15
-                            }}>
-                            <strong>Go to Matrix</strong>
-                        </Button>
-                    </Link>
+                <div className='training-left'>
+                    <div>사이드 바로 할까요</div>
+                    <div>select 박스로 할까요</div>
+                    <div> 어쩌죠? </div>
                 </div>
-                <div className='container-body3'>
-                    <img src='/img/Main_logo.png' alt="Main_logo" width={'65%'} height={'65%'} />
+                <div className='training-right'>
+
                 </div>
             </div>
         </div>
