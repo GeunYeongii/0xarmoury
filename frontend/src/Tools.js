@@ -22,34 +22,38 @@ import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import Modal from '@mui/material/Modal';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
+const categoryList = [
+    {id: '1',
+     label: 'Information Gathering',},
+    {id: '2',
+     label: 'Vulnerability Analysis',},
+    {id: '3',
+     label: 'Web Application Analysis',},
+    {id: '4',
+     label: 'Database Assessment',},
+     {id: '5',
+     label: 'Password Attacks',},
+     {id: '6',
+     label: 'Wireless Attacks',},
+     {id: '7',
+     label: 'Reverse Engineering',},
+     {id: '8',
+     label: 'Exploitation Tools',},
+     {id: '9',
+     label: 'Sniffing & Spoofing',},
+     {id: '10',
+     label: 'Post Exploitation',},
+     {id: '11',
+     label: 'Forensics',},
+     {id: '12',
+     label: 'Reporting Tools',},
+  ];
 
-      const categoryList = [
-        {id: '1',
-         label: 'Information Gathering',},
-        {id: '2',
-         label: 'Vulnerability Analysis',},
-        {id: '3',
-         label: 'Web Application Analysis',},
-        {id: '4',
-         label: 'Database Assessment',},
-         {id: '5',
-         label: 'Password Attacks',},
-         {id: '6',
-         label: 'Wireless Attacks',},
-         {id: '7',
-         label: 'Reverse Engineering',},
-         {id: '8',
-         label: 'Exploitation Tools',},
-         {id: '9',
-         label: 'Sniffing & Spoofing',},
-         {id: '10',
-         label: 'Post Exploitation',},
-         {id: '11',
-         label: 'Forensics',},
-         {id: '12',
-         label: 'Reporting Tools',},
-      ];
     {/*
     const [data, setData] = useState([]);
 
@@ -66,43 +70,17 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
             color: theme.palette.common.black,
           },
         [`& .${tooltipClasses.tooltip}`]: {
-        backgroundColor: theme.palette.common.white,
-        color: 'rgba(0, 0, 0, 0.87)',
-        boxShadow: theme.shadows[1],
-        fontSize: 15,
-        border: `1px solid ${theme.palette.grey[700]}`,
-        borderRadius: theme.shape.borderRadius,
-        padding: '5px'
+            backgroundColor: '#f5f5f9',
+            color: 'rgba(0, 0, 0, 0.87)',
+            maxWidth: 220,
+            fontSize: theme.typography.pxToRem(12),
+            border: '1px solid #dadde9',
+            maxWidth: 'none',
+            fontFamily: 'consoles', // 원하는 폰트 패밀리로 변경
+            fontWeight: 600
         },
     }));
 
-    const RenderTree = ({nodes, onSelect}) => (
-        <TreeItem 
-        key={categoryList.id} 
-        nodeId={categoryList.id}
-        label={
-        <Typography sx={{ fontSize: 19 , fontFamily: 'Verdana', pt: 0.5, pb: 0.5}}>{categoryList.label}</Typography>}
-        onClick={() => nodes.id>1 ? onSelect(nodes.id, nodes.label) : 0}
-        >
-        {/* id값으로 제일 상단의 트리아이템은 안불러오도록 지정?
-            이렇게 해도 됨? */}
-
-        {Array.isArray(nodes.children)
-    ? nodes.children.map((node) => (
-        <RenderTree
-            nodes={{
-            ...node,
-            label: (
-                <Typography sx={{ fontSize: 15, fontFamily: 'Verdana'}}>{node.label}</Typography>
-            ),
-            }}
-            onSelect={onSelect}
-            key={node.id}
-        />
-        ))
-    : null}
-    </TreeItem>
-);
     
 const style = {
     position: 'absolute',
@@ -133,7 +111,32 @@ function Tools(){
     const [isEditing, setIsEditing] = useState(false);
     const [editedWiki, setEditedWiki] = useState(ToolWiki);
     const [toollist, setToollist] = useState([]);
+
+    const [category, setCategory] = useState('');
+    const [tool, setTool] = useState('');
+
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+      PaperProps: {
+        style: {
+          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+          width: 250,
+        },
+      },
+    };
+
+    const handleChange1 = (event) => {
+        setCategory(event.target.value);
+        ToolList(event.target.value);
+      };
   
+      const HandleChange2 = (event) => {
+        const selectedTool = event.target.value;
+        setTool(selectedTool);
+        handleSelect(event.target.value);
+      };
+ 
     const ToolList = async (category) => {
         try {
             const response = await axios.get('/tools/category/' + category);
@@ -147,7 +150,8 @@ function Tools(){
           } catch (error) {
             console.error('Tool:', error);
           }
-      };
+      }; 
+
 
     const handleEdit = () => {
       setIsEditing(true);
@@ -279,48 +283,62 @@ function Tools(){
             </div>
             <div className = 'division-line'></div>
             <div className='container-body1'>
-                <div className='toolbox-left'>
-                    
-                    <div className='tools-title'>
+
+            <div className='toolbox-left'>
+            <div className='tools-title'>
                      TOOLS LIST
                     </div>
                     <div className = 'tool-division-line2'></div>
-                    <TreeView
-                        aria-label="file system navigator"
-                        defaultCollapseIcon={<ExpandMoreIcon />}
-                        defaultExpandIcon={<ChevronRightIcon />}
-                        sx={{ height: '95%', flexGrow: 1, width: '100%', overflowY:'auto', overflowX: 'hidden'}}
+                <div className='tool-box-select'> 
+                    <FormControl sx={{ m: 1, width: 270, bgcolor: 'white'}}>
+                        <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={category}
+                        label="Category"
+                        onChange={handleChange1}
+                        MenuProps={MenuProps}
+                        sx={{ maxHeight: '50px', fontSize: '16px'}}
                         >
                         {categoryList.map((item) => (
-                            <TreeItem key={item.id} 
-                            nodeId={item.id}
-                            label={
-                            <Typography sx={{ fontSize: 18 , fontFamily: 'Verdana', pt: 0.5, pb: 0.5}}>{item.label}</Typography>}
-                            onClick={()=>ToolList(12)}> 
-                                {toollist.map((data) => (
-                                    <TreeItem nodeId={data.toolIdx} label = {
-                                        <Typography sx={{ fontSize: 15, fontFamily: 'Verdana'}}>{data.toolName}</Typography>
-                                }></TreeItem>
-                                ))}
-
-                                {/* {data.map((node) => (
-                            <RenderTree nodes={node} onSelect={handleSelect} key={node.id} />
-                            ))} */}
-
-                            </TreeItem>
+                            <MenuItem value={item.id}> {item.label}</MenuItem>
                         ))}
-                            
-                    </TreeView> 
-                    <div className = 'tool-division-line2'></div>
-                </div>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl sx={{ m: 1, width: 270, bgcolor: 'white'}}>
+                        <InputLabel id="demo-simple-select-label">Tool</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={tool}
+                        label="Tool"
+                        onChange={HandleChange2}
+                        MenuProps={MenuProps}
+                        sx={{ maxHeight: '50px', fontSize: '16px' }}
+                        >
+                        {toollist.map((item) => (
+                            <MenuItem value={item.toolIdx}> {item.toolName}</MenuItem>
+                        ))}
+                        </Select>
+                    </FormControl>
+                    </div>
+                <div className = 'tool-division-line2'></div>
+            </div>
+                
                 <div className='toolbox-right'>
                     <div className='tool-container-top'>
-                    <LightTooltip title={Toolcode} placement="top-start" arrow>
+                    <LightTooltip title={
+                        <React.Fragment>
+                            <Typography color="black" fontSize={"15px"} fontFamily="consolas" fontWeight={"700"}>AML Code</Typography>
+                            {Toolcode}
+                        </React.Fragment>
+                        } placement="top-start" arrow>
                         <Button sx={{color: "black", fontSize:"20px"}}>{selectedLabel}</Button>
                     </LightTooltip>
                        
                         <div className='tool-container-right'>
-                         <Button sx={{color: '#000000'}}>edit</Button>
                          <IconButton aria-label="bookmark">
                             <BookmarkBorderIcon sx={{width: 40, height: 40}} />
                         </IconButton>
