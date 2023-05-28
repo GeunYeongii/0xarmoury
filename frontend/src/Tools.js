@@ -161,19 +161,30 @@ function Tools(){
       setEditedWiki(ToolWiki);
     };
   
+   
     const handleSave = () => {
         // 수정된 정보를 서버로 전송
         const updatedData = {
-          id: selectedId, // 수정한 데이터의 id
-          wiki: editedWiki, // 수정한 내용
+          toolIdx: selectedId, // 수정한 데이터의 id
+          wikiInfo: editedWiki, // 수정한 내용
         };
       
-        axios.put('API 위키 수정', updatedData)
+        axios.post('/tools/update/wiki', updatedData,{
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            })
           .then(response => {
             // 서버 응답 처리
-            console.log(response.data);
-            setToolWiki(editedWiki); // 수정한 내용으로 업데이트
-            setIsEditing(false); // 편집 모드 종료
+            if(response.data.isSuccess)
+            {
+                console.log(response.data);
+                setToolWiki(editedWiki); // 수정한 내용으로 업데이트
+                setIsEditing(false); // 편집 모드 종료
+            }
+            else{
+                alert('마스터 등급만 위키 수정이 가능해요~');
+            }
           })
           .catch(error => {
             // 오류 처리
