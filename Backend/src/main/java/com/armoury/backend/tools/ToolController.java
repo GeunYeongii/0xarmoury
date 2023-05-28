@@ -3,10 +3,7 @@ package com.armoury.backend.tools;
 import com.armoury.backend.config.BaseException;
 import com.armoury.backend.config.BaseResponse;
 import com.armoury.backend.config.BaseResponseStatus;
-import com.armoury.backend.tools.model.GetCategoryRes;
-import com.armoury.backend.tools.model.GetToolRes;
-import com.armoury.backend.tools.model.GetToolSumInfoRes;
-import com.armoury.backend.tools.model.PostWikiReq;
+import com.armoury.backend.tools.model.*;
 import com.armoury.backend.utils.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -107,6 +104,18 @@ public class ToolController {
     public BaseResponse<List<GetCategoryRes>> getCategoryAll (){
         try{
             List<GetCategoryRes> list = toolProvider.getCategoryAll();
+            return new BaseResponse<>(list);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @Operation(summary = "공격 도구에 대한 마이터 정보 조회", description = "칼리 기능 카테고리 기반으로 작성되었습니다.")
+    @GetMapping("/mitreInfo/{toolIdx}")
+    public BaseResponse<List<GetMitreByAmlRes>> getMitreInfo (@PathVariable("toolIdx")int toolIdx){
+        try{
+            List<GetMitreByAmlRes> list = toolService.getMitreInfo(toolIdx);
             return new BaseResponse<>(list);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));

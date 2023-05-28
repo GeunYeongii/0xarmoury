@@ -3,6 +3,7 @@ package com.armoury.backend.tools;
 import com.armoury.backend.tools.model.GetCategoryRes;
 import com.armoury.backend.tools.model.GetToolRes;
 import com.armoury.backend.tools.model.GetToolSumInfoRes;
+import com.armoury.backend.tools.model.amlData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -89,5 +90,15 @@ public class ToolDao {
     public int getUserBadge(int userIdx){
         String getQuery = "SELECT badge FROM User WHERE userIdx = ?";
         return this.jdbcTemplate.queryForObject(getQuery, int.class, userIdx);
+    }
+
+    public amlData getTechniqueByAmlData(int tacticCode, int rn) {
+        String getQuery = "SELECT techniqueName, techId FROM MitreMatrix WHERE tacticCode = ? AND rowNum = ?";
+        Object[] params = new Object[]{tacticCode, rn};
+        return this.jdbcTemplate.queryForObject(getQuery,
+                (rs, rowNum) -> new amlData (
+                        rs.getString("techniqueName"),
+                        rs.getString("techId")
+                ), params);
     }
 }
