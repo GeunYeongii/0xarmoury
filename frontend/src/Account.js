@@ -17,28 +17,69 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  flexGrow: 1,
-}));
-
 
 function Account(){
+	const [UserId, setUserId] = useState(localStorage.getItem("userId"));
+
+	const [formData, setFormData] = useState({
+		nickName:localStorage.getItem("nickName"),
+		email: localStorage.getItem("email"),
+		pwd: "1234"
+	});
+
+	const handleInputChange = event => {
+        const { name, value } = event.target;
+        setFormData(prevState => ({
+          ...prevState,
+          [name]: value
+        }));
+      };
+
+
     const Logout = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
     }
-	
 
+	useEffect(() => {
+		axios.get(`/users/${UserId}`)
+		  .then(function (response) {
+			if (response.data.isSuccess) {
+			  console.log(response, '성공');
+			  const { email, nickName } = response.data.result;
+			  setFormData(prevFormData => ({
+				...prevFormData,
+				email,
+				nickName
+			  }));
+			} else {
+			  console.log('error');
+			}
+		  });
+	  }, []);
+
+	  const handleSubmit = () => {
+		// post
+		axios.patch(`/users/${UserId}`, formData, {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            })
+		  .then(function (response) {
+			if (response.data.isSuccess) {
+			  console.log(response, '성공');
+			  localStorage.setItem("email", formData.email);
+			  localStorage.setItem("nickName", formData.nickName);
+			  
+			} else {
+			  console.log('error');
+			}
+		  })
+	  };
+	  
+	
+	  
     return(
         <div>
             <div className='container-right'>
@@ -161,14 +202,61 @@ function Account(){
 						
 					<div className='Page-Title'>Account</div>
 					<div className='Account-division-line'></div>
-					<Box sx={{ width: '80%' }}>
-						<Stack spacing={{ xs: 2, sm: 1 }} direction="row" useFlexGap flexWrap="wrap">
-							<Item>Long content</Item>
-							<Item>Item 1</Item>
-							<Item>Item 2</Item>
-						</Stack>
-					</Box>
-			
+						<div className='Account-info-title'>Nickname</div>
+						<div className='Textfield'>
+						<TextField
+						margin="normal"
+						fullWidth
+						id="nickName"
+						name="nickName"
+						defaultValue = {formData.nickName}
+						onChange={handleInputChange}
+						/>
+						<div className='Account-info-title'>Email</div>
+						<TextField
+						margin="normal"
+						fullWidth
+						name="email"
+						id="email"
+						defaultValue = {formData.email}
+						onChange={handleInputChange}
+						/>
+						<div className='Account-info-title'>Password</div>
+						<TextField
+						margin="normal"
+						required
+						fullWidth
+						name="pwd"
+						label="pwd"
+						type="password"
+						id="pwd"
+						autoComplete="current-password"
+						defaultValue = {formData.pwd}
+						
+						onChange={handleInputChange}
+						/>
+						<Button variant="outlined" style={{ 
+						color: '#FF5C60', 
+						borderColor: '#FF5C60', 
+						fontSize: '11px',
+						justifyContent:"flex-start", 
+						fontWeight: '700',
+						marginTop:'20px',
+						marginRight: '10px'
+						}}>
+						Discard Changes
+					</Button>
+					<Button onClick={handleSubmit} variant="outlined" style={{ 
+						color: '#0000FF', 
+						borderColor: '#0000FF',
+						fontSize: '11px',
+						marginTop:'20px',
+						fontWeight : "700"
+						}}>
+						Save Changes
+					</Button>
+						</div>
+						
 				</div>
 			</div>
 		</div>

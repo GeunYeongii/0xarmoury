@@ -164,7 +164,7 @@ function ToolUpload(){
                 </Button>
                     
                 <h4>Settings</h4>
-                <Button variant="outlined" size="large" style={{width:"60%"}} sx={{
+                <Button href="/Account"variant="outlined" size="large" style={{width:"60%"}} sx={{
                     color:"black",
                     borderColor:"black",
                     ":hover": { borderColor: "black" },
