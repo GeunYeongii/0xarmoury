@@ -142,22 +142,36 @@ function Matrix(){
     const theme = useTheme();
     const [activeItemIds, setActiveItemIds] = useState([]);
      
-    useEffect(() => {
-      // 서버에서 받아온 데이터 예시
-      const simulatedServerData = { itemIds: ['RC-1', 'RC-3', 'RC-10'] };
-  
-      // 서버에서 받아온 아이템 식별자로 활성 아이템 설정
-      setActiveItemIds(simulatedServerData.itemIds);
-    }, []);
 
     const handleChange1 = (event) => {
       setCategory(event.target.value);
       ToolList(event.target.value);
     };
 
-    const handleChange2 = (event) => {
-      setTool(event.target.value); //=> tool select 박스 반영되도록 수정
+    const HandleChange2 = (event) => {
+      const selectedTool = event.target.value;
+      setTool(selectedTool);
     };
+
+    useEffect(() => {
+      if (tool) {
+        axios
+          .get(`/tools/AML/${tool}`)
+          .then(function (response) {
+            if(response.data.isSuccess){
+              const result = response.data.result;
+              const simulatedServerData = { itemIds: result };
+              setActiveItemIds(simulatedServerData.itemIds);
+            }
+            else{
+              console.log('error');
+            }
+          })
+          .catch(function (error) {
+            // Error handling
+          });
+      }
+    }, [tool]);
 
     const CircularJSON = require('circular-json');
 
@@ -274,7 +288,7 @@ function Matrix(){
                   id="demo-simple-select"
                   value={tool}
                   label="Tool"
-                  onChange={handleChange2}
+                  onChange={HandleChange2}
                   MenuProps={MenuProps}
                   sx={{ maxHeight: '45px', fontSize: '15px' }}
                 >
@@ -321,271 +335,271 @@ function Matrix(){
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Acquire Access</Item>
-                          <Item>Acquire Infrastructure</Item>
-                          <Item>Compromise Accounts</Item>
-                          <Item>Compromise Infrastructure</Item>
-                          <Item>Develop Capabilities</Item>
-                          <Item>Establish Accounts</Item>
-                          <Item>Obtain Capabilities</Item>
-                          <Item>Stage Capabilities</Item>
+                          <Item key="RD-1" isActive={activeItemIds.includes('RD-1')}>Acquire Access</Item>
+                          <Item key="RD-2" isActive={activeItemIds.includes('RD-2')}>Acquire Infrastructure</Item>
+                          <Item key="RD-3" isActive={activeItemIds.includes('RD-3')}>Compromise Accounts</Item>
+                          <Item key="RD-4" isActive={activeItemIds.includes('RD-4')}>Compromise Infrastructure</Item>
+                          <Item key="RD-5" isActive={activeItemIds.includes('RD-5')}>Develop Capabilities</Item>
+                          <Item key="RD-6" isActive={activeItemIds.includes('RD-6')}>Establish Accounts</Item>
+                          <Item key="RD-7" isActive={activeItemIds.includes('RD-7')}>Obtain Capabilities</Item>
+                          <Item key="RD-8" isActive={activeItemIds.includes('RD-8')}>Stage Capabilities</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Drive-by Compromise</Item>
-                          <Item>Exploit Public-Facing Application</Item>
-                          <Item>External Remote Services</Item>
-                          <Item>Hardware Additions</Item>
-                          <Item>Phishing</Item>
-                          <Item>Replication Through Removable Media</Item>
-                          <Item>Supply Chain Compromise</Item>
-                          <Item>Trusted Relationship</Item>
-                          <Item>Valid Accounts</Item>
+                          <Item key="IA-1" isActive={activeItemIds.includes('IA-1')}>Drive-by Compromise</Item>
+                          <Item key="IA-2" isActive={activeItemIds.includes('IA-2')}>Exploit Public-Facing Application</Item>
+                          <Item key="IA-3" isActive={activeItemIds.includes('IA-3')}>External Remote Services</Item>
+                          <Item key="IA-4" isActive={activeItemIds.includes('IA-4')}>Hardware Additions</Item>
+                          <Item key="IA-5" isActive={activeItemIds.includes('IA-5')}>Phishing</Item>
+                          <Item key="IA-6" isActive={activeItemIds.includes('IA-6')}>Replication Through Removable Media</Item>
+                          <Item key="IA-7" isActive={activeItemIds.includes('IA-7')}>Supply Chain Compromise</Item>
+                          <Item key="IA-8" isActive={activeItemIds.includes('IA-8')}>Trusted Relationship</Item>
+                          <Item key="IA-9" isActive={activeItemIds.includes('IA-9')}>Valid Accounts</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Cloud Administration Command</Item>
-                          <Item>Command and Scripting Interpreter</Item>
-                          <Item>Container Administration Command</Item>
-                          <Item>Deploy Container</Item>
-                          <Item>Exploitation for Client Execution</Item>
-                          <Item>Inter-Process Communication</Item>
-                          <Item>Native API</Item>
-                          <Item>Scheduled Task/Job</Item>
-                          <Item>Serverless Execution</Item>
-                          <Item>Shared Modules</Item>
-                          <Item>Software Deployment Tools</Item>
-                          <Item>System Services</Item>
-                          <Item>User Execution</Item>
-                          <Item>Windows Management Instrumentation</Item>
+                          <Item key="EX-1" isActive={activeItemIds.includes('EX-1')}>Cloud Administration Command</Item>
+                          <Item key="EX-2" isActive={activeItemIds.includes('EX-2')}>Command and Scripting Interpreter</Item>
+                          <Item key="EX-3" isActive={activeItemIds.includes('EX-3')}>Container Administration Command</Item>
+                          <Item key="EX-4" isActive={activeItemIds.includes('EX-4')}>Deploy Container</Item>
+                          <Item key="EX-5" isActive={activeItemIds.includes('EX-5')}>Exploitation for Client Execution</Item>
+                          <Item key="EX-6" isActive={activeItemIds.includes('EX-6')}>Inter-Process Communication</Item>
+                          <Item key="EX-7" isActive={activeItemIds.includes('EX-7')}>Native API</Item>
+                          <Item key="EX-8" isActive={activeItemIds.includes('EX-8')}>Scheduled Task/Job</Item>
+                          <Item key="EX-9" isActive={activeItemIds.includes('EX-9')}>Serverless Execution</Item>
+                          <Item key="EX-10" isActive={activeItemIds.includes('EX-10')}>Shared Modules</Item>
+                          <Item key="EX-11" isActive={activeItemIds.includes('EX-11')}>Software Deployment Tools</Item>
+                          <Item key="EX-12" isActive={activeItemIds.includes('EX-12')}>System Services</Item>
+                          <Item key="EX-13" isActive={activeItemIds.includes('EX-13')}>User Execution</Item>
+                          <Item key="EX-14" isActive={activeItemIds.includes('EX-14')}>Windows Management Instrumentation</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Account Manipulation</Item>
-                          <Item>BITS Jobs</Item>
-                          <Item>Boot or Logon Autostart Execution</Item>
-                          <Item>Boot or Logon Initialization Scripts</Item>
-                          <Item>Browser Extensions</Item>
-                          <Item>Compromise Client Software Binary</Item>
-                          <Item>Create Account</Item>
-                          <Item>Create or Modify System Process</Item>
-                          <Item>Event Triggered Execution</Item>
-                          <Item>External Remote Services</Item>
-                          <Item>Hijack Execution Flow</Item>
-                          <Item>Implant Internal Image</Item>
-                          <Item>Modify Authentication Process</Item>
-                          <Item>Office Application Startup</Item>
-                          <Item>Pre-OS Boot</Item>
-                          <Item>Scheduled Task/Job</Item>
-                          <Item>Server Software Component</Item>
-                          <Item>Traffic Signaling</Item>
-                          <Item>Valid Accounts</Item>
+                          <Item key="PR-1" isActive={activeItemIds.includes('PR-1')}>Account Manipulation</Item>
+                          <Item key="PR-2" isActive={activeItemIds.includes('PR-2')}>BITS Jobs</Item>
+                          <Item key="PR-3" isActive={activeItemIds.includes('PR-3')}>Boot or Logon Autostart Execution</Item>
+                          <Item key="PR-4" isActive={activeItemIds.includes('PR-4')}>Boot or Logon Initialization Scripts</Item>
+                          <Item key="PR-5" isActive={activeItemIds.includes('PR-5')}>Browser Extensions</Item>
+                          <Item key="PR-6" isActive={activeItemIds.includes('PR-6')}>Compromise Client Software Binary</Item>
+                          <Item key="PR-7" isActive={activeItemIds.includes('PR-7')}>Create Account</Item>
+                          <Item key="PR-8" isActive={activeItemIds.includes('PR-8')}>Create or Modify System Process</Item>
+                          <Item key="PR-9" isActive={activeItemIds.includes('PR-9')}>Event Triggered Execution</Item>
+                          <Item key="PR-10" isActive={activeItemIds.includes('PR-10')}>External Remote Services</Item>
+                          <Item key="PR-11" isActive={activeItemIds.includes('PR-11')}>Hijack Execution Flow</Item>
+                          <Item key="PR-12" isActive={activeItemIds.includes('PR-12')}>Implant Internal Image</Item>
+                          <Item key="PR-13" isActive={activeItemIds.includes('PR-13')}>Modify Authentication Process</Item>
+                          <Item key="PR-14" isActive={activeItemIds.includes('PR-14')}>Office Application Startup</Item>
+                          <Item key="PR-15" isActive={activeItemIds.includes('PR-15')}>Pre-OS Boot</Item>
+                          <Item key="PR-16" isActive={activeItemIds.includes('PR-16')}>Scheduled Task/Job</Item>
+                          <Item key="PR-17" isActive={activeItemIds.includes('PR-17')}>Server Software Component</Item>
+                          <Item key="PR-18" isActive={activeItemIds.includes('PR-18')}>Traffic Signaling</Item>
+                          <Item key="PR-19" isActive={activeItemIds.includes('PR-19')}>Valid Accounts</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Abuse Elevation Control Mechanism</Item>
-                          <Item>Access Token Manipulation</Item>
-                          <Item>Boot or Logon Autostart Execution</Item>
-                          <Item>Boot or Logon Initialization Scripts</Item>
-                          <Item>Create or Modify System Process</Item>
-                          <Item>Domain Policy Modification</Item>
-                          <Item>Escape to Host</Item>
-                          <Item>Event Triggered Execution</Item>
-                          <Item>Exploitation for Privilege Escalation</Item>
-                          <Item>Hijack Execution Flow</Item>
-                          <Item>Process Injection</Item>
-                          <Item>Scheduled Task/Job</Item>
-                          <Item>Valid Accounts</Item>
+                          <Item key="PE-1" isActive={activeItemIds.includes('PE-1')}>Abuse Elevation Control Mechanism</Item>
+                          <Item key="PE-2" isActive={activeItemIds.includes('PE-2')}>Access Token Manipulation</Item>
+                          <Item key="PE-3" isActive={activeItemIds.includes('PE-3')}>Boot or Logon Autostart Execution</Item>
+                          <Item key="PE-4" isActive={activeItemIds.includes('PE-4')}>Boot or Logon Initialization Scripts</Item>
+                          <Item key="PE-5" isActive={activeItemIds.includes('PE-5')}>Create or Modify System Process</Item>
+                          <Item key="PE-6" isActive={activeItemIds.includes('PE-6')}>Domain Policy Modification</Item>
+                          <Item key="PE-7" isActive={activeItemIds.includes('PE-7')}>Escape to Host</Item>
+                          <Item key="PE-8" isActive={activeItemIds.includes('PE-8')}>Event Triggered Execution</Item>
+                          <Item key="PE-9" isActive={activeItemIds.includes('PE-9')}>Exploitation for Privilege Escalation</Item>
+                          <Item key="PE-10" isActive={activeItemIds.includes('PE-10')}>Hijack Execution Flow</Item>
+                          <Item key="PE-11" isActive={activeItemIds.includes('PE-11')}>Process Injection</Item>
+                          <Item key="PE-12" isActive={activeItemIds.includes('PE-12')}>Scheduled Task/Job</Item>
+                          <Item key="PE-13" isActive={activeItemIds.includes('PE-13')}>Valid Accounts</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Abuse Elevation Control Mechanism</Item>
-                          <Item>Access Token Manipulation</Item>
-                          <Item>BITS Jobs</Item>
-                          <Item>Build Image on Host</Item>
-                          <Item>Debugger Evasion</Item>
-                          <Item>Deobfuscate/ Decode Files or Information</Item>
-                          <Item>Deploy Container</Item>
-                          <Item>Direct Volume Access</Item>
-                          <Item>Domain Policy Modification</Item>
-                          <Item>Execution Guardrails</Item>
-                          <Item>Exploitation for Defense Evasion</Item>
-                          <Item>File and Directory Permissions Modification</Item>
-                          <Item>Hide Artifacts</Item>
-                          <Item>Hijack Execution Flow</Item>
-                          <Item>Impair Defenses</Item>
-                          <Item>Indicator Removal</Item>
-                          <Item>Indirect Command Execution</Item>
-                          <Item>Masquerading</Item>
-                          <Item>Modify Authentication Process</Item>
-                          <Item>Modify Cloud Compute Infrastructure</Item>
-                          <Item>Modify Registry</Item>
-                          <Item>Modify System Image</Item>
-                          <Item>Network Boundary Bridging</Item>
-                          <Item>Obfuscated Files or Information</Item>
-                          <Item>Plist File Modification</Item>
-                          <Item>Pre-OS Boot</Item>
-                          <Item>Process Injection</Item>
-                          <Item>Reflective Code Loading</Item>
-                          <Item>Rogue Domain Controller</Item>
-                          <Item>Rootkit</Item>
-                          <Item>Subvert Trust Controls</Item>
-                          <Item>System Binary Proxy Execution</Item>
-                          <Item>System Script Proxy Execution</Item>
-                          <Item>Template Injection</Item>
-                          <Item>Traffic Signaling</Item>
-                          <Item>Trusted Developer Utilities Proxy Execution</Item>
-                          <Item>Unused/ Unsupported Cloud Regions</Item>
-                          <Item>Use Alternate Authentication Material</Item>
-                          <Item>Valid Accounts</Item>
-                          <Item>Virtualization/ Sandbox Evasion</Item>
-                          <Item>Weaken Encryption</Item>
+                          <Item key="DE-1" isActive={activeItemIds.includes('DE-1')}>Abuse Elevation Control Mechanism</Item>
+                          <Item key="DE-2" isActive={activeItemIds.includes('DE-2')}>Access Token Manipulation</Item>
+                          <Item key="DE-3" isActive={activeItemIds.includes('DE-3')}>BITS Jobs</Item>
+                          <Item key="DE-4" isActive={activeItemIds.includes('DE-4')}>Build Image on Host</Item>
+                          <Item key="DE-5" isActive={activeItemIds.includes('DE-5')}>Debugger Evasion</Item>
+                          <Item key="DE-6" isActive={activeItemIds.includes('DE-6')}>Deobfuscate/ Decode Files or Information</Item>
+                          <Item key="DE-7" isActive={activeItemIds.includes('DE-7')}>Deploy Container</Item>
+                          <Item key="DE-8" isActive={activeItemIds.includes('DE-8')}>Direct Volume Access</Item>
+                          <Item key="DE-9" isActive={activeItemIds.includes('DE-9')}>Domain Policy Modification</Item>
+                          <Item key="DE-10" isActive={activeItemIds.includes('DE-10')}>Execution Guardrails</Item>
+                          <Item key="DE-11" isActive={activeItemIds.includes('DE-11')}>Exploitation for Defense Evasion</Item>
+                          <Item key="DE-12" isActive={activeItemIds.includes('DE-12')}>File and Directory Permissions Modification</Item>
+                          <Item key="DE-13" isActive={activeItemIds.includes('DE-13')}>Hide Artifacts</Item>
+                          <Item key="DE-14" isActive={activeItemIds.includes('DE-14')}>Hijack Execution Flow</Item>
+                          <Item key="DE-15" isActive={activeItemIds.includes('DE-15')}>Impair Defenses</Item>
+                          <Item key="DE-16" isActive={activeItemIds.includes('DE-16')}>Indicator Removal</Item>
+                          <Item key="DE-17" isActive={activeItemIds.includes('DE-17')}>Indirect Command Execution</Item>
+                          <Item key="DE-18" isActive={activeItemIds.includes('DE-18')}>Masquerading</Item>
+                          <Item key="DE-19" isActive={activeItemIds.includes('DE-19')}>Modify Authentication Process</Item>
+                          <Item key="DE-20" isActive={activeItemIds.includes('DE-20')}>Modify Cloud Compute Infrastructure</Item>
+                          <Item key="DE-21" isActive={activeItemIds.includes('DE-21')}>Modify Registry</Item>
+                          <Item key="DE-22" isActive={activeItemIds.includes('DE-22')}>Modify System Image</Item>
+                          <Item key="DE-23" isActive={activeItemIds.includes('DE-23')}>Network Boundary Bridging</Item>
+                          <Item key="DE-24" isActive={activeItemIds.includes('DE-24')}>Obfuscated Files or Information</Item>
+                          <Item key="DE-25" isActive={activeItemIds.includes('DE-25')}>Plist File Modification</Item>
+                          <Item key="DE-26" isActive={activeItemIds.includes('DE-26')}>Pre-OS Boot</Item>
+                          <Item key="DE-27" isActive={activeItemIds.includes('DE-27')}>Process Injection</Item>
+                          <Item key="DE-28" isActive={activeItemIds.includes('DE-28')}>Reflective Code Loading</Item>
+                          <Item key="DE-29" isActive={activeItemIds.includes('DE-29')}>Rogue Domain Controller</Item>
+                          <Item key="DE-30" isActive={activeItemIds.includes('DE-30')}>Rootkit</Item>
+                          <Item key="DE-31" isActive={activeItemIds.includes('DE-31')}>Subvert Trust Controls</Item>
+                          <Item key="DE-32" isActive={activeItemIds.includes('DE-32')}>System Binary Proxy Execution</Item>
+                          <Item key="DE-33" isActive={activeItemIds.includes('DE-33')}>System Script Proxy Execution</Item>
+                          <Item key="DE-34" isActive={activeItemIds.includes('DE-34')}>Template Injection</Item>
+                          <Item key="DE-35" isActive={activeItemIds.includes('DE-35')}>Traffic Signaling</Item>
+                          <Item key="DE-36" isActive={activeItemIds.includes('DE-36')}>Trusted Developer Utilities Proxy Execution</Item>
+                          <Item key="DE-37" isActive={activeItemIds.includes('DE-37')}>Unused/ Unsupported Cloud Regions</Item>
+                          <Item key="DE-38" isActive={activeItemIds.includes('DE-38')}>Use Alternate Authentication Material</Item>
+                          <Item key="DE-39" isActive={activeItemIds.includes('DE-39')}>Valid Accounts</Item>
+                          <Item key="DE-40" isActive={activeItemIds.includes('DE-40')}>Virtualization/ Sandbox Evasion</Item>
+                          <Item key="DE-41" isActive={activeItemIds.includes('DE-41')}>Weaken Encryption</Item>
                           <Item>XSL Script Processing</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Adversary-in-the-Middle</Item>
-                          <Item>Brute Force</Item>
-                          <Item>Credentials from Password Stores</Item>
-                          <Item>Exploitation for Credential Access</Item>
-                          <Item>Forced Authentication</Item>
-                          <Item>Forge Web Credentials</Item>
-                          <Item>Input Capture</Item>
-                          <Item>Modify Authentication Process</Item>
-                          <Item>Multi-Factor Authentication Interception</Item>
-                          <Item>Multi-Factor Authentication Request Generation</Item>
-                          <Item>Network Sniffing</Item>
-                          <Item>OS Credential Dumping</Item>
-                          <Item>Steal Application Access Token</Item>
-                          <Item>Steal Web Session Cookie</Item>
-                          <Item>Steal or Forge Authentication Certificates</Item>
-                          <Item>Steal or Forge Kerberos Tickets</Item>
-                          <Item>Unsecured Credentials</Item>
+                          <Item key="CA-1" isActive={activeItemIds.includes('CA-1')}>Adversary-in-the-Middle</Item>
+                          <Item key="CA-2" isActive={activeItemIds.includes('CA-2')}>Brute Force</Item>
+                          <Item key="CA-3" isActive={activeItemIds.includes('CA-3')}>Credentials from Password Stores</Item>
+                          <Item key="CA-4" isActive={activeItemIds.includes('CA-4')}>Exploitation for Credential Access</Item>
+                          <Item key="CA-5" isActive={activeItemIds.includes('CA-5')}>Forced Authentication</Item>
+                          <Item key="CA-6" isActive={activeItemIds.includes('CA-6')}>Forge Web Credentials</Item>
+                          <Item key="CA-7" isActive={activeItemIds.includes('CA-7')}>Input Capture</Item>
+                          <Item key="CA-8" isActive={activeItemIds.includes('CA-8')}>Modify Authentication Process</Item>
+                          <Item key="CA-9" isActive={activeItemIds.includes('CA-9')}>Multi-Factor Authentication Interception</Item>
+                          <Item key="CA-10" isActive={activeItemIds.includes('CA-10')}>Multi-Factor Authentication Request Generation</Item>
+                          <Item key="CA-11" isActive={activeItemIds.includes('CA-11')}>Network Sniffing</Item>
+                          <Item key="CA-12" isActive={activeItemIds.includes('CA-12')}>OS Credential Dumping</Item>
+                          <Item key="CA-13" isActive={activeItemIds.includes('CA-13')}>Steal Application Access Token</Item>
+                          <Item key="CA-14" isActive={activeItemIds.includes('CA-14')}>Steal Web Session Cookie</Item>
+                          <Item key="CA-15" isActive={activeItemIds.includes('CA-15')}>Steal or Forge Authentication Certificates</Item>
+                          <Item key="CA-16" isActive={activeItemIds.includes('CA-16')}>Steal or Forge Kerberos Tickets</Item>
+                          <Item key="CA-17" isActive={activeItemIds.includes('CA-17')}>Unsecured Credentials</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Account Discovery</Item>
-                          <Item>Application Window Discovery</Item>
-                          <Item>Browser Information Discovery</Item>
-                          <Item>Cloud Infrastructure Discovery</Item>
-                          <Item>Cloud Service Dashboard</Item>
-                          <Item>Cloud Service Discovery</Item>
-                          <Item>Cloud Storage Object Discovery</Item>
-                          <Item>Container and Resource Discovery</Item>
-                          <Item>Debugger Evasion</Item>
-                          <Item>Device Driver Discovery</Item>
-                          <Item>Domain Trust Discovery</Item>
-                          <Item>File and Directory Discovery</Item>
-                          <Item>Group Policy Discovery</Item>
-                          <Item>Network Service Discovery</Item>
-                          <Item>Network Share Discovery</Item>
-                          <Item>Network Sniffing</Item>
-                          <Item>Password Policy Discovery</Item>
-                          <Item>Peripheral Device Discovery</Item>
-                          <Item>Permission Groups Discovery</Item>
-                          <Item>Process Discovery</Item>
-                          <Item>Query Registry</Item>
-                          <Item>Remote System Discovery</Item>
-                          <Item>Software Discovery</Item>
-                          <Item>System Information Discovery</Item>
-                          <Item>System Location Discovery</Item>
-                          <Item>System Network Configuration Discovery</Item>
-                          <Item>System Network Connections Discovery</Item>
-                          <Item>System Owner/ User Discovery</Item>
-                          <Item>System Service Discovery</Item>
-                          <Item>System Time Discovery</Item>
-                          <Item>Virtualization/ Sandbox Evasion</Item>
+                          <Item key="DI-1" isActive={activeItemIds.includes('DI-1')}>Account Discovery</Item>
+                          <Item key="DI-2" isActive={activeItemIds.includes('DI-2')}>Application Window Discovery</Item>
+                          <Item key="DI-3" isActive={activeItemIds.includes('DI-3')}>Browser Information Discovery</Item>
+                          <Item key="DI-4" isActive={activeItemIds.includes('DI-4')}>Cloud Infrastructure Discovery</Item>
+                          <Item key="DI-5" isActive={activeItemIds.includes('DI-5')}>Cloud Service Dashboard</Item>
+                          <Item key="DI-6" isActive={activeItemIds.includes('DI-6')}>Cloud Service Discovery</Item>
+                          <Item key="DI-7" isActive={activeItemIds.includes('DI-7')}>Cloud Storage Object Discovery</Item>
+                          <Item key="DI-8" isActive={activeItemIds.includes('DI-8')}>Container and Resource Discovery</Item>
+                          <Item key="DI-9" isActive={activeItemIds.includes('DI-9')}>Debugger Evasion</Item>
+                          <Item key="DI-10" isActive={activeItemIds.includes('DI-10')}>Device Driver Discovery</Item>
+                          <Item key="DI-11" isActive={activeItemIds.includes('DI-11')}>Domain Trust Discovery</Item>
+                          <Item key="DI-12" isActive={activeItemIds.includes('DI-12')}>File and Directory Discovery</Item>
+                          <Item key="DI-13" isActive={activeItemIds.includes('DI-13')}>Group Policy Discovery</Item>
+                          <Item key="DI-14" isActive={activeItemIds.includes('DI-14')}>Network Service Discovery</Item>
+                          <Item key="DI-15" isActive={activeItemIds.includes('DI-15')}>Network Share Discovery</Item>
+                          <Item key="DI-16" isActive={activeItemIds.includes('DI-16')}>Network Sniffing</Item>
+                          <Item key="DI-17" isActive={activeItemIds.includes('DI-17')}>Password Policy Discovery</Item>
+                          <Item key="DI-18" isActive={activeItemIds.includes('DI-18')}>Peripheral Device Discovery</Item>
+                          <Item key="DI-19" isActive={activeItemIds.includes('DI-19')}>Permission Groups Discovery</Item>
+                          <Item key="DI-20" isActive={activeItemIds.includes('DI-20')}>Process Discovery</Item>
+                          <Item key="DI-21" isActive={activeItemIds.includes('DI-21')}>Query Registry</Item>
+                          <Item key="DI-22" isActive={activeItemIds.includes('DI-22')}>Remote System Discovery</Item>
+                          <Item key="DI-23" isActive={activeItemIds.includes('DI-23')}>Software Discovery</Item>
+                          <Item key="DI-24" isActive={activeItemIds.includes('DI-24')}>System Information Discovery</Item>
+                          <Item key="DI-25" isActive={activeItemIds.includes('DI-25')}>System Location Discovery</Item>
+                          <Item key="DI-26" isActive={activeItemIds.includes('DI-26')}>System Network Configuration Discovery</Item>
+                          <Item key="DI-27" isActive={activeItemIds.includes('DI-27')}>System Network Connections Discovery</Item>
+                          <Item key="DI-28" isActive={activeItemIds.includes('DI-28')}>System Owner/ User Discovery</Item>
+                          <Item key="DI-29" isActive={activeItemIds.includes('DI-29')}>System Service Discovery</Item>
+                          <Item key="DI-30" isActive={activeItemIds.includes('DI-30')}>System Time Discovery</Item>
+                          <Item key="DI-31" isActive={activeItemIds.includes('DI-31')}>Virtualization/ Sandbox Evasion</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Exploitation of Remote Services</Item>
-                          <Item>Internal Spearphishing</Item>
-                          <Item>Lateral Tool Transfer</Item>
-                          <Item>Remote Service Session Hijacking</Item>
-                          <Item>Remote Services</Item>
-                          <Item>Replication Through Removable Media</Item>
-                          <Item>Software Deployment Tools</Item>
-                          <Item>Taint Shared Content</Item>
-                          <Item>Use Alternate Authentication Material</Item>
+                          <Item key="LM-1" isActive={activeItemIds.includes('LM-1')}>Exploitation of Remote Services</Item>
+                          <Item key="LM-2" isActive={activeItemIds.includes('LM-2')}>Internal Spearphishing</Item>
+                          <Item key="LM-3" isActive={activeItemIds.includes('LM-3')}>Lateral Tool Transfer</Item>
+                          <Item key="LM-4" isActive={activeItemIds.includes('LM-4')}>Remote Service Session Hijacking</Item>
+                          <Item key="LM-5" isActive={activeItemIds.includes('LM-5')}>Remote Services</Item>
+                          <Item key="LM-6" isActive={activeItemIds.includes('LM-6')}>Replication Through Removable Media</Item>
+                          <Item key="LM-7" isActive={activeItemIds.includes('LM-7')}>Software Deployment Tools</Item>
+                          <Item key="LM-8" isActive={activeItemIds.includes('LM-8')}>Taint Shared Content</Item>
+                          <Item key="LM-9" isActive={activeItemIds.includes('LM-9')}>Use Alternate Authentication Material</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Adversary-in-the-Middle</Item>
-                          <Item>Archive Collected Data</Item>
-                          <Item>Audio Capture</Item>
-                          <Item>Automated Collection</Item>
-                          <Item>Browser Session Hijacking</Item>
-                          <Item>Clipboard Data</Item>
-                          <Item>Data Staged</Item>
-                          <Item>Data from Cloud Storage</Item>
-                          <Item>Data from Configuration Repository</Item>
-                          <Item>Data from Information Repositories</Item>
-                          <Item>Data from Local System</Item>
-                          <Item>Data from Network Shared Drive</Item>
-                          <Item>Data from Removable Media</Item>
-                          <Item>Email Collection</Item>
-                          <Item>Input Capture</Item>
-                          <Item>Screen Capture</Item>
-                          <Item>Video Capture</Item>
+                          <Item key="CO-1" isActive={activeItemIds.includes('CO-1')}>Adversary-in-the-Middle</Item>
+                          <Item key="CO-2" isActive={activeItemIds.includes('CO-2')}>Archive Collected Data</Item>
+                          <Item key="CO-3" isActive={activeItemIds.includes('CO-3')}>Audio Capture</Item>
+                          <Item key="CO-4" isActive={activeItemIds.includes('CO-4')}>Automated Collection</Item>
+                          <Item key="CO-5" isActive={activeItemIds.includes('CO-5')}>Browser Session Hijacking</Item>
+                          <Item key="CO-6" isActive={activeItemIds.includes('CO-6')}>Clipboard Data</Item>
+                          <Item key="CO-7" isActive={activeItemIds.includes('CO-7')}>Data Staged</Item>
+                          <Item key="CO-8" isActive={activeItemIds.includes('CO-8')}>Data from Cloud Storage</Item>
+                          <Item key="CO-9" isActive={activeItemIds.includes('CO-9')}>Data from Configuration Repository</Item>
+                          <Item key="CO-10" isActive={activeItemIds.includes('CO-10')}>Data from Information Repositories</Item>
+                          <Item key="CO-11" isActive={activeItemIds.includes('CO-11')}>Data from Local System</Item>
+                          <Item key="CO-12" isActive={activeItemIds.includes('CO-12')}>Data from Network Shared Drive</Item>
+                          <Item key="CO-13" isActive={activeItemIds.includes('CO-13')}>Data from Removable Media</Item>
+                          <Item key="CO-14" isActive={activeItemIds.includes('CO-14')}>Email Collection</Item>
+                          <Item key="CO-15" isActive={activeItemIds.includes('CO-15')}>Input Capture</Item>
+                          <Item key="CO-16" isActive={activeItemIds.includes('CO-16')}>Screen Capture</Item>
+                          <Item key="CO-17" isActive={activeItemIds.includes('CO-17')}>Video Capture</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Application Layer Protocol</Item>
-                          <Item>Communication Through Removable Media</Item>
-                          <Item>Data Encoding</Item>
-                          <Item>Data Obfuscation</Item>
-                          <Item>Dynamic Resolution</Item>
-                          <Item>Encrypted Channel</Item>
-                          <Item>Fallback Channels</Item>
-                          <Item>Ingress Tool Transfer</Item>
-                          <Item>Multi-Stage Channels</Item>
-                          <Item>Non-Application Layer Protocol</Item>
-                          <Item>Non-Standard Port</Item>
-                          <Item>Protocol Tunneling</Item>
-                          <Item>Proxy</Item>
-                          <Item>Remote Access Software</Item>
-                          <Item>Traffic Signaling</Item>
-                          <Item>Web Service</Item>
+                          <Item key="EXF-1" isActive={activeItemIds.includes('EXF-1')}>Application Layer Protocol</Item>
+                          <Item key="EXF-2" isActive={activeItemIds.includes('EXF-2')}>Communication Through Removable Media</Item>
+                          <Item key="EXF-3" isActive={activeItemIds.includes('EXF-3')}>Data Encoding</Item>
+                          <Item key="EXF-4" isActive={activeItemIds.includes('EXF-4')}>Data Obfuscation</Item>
+                          <Item key="EXF-5" isActive={activeItemIds.includes('EXF-5')}>Dynamic Resolution</Item>
+                          <Item key="EXF-6" isActive={activeItemIds.includes('EXF-6')}>Encrypted Channel</Item>
+                          <Item key="EXF-7" isActive={activeItemIds.includes('EXF-7')}>Fallback Channels</Item>
+                          <Item key="EXF-8" isActive={activeItemIds.includes('EXF-8')}>Ingress Tool Transfer</Item>
+                          <Item key="EXF-9" isActive={activeItemIds.includes('EXF-9')}>Multi-Stage Channels</Item>
+                          <Item key="EXF-10" isActive={activeItemIds.includes('EXF-10')}>Non-Application Layer Protocol</Item>
+                          <Item key="EXF-11" isActive={activeItemIds.includes('EXF-11')}>Non-Standard Port</Item>
+                          <Item key="EXF-12" isActive={activeItemIds.includes('EXF-12')}>Protocol Tunneling</Item>
+                          <Item key="EXF-13" isActive={activeItemIds.includes('EXF-13')}>Proxy</Item>
+                          <Item key="EXF-14" isActive={activeItemIds.includes('EXF-14')}>Remote Access Software</Item>
+                          <Item key="EXF-15" isActive={activeItemIds.includes('EXF-15')}>Traffic Signaling</Item>
+                          <Item key="EXF-16" isActive={activeItemIds.includes('EXF-16')}>Web Service</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1  }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Automated Exfiltration</Item>
-                          <Item>Data Transfer Size Limits</Item>
-                          <Item>Exfiltration Over Alternative Protocol</Item>
-                          <Item>Exfiltration Over C2 Channel</Item>
-                          <Item>Exfiltration Over Other Network Medium</Item>
-                          <Item>Exfiltration Over Physical Medium</Item>
-                          <Item>Exfiltration Over Web Service</Item>
-                          <Item>Scheduled Transfer</Item>
-                          <Item>Transfer Data to Cloud Account</Item>
+                          <Item key="C2-1" isActive={activeItemIds.includes('C2-1')}>Automated Exfiltration</Item>
+                          <Item key="C2-2" isActive={activeItemIds.includes('C2-2')}>Data Transfer Size Limits</Item>
+                          <Item key="C2-3" isActive={activeItemIds.includes('C2-3')}>Exfiltration Over Alternative Protocol</Item>
+                          <Item key="C2-4" isActive={activeItemIds.includes('C2-4')}>Exfiltration Over C2 Channel</Item>
+                          <Item key="C2-5" isActive={activeItemIds.includes('C2-5')}>Exfiltration Over Other Network Medium</Item>
+                          <Item key="C2-6" isActive={activeItemIds.includes('C2-6')}>Exfiltration Over Physical Medium</Item>
+                          <Item key="C2-7" isActive={activeItemIds.includes('C2-7')}>Exfiltration Over Web Service</Item>
+                          <Item key="C2-8" isActive={activeItemIds.includes('C2-8')}>Scheduled Transfer</Item>
+                          <Item key="C2-9" isActive={activeItemIds.includes('C2-9')}>Transfer Data to Cloud Account</Item>
                         </Stack>
                       </Box>
                       <Box sx={{ width: 110, margin: 1 }}>
                         <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-                          <Item>Account Access Removal</Item>
-                          <Item>Data Destruction</Item>
-                          <Item>Data Encrypted for Impact</Item>
-                          <Item>Data Manipulation</Item>
-                          <Item>Defacement</Item>
-                          <Item>Disk Wipe</Item>
-                          <Item>Endpoint Denial of Service</Item>
-                          <Item>Firmware Corruption</Item>
-                          <Item>Inhibit System Recovery</Item>
-                          <Item>Network Denial of Service</Item>
-                          <Item>Resource Hijacking</Item>
-                          <Item>Service Stop</Item>
-                          <Item>System Shutdown/ Reboot</Item>
+                          <Item key="IM-1" isActive={activeItemIds.includes('IM-1')}>Account Access Removal</Item>
+                          <Item key="IM-2" isActive={activeItemIds.includes('IM-2')}>Data Destruction</Item>
+                          <Item key="IM-3" isActive={activeItemIds.includes('IM-3')}>Data Encrypted for Impact</Item>
+                          <Item key="IM-4" isActive={activeItemIds.includes('IM-4')}>Data Manipulation</Item>
+                          <Item key="IM-5" isActive={activeItemIds.includes('IM-5')}>Defacement</Item>
+                          <Item key="IM-6" isActive={activeItemIds.includes('IM-6')}>Disk Wipe</Item>
+                          <Item key="IM-7" isActive={activeItemIds.includes('IM-7')}>Endpoint Denial of Service</Item>
+                          <Item key="IM-8" isActive={activeItemIds.includes('IM-8')}>Firmware Corruption</Item>
+                          <Item key="IM-9" isActive={activeItemIds.includes('IM-9')}>Inhibit System Recovery</Item>
+                          <Item key="IM-10" isActive={activeItemIds.includes('IM-10')}>Network Denial of Service</Item>
+                          <Item key="IM-11" isActive={activeItemIds.includes('IM-11')}>Resource Hijacking</Item>
+                          <Item key="IM-12" isActive={activeItemIds.includes('IM-12')}>Service Stop</Item>
+                          <Item key="IM-13" isActive={activeItemIds.includes('IM-13')}>System Shutdown/ Reboot</Item>
                         </Stack>
                       </Box>
                     </div>
