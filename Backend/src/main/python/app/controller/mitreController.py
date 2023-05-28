@@ -3,19 +3,7 @@ from pyattck import Attck
 
 
 mitre = Blueprint("mitre", __name__, url_prefix="/mitre")
-attck = Attck(
-    nested_techniques=True,
-    use_config=False,
-    save_config=False,
-    config_file_path='~/pyattck/config.yml',
-    data_path='~/pyattck/data',
-    enterprise_attck_json="https://swimlane-pyattck.s3.us-west-2.amazonaws.com/merged_enterprise_attck_v1.json",
-    pre_attck_json="https://swimlane-pyattck.s3.us-west-2.amazonaws.com/merged_pre_attck_v1.json",
-    mobile_attck_json="https://swimlane-pyattck.s3.us-west-2.amazonaws.com/merged_mobile_attck_v1.json",
-    ics_attck_json="https://swimlane-pyattck.s3.us-west-2.amazonaws.com/merged_ics_attck_v1.json",
-    nist_controls_json="https://swimlane-pyattck.s3.us-west-2.amazonaws.com/merged_nist_controls_v1.json",
-    generated_nist_json="https://swimlane-pyattck.s3.us-west-2.amazonaws.com/attck_to_nist_controls.json"
-)
+attack = Attck()
 
 @mitre.route("/test",methods=['GET'])
 def get_mitreTest():
@@ -36,7 +24,7 @@ def get_techniques():
   print('== MITRE ATT&CK ==')
   try:
     techniques = attack.enterprise.techniques
-    data = {'attackID': techniques[0].id, 'attackName' : techniques[0].name}
+    data = {'attackID': techniques.id, 'attackName' : techniques.name}
     Result = { 'code' : 200, 'data' : data }
     return jsonify(Result)
 
@@ -44,3 +32,29 @@ def get_techniques():
     print(e)
     Result = { 'code' : 500}
     return jsonify(Result)
+
+
+@mitre.route("/getIdByName", methods=['POST'])
+def get_technique_id():
+    try:
+        data = request.get_json()
+        technique_name = data.get('techniqueName')
+
+        techniques = attack.enterprise.techniques
+        for technique in techniques:
+            if technique.name == technique_name:
+                result = {
+                    'code': 200,
+                    'techniqueID': technique.id,
+                    'techniqueName': technique.name
+                }
+                return jsonify(result)
+
+        # If the technique name is not found
+        result = {'code': 404, 'message': 'Technique not found'}
+        return jsonify(result)
+
+    except Exception as e:
+        print(e)
+        result = {'code': 500, 'message': 'Internal server error'}
+        return jsonify(result)
