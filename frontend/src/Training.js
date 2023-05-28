@@ -188,7 +188,7 @@ function MainPage(){
             <div className='container-body1' >
                 <div className='training-left'>
                 <div className='tools-title'>
-                     TOOLS LIST
+                     SCENARIO LIST
                 </div>
                     <div className = 'tool-division-line2'></div>
                     <div className='tool-box-select'> 
@@ -234,7 +234,7 @@ function MainPage(){
                         <div className='training-scenario-title'>{selectedLabel}</div> 
                     </div>
                     <div className='training-box-content'>
-                        <Card sx={{ minWidth: 1200, minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
+                        <Card sx={{ width: '100%', minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
                             <CardContent>
                                 <div className='training-scenario-top'>
                                     <div className='training-scenario-title'>
@@ -254,7 +254,7 @@ function MainPage(){
                                 <Button variant="contained" sx={{ width: 150, height: 50, fontSize: 18, fontWeight: 500, borderRadius: 2}}>Answer</Button>
                             </CardActions>
                         </Card>
-                        <Card sx={{ minWidth: 1300, minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
+                        <Card sx={{ width: '100%', minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
                             <CardContent>
                                 <div className='training-scenario-top'>
                                     <div className='training-scenario-title'>
@@ -274,7 +274,7 @@ function MainPage(){
                                 <Button variant="contained" sx={{ width: 150, height: 50, fontSize: 18, fontWeight: 500, borderRadius: 2}}>Answer</Button>
                             </CardActions>
                         </Card>
-                        <Card sx={{ minWidth: 1300, minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
+                        <Card sx={{ width: '100%', minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
                             <CardContent>
                                 <div className='training-scenario-top'>
                                     <div className='training-scenario-title'>
@@ -294,7 +294,7 @@ function MainPage(){
                                 <Button variant="contained" sx={{ width: 150, height: 50, fontSize: 18, fontWeight: 500, borderRadius: 2}}>Answer</Button>
                             </CardActions>
                         </Card>
-                        <Card sx={{ minWidth: 1300, minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
+                        <Card sx={{ width: '100%', minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
                             <CardContent>
                                 <div className='training-scenario-top'>
                                     <div className='training-scenario-title'>
