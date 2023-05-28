@@ -188,7 +188,7 @@ function GalleryDetail(){
                             <Link href ="../Matrix" color='#000000'>Matrix</Link>
                             <Link href="../Tools" color='#000000'>Tools</Link>
                             <Link href ="../Training" color='#000000'>Training</Link>
-                            <Link href ="../Gallery" sx={{ color: data.share === 0 ? 'black' : '#0042ED', textDecorationColor: data.share === 0 ? '#848484' : '#0042ED',}}>Gallery</Link>
+                            <Link href ="../Gallery" color='#0042ED'>Gallery</Link>
                             <Link href ="../MyTools" color='#000000'>My page</Link>
                         </div>
                     </div>

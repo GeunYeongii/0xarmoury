@@ -14,6 +14,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import {Pagination} from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 {/**
 const data = [
     { postIdx:7, name: 'Nmap', username: 'user1', date: '2023-05-24' },
@@ -25,10 +26,13 @@ const data = [
   ];
  */}
 
+
 function Gallery(){
      const [galleryList, setGalleryList] = useState([]);
      const [paginationCount, setPaginationCount] = useState(0);
      const [currentPage, setCurrentPage] = useState(1);
+
+     const Navigate = useNavigate();
 
      useEffect(() => {
         fetchPaginationCount();
@@ -42,8 +46,8 @@ function Gallery(){
         } catch (error) {
           console.error('Error fetching pagination count:', error);
         }
-      };
-    
+      };    
+
       const fetchGalleryList = async (pageNum) => {
         try {
           const response = await axios.get(`gallery/toolList/${pageNum}`);
@@ -68,6 +72,13 @@ function Gallery(){
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
+    }
+
+    const loginCheck = (no) =>{
+        if (localStorage.getItem("accessToken") != null)
+            Navigate('./GalleryDetail/' + no);
+        else
+            alert('Please Sign In!');
     }
 
     return(
@@ -137,7 +148,7 @@ function Gallery(){
                 {galleryList.map((item) => (
                     <div key={item.postIdx} className='Tool_name'>
                         <div className='Tool_title'>
-                            <Link href={`./GalleryDetail/${item.postIdx}`} color='#050099'>{item.name}</Link>
+                            <Link onClick={()=>loginCheck(item.postIdx)} color='#050099'>{item.name}</Link>
                             </div>
                             <div className='Tool_info'>
                                 <div>
