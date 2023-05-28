@@ -35,6 +35,7 @@ export default function SignIn() {
           localStorage.setItem("accessToken", response.data.result.jwt);
           localStorage.setItem("userId", response.data.result.userIdx);
           localStorage.setItem("nickName", response.data.result.nickName);
+          localStorage.setItem("email", postData.email);
           Navigate('/');
         }
         else{
