@@ -148,6 +148,15 @@ function ToolUpload(){
             <div className='contents'>
             <div className='Upload-Menu' >
                 <h4>Personalization</h4>
+                <Button href='./MyTools' variant="outlined" size="large" style={{width:"60%"}} sx={{
+                        color:"black",
+                        borderColor:"black",
+                        ":hover": { borderColor: "black" },
+                        boxShadow: 2,
+                        marginBottom: "20px",
+                    }}startIcon={<BuildIcon sx={{color: "#0404B4" }}/>}>
+                        My tool             
+                </Button>
                 <Button variant="outlined" size="large" style={{width:"60%"}} sx={{
                     color:"black",
                     borderColor:"black",
@@ -162,18 +171,10 @@ function ToolUpload(){
                     borderColor:"black",
                     ":hover": { borderColor: "black" },
                     boxShadow: 2,
-                    marginBottom: "20px",
                 }}startIcon={<HistoryIcon sx={{color: "#000000" }}/>}>
                     Packaging History           
                 </Button>
-                <Button href='./MyTools' variant="outlined" size="large" style={{width:"60%"}} sx={{
-                        color:"black",
-                        borderColor:"black",
-                        ":hover": { borderColor: "black" },
-                        boxShadow: 2,
-                    }}startIcon={<BuildIcon sx={{color: "#0404B4" }}/>}>
-                        My tool             
-                </Button>
+
                     
                 <h4>Settings</h4>
                 <Button href="/Account"variant="outlined" size="large" style={{width:"60%"}} sx={{

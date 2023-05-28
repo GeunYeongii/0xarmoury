@@ -148,6 +148,15 @@ function Account(){
             <div className='Account-contents'>
 				<div className='Account-Menu' >
 					<h4>Personalization</h4>
+					<Button href='/Mytools' variant="outlined" size="large" style={{width:"60%"}} sx={{
+						color:"black",
+						borderColor:"black",
+						":hover": { borderColor: "black" },
+						boxShadow: 2,
+						marginBottom: "20px",
+					}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
+						My tool             
+					</Button>
 					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
 						color:"black",
 						borderColor:"black",
@@ -166,14 +175,7 @@ function Account(){
 					}}startIcon={<HistoryIcon sx={{color: "#000000" }}/>}>
 						Packaging History           
 					</Button>
-					<Button href='/Mytools' variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-					}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
-						My tool             
-					</Button>
+					
 
 					<h4>Settings</h4>
 					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
