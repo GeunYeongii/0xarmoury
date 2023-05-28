@@ -70,13 +70,14 @@ const categoryList = [
             color: theme.palette.common.black,
           },
         [`& .${tooltipClasses.tooltip}`]: {
-        backgroundColor: theme.palette.common.white,
-        color: 'rgba(0, 0, 0, 0.87)',
-        boxShadow: theme.shadows[1],
-        fontSize: 15,
-        border: `1px solid ${theme.palette.grey[700]}`,
-        borderRadius: theme.shape.borderRadius,
-        padding: '5px'
+            backgroundColor: '#f5f5f9',
+            color: 'rgba(0, 0, 0, 0.87)',
+            maxWidth: 220,
+            fontSize: theme.typography.pxToRem(12),
+            border: '1px solid #dadde9',
+            maxWidth: 'none',
+            fontFamily: 'consoles', // 원하는 폰트 패밀리로 변경
+            fontWeight: 600
         },
     }));
 
@@ -328,7 +329,12 @@ function Tools(){
                 
                 <div className='toolbox-right'>
                     <div className='tool-container-top'>
-                    <LightTooltip title={Toolcode} placement="top-start" arrow>
+                    <LightTooltip title={
+                        <React.Fragment>
+                            <Typography color="black" fontSize={"15px"} fontFamily="consolas" fontWeight={"700"}>AML Code</Typography>
+                            {Toolcode}
+                        </React.Fragment>
+                        } placement="top-start" arrow>
                         <Button sx={{color: "black", fontSize:"20px"}}>{selectedLabel}</Button>
                     </LightTooltip>
                        
