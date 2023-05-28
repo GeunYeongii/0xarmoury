@@ -3,6 +3,7 @@ package com.armoury.backend.tools;
 import com.armoury.backend.config.BaseException;
 import com.armoury.backend.config.BaseResponse;
 import com.armoury.backend.config.BaseResponseStatus;
+import com.armoury.backend.tools.model.GetCategoryRes;
 import com.armoury.backend.tools.model.GetToolRes;
 import com.armoury.backend.tools.model.GetToolSumInfoRes;
 import io.swagger.v3.oas.annotations.Operation;
@@ -86,6 +87,18 @@ public class ToolController {
     public BaseResponse<List<String>> getAMLlByIdx (@RequestParam(required = true) String toolName){
         try{
             List<String> list = toolProvider.getAMLByName(toolName);
+            return new BaseResponse<>(list);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @Operation(summary = "카테고리 조회", description = "칼리 기능 카테고리 기반으로 작성되었습니다.")
+    @GetMapping("/category")
+    public BaseResponse<List<GetCategoryRes>> getCategoryAll (){
+        try{
+            List<GetCategoryRes> list = toolProvider.getCategoryAll();
             return new BaseResponse<>(list);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));

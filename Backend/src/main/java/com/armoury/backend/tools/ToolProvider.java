@@ -1,6 +1,7 @@
 package com.armoury.backend.tools;
 
 import com.armoury.backend.config.BaseException;
+import com.armoury.backend.tools.model.GetCategoryRes;
 import com.armoury.backend.tools.model.GetToolRes;
 import com.armoury.backend.tools.model.GetToolSumInfoRes;
 import org.slf4j.Logger;
@@ -47,6 +48,15 @@ public class ToolProvider {
         try{
             List<GetToolSumInfoRes> getToolRes = toolDao.getSumInfoByCategory(categoryIdx);
             return getToolRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetCategoryRes> getCategoryAll() throws BaseException {
+        try {
+            return toolDao.getCategoryAll();
         }
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
