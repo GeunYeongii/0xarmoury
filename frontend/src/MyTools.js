@@ -21,12 +21,14 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DownloadIcon from '@mui/icons-material/Download';
 import ShareIcon from '@mui/icons-material/Share';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SchoolIcon from '@mui/icons-material/School';
 
 function MyTools(){
 
 	const [galleryList, setGalleryList] = useState([]);
 	const [paginationCount, setPaginationCount] = useState(0);
 	const [currentPage, setCurrentPage] = useState(1);
+	const badge = localStorage.getItem('badge');
 
 	const handleDelete = (postIdx) => {
 		axios.delete(`/gallery/tool/delete/${postIdx}`, {
@@ -91,6 +93,8 @@ function MyTools(){
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+        localStorage.removeItem("badge");
     }
 	
 
@@ -103,7 +107,13 @@ function MyTools(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                        :<div className="sign-container">
+							<div>
+                            <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                            <Link href ="#" color='#000000'>          
+                                {localStorage.getItem('nickName')}
+                            </Link>
+                            </div>
                         <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                     }
                     </div>

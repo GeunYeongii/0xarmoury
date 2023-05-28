@@ -26,6 +26,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import SchoolIcon from '@mui/icons-material/School';
 
 const categoryList = [
     {id: '1',
@@ -111,6 +112,8 @@ function Tools(){
     const [isEditing, setIsEditing] = useState(false);
     const [editedWiki, setEditedWiki] = useState(ToolWiki);
     const [toollist, setToollist] = useState([]);
+
+    const badge = localStorage.getItem('badge');
 
     const [category, setCategory] = useState('');
     const [tool, setTool] = useState('');
@@ -224,6 +227,10 @@ function Tools(){
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+        localStorage.removeItem("badge");
     }
 
     return(
@@ -235,7 +242,13 @@ function Tools(){
                             localStorage.getItem("accessToken") == null
                             ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                             <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                            :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                            :<div className="sign-container">
+                                <div>
+                                    <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                                    <Link href ="#" color='#000000'>          
+                                        {localStorage.getItem('nickName')}
+                                    </Link>
+                                </div>
                             <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                         }
                         </div>

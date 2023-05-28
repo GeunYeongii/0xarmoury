@@ -17,10 +17,11 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import SchoolIcon from '@mui/icons-material/School';
 
 function Account(){
 	const [UserId, setUserId] = useState(localStorage.getItem("userId"));
-
+	const badge = localStorage.getItem('badge');
 	const [formData, setFormData] = useState({
 		nickName:localStorage.getItem("nickName"),
 		email: localStorage.getItem("email"),
@@ -40,6 +41,8 @@ function Account(){
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
+		localStorage.removeItem("email");
+        localStorage.removeItem("badge");
     }
 
 	useEffect(() => {
@@ -89,7 +92,13 @@ function Account(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                        :<div className="sign-container">
+							<div>
+                            <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                            <Link href ="#" color='#000000'>          
+                                {localStorage.getItem('nickName')}
+                            </Link>
+                            </div>
                         <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                     }
                     </div>
@@ -110,9 +119,9 @@ function Account(){
                 <div className='container-right'>
                     <div className='outline-container'>
                         <div className="button-container">
-                            <Link href ="#" color='#000000'>Matric</Link>
+                            <Link href ="./Matrix" color='#000000'>Matrix</Link>
                             <Link href="./Tools" color='#000000'>Tools</Link>
-                            <Link href ="#" color='#000000'>Training</Link>
+                            <Link href ="./Training" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
                             <Link href ="/MyTools" color='#0042ED'>My page</Link>
                         </div>

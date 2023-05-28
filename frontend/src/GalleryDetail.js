@@ -17,11 +17,13 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SchoolIcon from '@mui/icons-material/School';
 
 function GalleryDetail(){
     const [data, setResponse] = useState([]);
     const [comment, setComment] = useState([]);
     const Navigate = useNavigate();
+    const badge = localStorage.getItem('badge');
     
     const {no} = useParams();
 
@@ -152,6 +154,8 @@ function GalleryDetail(){
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+        localStorage.removeItem("badge");
     }
 
 
@@ -164,7 +168,13 @@ function GalleryDetail(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                        :<div className="sign-container">
+                            <div>
+                            <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                            <Link href ="#" color='#000000'>          
+                                {localStorage.getItem('nickName')}
+                            </Link>
+                            </div>
                         <Link href="../" onClick={Logout} color='#000000'>logout</Link></div>
                     }
                     </div>

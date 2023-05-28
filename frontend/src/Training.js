@@ -17,6 +17,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import SchoolIcon from '@mui/icons-material/School';
 
 const categoryList = [
     {id: '1',
@@ -54,6 +55,8 @@ function MainPage(){
 
     const [category, setCategory] = useState('');
     const [scenario, setScenario] = useState('');
+
+    const badge = localStorage.getItem('badge');
 
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
@@ -127,6 +130,8 @@ function MainPage(){
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+        localStorage.removeItem("badge");
     }
 
     return(
@@ -138,7 +143,13 @@ function MainPage(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                        :<div className="sign-container">
+                            <div>
+                            <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                            <Link href ="#" color='#000000'>          
+                                {localStorage.getItem('nickName')}
+                            </Link>
+                            </div>
                         <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                     }
                     </div>
@@ -230,89 +241,30 @@ function MainPage(){
                 </div>
                 <div className='training-right'>
                     <div className='training-box-top'>
-                        <div className='training-line-column'></div>
-                        <div className='training-scenario-title'>{selectedLabel}</div> 
-                    </div>
+                        <div className='training-scenario-title'>{selectedLabel}</div>
+                    </div> 
+                    <div className='training-division-line-top'></div>
                     <div className='training-box-content'>
-                        <Card sx={{ width: '100%', minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
-                            <CardContent>
-                                <div className='training-scenario-top'>
-                                    <div className='training-scenario-title'>
-                                    Step 1.
-                                    </div>
-                                    <div className='training-scenario-title2'>
-                                    network clasification
-                                    </div>
-                                </div>
-                                <div className='training-scenario-text'>
-                                this scenario is ~~~~~~~.<br />
-                                어쩌구 저쩌구 <br />
-                                이건 설명이 들어갈 자리이다다아아아아
-                                </div>
-                            </CardContent>
-                            <CardActions sx={{justifyContent: 'end', mr: 2, mb: 1}}>
-                                <Button variant="contained" sx={{ width: 150, height: 50, fontSize: 18, fontWeight: 500, borderRadius: 2}}>Answer</Button>
-                            </CardActions>
-                        </Card>
-                        <Card sx={{ width: '100%', minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
-                            <CardContent>
-                                <div className='training-scenario-top'>
-                                    <div className='training-scenario-title'>
-                                    Step 2.
-                                    </div>
-                                    <div className='training-scenario-title2'>
-                                    network clasification
-                                    </div>
-                                </div>
-                                <div className='training-scenario-text'>
-                                this scenario is ~~~~~~~.<br />
-                                어쩌구 저쩌구 <br />
-                                이건 설명이 들어갈 자리이다다아아아아
-                                </div>
-                            </CardContent>
-                            <CardActions sx={{justifyContent: 'end', mr: 2, mb: 1}}>
-                                <Button variant="contained" sx={{ width: 150, height: 50, fontSize: 18, fontWeight: 500, borderRadius: 2}}>Answer</Button>
-                            </CardActions>
-                        </Card>
-                        <Card sx={{ width: '100%', minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
-                            <CardContent>
-                                <div className='training-scenario-top'>
-                                    <div className='training-scenario-title'>
-                                    Step 2.
-                                    </div>
-                                    <div className='training-scenario-title2'>
-                                    network clasification
-                                    </div>
-                                </div>
-                                <div className='training-scenario-text'>
-                                this scenario is ~~~~~~~.<br />
-                                어쩌구 저쩌구 <br />
-                                이건 설명이 들어갈 자리이다다아아아아
-                                </div>
-                            </CardContent>
-                            <CardActions sx={{justifyContent: 'end', mr: 2, mb: 1}}>
-                                <Button variant="contained" sx={{ width: 150, height: 50, fontSize: 18, fontWeight: 500, borderRadius: 2}}>Answer</Button>
-                            </CardActions>
-                        </Card>
-                        <Card sx={{ width: '100%', minHeight: 220, backgroundColor: '#F9F9F9', mt: 2, mb: 2 }} elevation={4}>
-                            <CardContent>
-                                <div className='training-scenario-top'>
-                                    <div className='training-scenario-title'>
-                                    Step 2.
-                                    </div>
-                                    <div className='training-scenario-title2'>
-                                    network clasification
-                                    </div>
-                                </div>
-                                <div className='training-scenario-text'>
-                                this scenario is ~~~~~~~.<br />
-                                어쩌구 저쩌구 <br />
-                                이건 설명이 들어갈 자리이다다아아아아
-                                </div>
-                            </CardContent>
-                            <CardActions sx={{justifyContent: 'end', mr: 2, mb: 1}}>
-                                <Button variant="contained" sx={{ width: 150, height: 50, fontSize: 18, fontWeight: 500, borderRadius: 2}}>Answer</Button>
-                            </CardActions>
+                    <Card sx={{ width: '20%', bgcolor: '#F6F6F6' }}>
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            Word of the Day
+                            </Typography>
+                            <Typography variant="h5" component="div">
+                            benevlent
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                            adjective
+                            </Typography>
+                            <Typography variant="body2">
+                            well meaning and kindly.
+                            <br />
+                            {'"a benevolent smile"'}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button size="small">Learn More</Button>
+                        </CardActions>
                         </Card>
                     </div>
                 </div>
