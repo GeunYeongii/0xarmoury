@@ -23,7 +23,7 @@
 }
 
 .toolbox-right {
-  flex: 0.8;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,6 +36,13 @@
   padding: 20px;
   height: 75vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.tool-box-select{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 92%;
 }
 
 .tool-container-top{
