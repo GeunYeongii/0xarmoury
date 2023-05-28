@@ -18,6 +18,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useTheme } from '@mui/material/styles';
+import SchoolIcon from '@mui/icons-material/School';
 
   const Item = styled(Paper)(({ theme, isActive }) => ({
     backgroundColor: isActive ? '#6799FF' : (theme.palette.mode === 'dark' ? '#1A2027' : '#fff'),
@@ -133,6 +134,7 @@ function Matrix(){
     const [selectedLabel, setSelectedLabel] = useState(null);
     const [str, setStr] = useState(null);
     const [selectedDefinition, setSelectedDefinition] = useState(null);
+    const badge = localStorage.getItem('badge');
 
     const [category, setCategory] = useState('');
     const [tool, setTool] = useState('');
@@ -193,6 +195,10 @@ function Matrix(){
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+        localStorage.removeItem("badge");
     }
 
     const ITEM_HEIGHT = 48;
@@ -216,7 +222,13 @@ function Matrix(){
                             localStorage.getItem("accessToken") == null
                             ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                             <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                            :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                            :<div className="sign-container">
+                              <div>
+                                <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                                <Link href ="#" color='#000000'>          
+                                    {localStorage.getItem('nickName')}
+                                </Link>
+                            </div>
                             <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                         }
                         </div>

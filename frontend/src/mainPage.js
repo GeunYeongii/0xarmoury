@@ -8,10 +8,12 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
+import SchoolIcon from '@mui/icons-material/School';
+import { width } from '@mui/system';
 
 function MainPage(){
     const [jsonData, setHello] = useState('')
-
+    const badge = localStorage.getItem('badge');
     {/* 
     useEffect(() => {
       axios.get('/api/test')
@@ -24,6 +26,8 @@ function MainPage(){
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+          localStorage.removeItem("badge");
     }
 
     return(
@@ -35,8 +39,15 @@ function MainPage(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
-                        <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
+                        :<div className="sign-container">
+                            <div>
+                            <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                            <Link href ="#" color='#000000'>          
+                                {localStorage.getItem('nickName')}
+                            </Link>
+                            </div>
+                            <Link href="./" onClick={Logout} color='#000000'>logout</Link>
+                        </div>
                     }
                     </div>
                 </div>

@@ -14,6 +14,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import {Pagination} from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+import SchoolIcon from '@mui/icons-material/School';
 {/**
 const data = [
     { postIdx:7, name: 'Nmap', username: 'user1', date: '2023-05-24' },
@@ -25,10 +27,14 @@ const data = [
   ];
  */}
 
+
 function Gallery(){
      const [galleryList, setGalleryList] = useState([]);
      const [paginationCount, setPaginationCount] = useState(0);
      const [currentPage, setCurrentPage] = useState(1);
+     const badge = localStorage.getItem('badge');
+
+     const Navigate = useNavigate();
 
      useEffect(() => {
         fetchPaginationCount();
@@ -42,8 +48,8 @@ function Gallery(){
         } catch (error) {
           console.error('Error fetching pagination count:', error);
         }
-      };
-    
+      };    
+
       const fetchGalleryList = async (pageNum) => {
         try {
           const response = await axios.get(`gallery/toolList/${pageNum}`);
@@ -68,6 +74,15 @@ function Gallery(){
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+        localStorage.removeItem("badge");
+    }
+
+    const loginCheck = (no) =>{
+        if (localStorage.getItem("accessToken") != null)
+            Navigate('../GalleryDetail/' + no);
+        else
+            alert('Please Sign In!');
     }
 
     return(
@@ -79,7 +94,13 @@ function Gallery(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                        :<div className="sign-container">
+                            <div>
+                            <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                            <Link href ="#" color='#000000'>          
+                                {localStorage.getItem('nickName')}
+                            </Link>
+                            </div>
                         <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                     }
                     </div>
@@ -137,7 +158,7 @@ function Gallery(){
                 {galleryList.map((item) => (
                     <div key={item.postIdx} className='Tool_name'>
                         <div className='Tool_title'>
-                            <Link href={`./GalleryDetail/${item.postIdx}`} color='#050099'>{item.name}</Link>
+                            <Link onClick={()=>loginCheck(item.postIdx)} color='#050099'>{item.name}</Link>
                             </div>
                             <div className='Tool_info'>
                                 <div>

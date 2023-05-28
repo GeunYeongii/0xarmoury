@@ -26,6 +26,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import SchoolIcon from '@mui/icons-material/School';
 
 const categoryList = [
     {id: '1',
@@ -112,6 +113,8 @@ function Tools(){
     const [editedWiki, setEditedWiki] = useState(ToolWiki);
     const [toollist, setToollist] = useState([]);
 
+    const badge = localStorage.getItem('badge');
+
     const [category, setCategory] = useState('');
     const [tool, setTool] = useState('');
 
@@ -158,19 +161,30 @@ function Tools(){
       setEditedWiki(ToolWiki);
     };
   
+   
     const handleSave = () => {
         // 수정된 정보를 서버로 전송
         const updatedData = {
-          id: selectedId, // 수정한 데이터의 id
-          wiki: editedWiki, // 수정한 내용
+          toolIdx: selectedId, // 수정한 데이터의 id
+          wikiInfo: editedWiki, // 수정한 내용
         };
       
-        axios.put('API 위키 수정', updatedData)
+        axios.post('/tools/update/wiki', updatedData,{
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            })
           .then(response => {
             // 서버 응답 처리
-            console.log(response.data);
-            setToolWiki(editedWiki); // 수정한 내용으로 업데이트
-            setIsEditing(false); // 편집 모드 종료
+            if(response.data.isSuccess)
+            {
+                console.log(response.data);
+                setToolWiki(editedWiki); // 수정한 내용으로 업데이트
+                setIsEditing(false); // 편집 모드 종료
+            }
+            else{
+                alert('마스터 등급만 위키 수정이 가능해요~');
+            }
           })
           .catch(error => {
             // 오류 처리
@@ -224,6 +238,10 @@ function Tools(){
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+        localStorage.removeItem("badge");
     }
 
     return(
@@ -235,7 +253,13 @@ function Tools(){
                             localStorage.getItem("accessToken") == null
                             ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                             <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                            :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                            :<div className="sign-container">
+                                <div>
+                                    <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                                    <Link href ="#" color='#000000'>          
+                                        {localStorage.getItem('nickName')}
+                                    </Link>
+                                </div>
                             <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                         }
                         </div>
