@@ -17,6 +17,8 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+
 
 function GalleryDetail(){
     const [data, setResponse] = useState([]);
@@ -33,6 +35,26 @@ function GalleryDetail(){
       }, []);
     */}
 
+    const sendLikeInfo = async (no) => {
+        try {
+          const updatedLike = data.like + 1;
+          const response = await axios.post('api' + no, { like: updatedLike });
+          if(response.data.isSuccess)
+          {
+            setResponse({ ...data, like: updatedLike }); // 업데이트된 좋아요 값 저장
+          }
+          else
+          {
+            alert('좋아요는 한 번만 가능해용~');
+          }
+          console.log(response.data);
+
+        } catch (error) {
+          console.error(error);
+          alert('좋아요는 한 번만 가능해용~');
+        }
+      }
+    
     useEffect(() => {GalleryDetail(no); CommentList(no);});
 
     const GalleryDetail = async (no) => {
@@ -218,9 +240,16 @@ function GalleryDetail(){
                             {data.title}
                         </div>
                         <div className='gallery-title-info'>
-                            <div><AccountCircleIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C'}}/> {data.nickName} </div>
+                            <div><IconButton><AccountCircleIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C'}}/>
+                            </IconButton>{data.nickName}
+                            
+                            {/* 좋아요 버튼 */}
+                            <IconButton onClick={sendLikeInfo}><ThumbUpIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C', marginLeft: "10px"}}/>
+                            </IconButton>{data.like}
+                            </div>
+                            
                             <div className='gallery-title-right'>
-                                {data.postTime}
+                               {data.postTime}
                                 {data.userIdx == localStorage.getItem('userId')
                                 &&<div><IconButton onClick={()=>Navigate('../ToolEdit/'+ no, 
                                     { state: { postIdx: no, 
@@ -235,6 +264,7 @@ function GalleryDetail(){
                                 <IconButton onClick={() => handleDelete()} aria-label="delete" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
                                     <DeleteIcon  />
                                 </IconButton></div>
+                                
                                 }
                             </div>
                         </div>
