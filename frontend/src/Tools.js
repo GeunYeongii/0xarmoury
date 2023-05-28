@@ -23,39 +23,32 @@ import Modal from '@mui/material/Modal';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
-    {/*테스트 용 data */}
-    const data = [
-        {
-          id: '1',
-          label: 'Reconnaissance',
-          children: [
-            { id: '2', label: 'Active Scanning' },
-            { id: '3', label: 'Gather Victim Host Information' },
-          ],
-        },
-        {
-          id: '4',
-          label: 'Resource Development',
-          children: [
-            {
-              id: '5',
-              label: 'Acquire Access',
-            },
-            {
-              id: '6',
-              label: 'Acquire Infrastructure',
-              children: [{ id: '7', label: 'index.js' }],
-            },
-          ],
-        },
-        {
-            id: '7',
-            label: 'Initial Access',
-            children: [
-              { id: '8', label: 'Drive-by Compromise' },
-              { id: '9', label: 'Exploit Public-Facing Application' },
-            ],
-          }
+
+      const categoryList = [
+        {id: '1',
+         label: 'Information Gathering',},
+        {id: '2',
+         label: 'Vulnerability Analysis',},
+        {id: '3',
+         label: 'Web Application Analysis',},
+        {id: '4',
+         label: 'Database Assessment',},
+         {id: '5',
+         label: 'Password Attacks',},
+         {id: '6',
+         label: 'Wireless Attacks',},
+         {id: '7',
+         label: 'Reverse Engineering',},
+         {id: '8',
+         label: 'Exploitation Tools',},
+         {id: '9',
+         label: 'Sniffing & Spoofing',},
+         {id: '10',
+         label: 'Post Exploitation',},
+         {id: '11',
+         label: 'Forensics',},
+         {id: '12',
+         label: 'Reporting Tools',},
       ];
     {/*
     const [data, setData] = useState([]);
@@ -85,10 +78,10 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
     const RenderTree = ({nodes, onSelect}) => (
         <TreeItem 
-        key={nodes.id} 
-        nodeId={nodes.id}
+        key={categoryList.id} 
+        nodeId={categoryList.id}
         label={
-        <Typography sx={{ fontSize: 19 , fontFamily: 'Verdana', pt: 0.5, pb: 0.5}}>{nodes.label}</Typography>}
+        <Typography sx={{ fontSize: 19 , fontFamily: 'Verdana', pt: 0.5, pb: 0.5}}>{categoryList.label}</Typography>}
         onClick={() => nodes.id>1 ? onSelect(nodes.id, nodes.label) : 0}
         >
         {/* id값으로 제일 상단의 트리아이템은 안불러오도록 지정?
@@ -139,7 +132,23 @@ function Tools(){
     const [ToolWiki, setToolWiki] = useState("기본 위키 내용\n여기두");
     const [isEditing, setIsEditing] = useState(false);
     const [editedWiki, setEditedWiki] = useState(ToolWiki);
+    const [toollist, setToollist] = useState([]);
   
+    const ToolList = async (category) => {
+        try {
+            const response = await axios.get('/tools/category/' + category);
+            setToollist(response.data.result);
+  
+            const processedTool = response.data.result.map(item => ({
+                toolIdx: item.toolIdx,
+                toolName: item.toolName,
+              }));
+              setToollist(processedTool);
+          } catch (error) {
+            console.error('Tool:', error);
+          }
+      };
+
     const handleEdit = () => {
       setIsEditing(true);
       setEditedWiki(ToolWiki);
@@ -280,12 +289,26 @@ function Tools(){
                         aria-label="file system navigator"
                         defaultCollapseIcon={<ExpandMoreIcon />}
                         defaultExpandIcon={<ChevronRightIcon />}
-                        sx={{ height: '95%', flexGrow: 1, width: '95%'
-                    }}
+                        sx={{ height: '95%', flexGrow: 1, width: '100%', overflowY:'auto', overflowX: 'hidden'}}
                         >
-                        {data.map((node) => (
+                        {categoryList.map((item) => (
+                            <TreeItem key={item.id} 
+                            nodeId={item.id}
+                            label={
+                            <Typography sx={{ fontSize: 18 , fontFamily: 'Verdana', pt: 0.5, pb: 0.5}}>{item.label}</Typography>}
+                            onClick={()=>ToolList(12)}> 
+                                {toollist.map((data) => (
+                                    <TreeItem nodeId={data.toolIdx} label = {
+                                        <Typography sx={{ fontSize: 15, fontFamily: 'Verdana'}}>{data.toolName}</Typography>
+                                }></TreeItem>
+                                ))}
+
+                                {/* {data.map((node) => (
                             <RenderTree nodes={node} onSelect={handleSelect} key={node.id} />
-                            ))}
+                            ))} */}
+
+                            </TreeItem>
+                        ))}
                             
                     </TreeView> 
                     <div className = 'tool-division-line2'></div>
