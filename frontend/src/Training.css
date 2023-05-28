@@ -1,6 +1,6 @@
 
 .training-left {
-    flex: 0.2;
+    flex: 0.18;
     align-items: center;
     justify-content: center;
     font-size: 24px;
@@ -17,7 +17,7 @@
   }
   
   .training-right {
-    flex: 0.8;
+    flex: 0.82;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,4 +30,73 @@
     padding: 20px;
     height: 75vh;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    
+  }
+
+  .training-box-top{
+    height: 50px;
+    width: 100%;
+    margin-left: 10px;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+  }
+
+  .training-box-content{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y:auto;
+    height: 90vh;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 10px;
+  }
+
+  .training-scenario-top{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .training-scenario-title{
+    font-size: 33px;
+    font-weight: 600;
+    display: flex;
+    justify-content: left;
+  }
+
+  .training-scenario-title2{
+    font-size: 30px;
+    font-weight: 600;
+    margin-left: 15px;
+    margin-top: 3px;
+    display: flex;
+    justify-content: left;
+  }
+
+  .training-scenario-text{
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    justify-content: left;
+    text-align: left;
+  }
+
+  .training-division-line-top{
+    width:100%;
+    border-top: 2px solid #6e6e6e;
+    margin-bottom: 20px;
+  }
+
+  .training-division-line-bottom{
+    width:100%;
+    border-top: 2px solid #6e6e6e;
+    margin-top: 20px;
+  }
+
+  .training-line-column{
+    border-left: 5px solid #3f3f3f;
+    margin: 5px;
+    margin-right: 10px;
   }

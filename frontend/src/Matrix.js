@@ -42,6 +42,22 @@ import { useTheme } from '@mui/material/styles';
          label: 'Web Application Analysis',},
         {id: '4',
          label: 'Database Assessment',},
+         {id: '5',
+         label: 'Password Attacks',},
+         {id: '6',
+         label: 'Wireless Attacks',},
+         {id: '7',
+         label: 'Reverse Engineering',},
+         {id: '8',
+         label: 'Exploitation Tools',},
+         {id: '9',
+         label: 'Sniffing & Spoofing',},
+         {id: '10',
+         label: 'Post Exploitation',},
+         {id: '11',
+         label: 'Forensics',},
+         {id: '12',
+         label: 'Reporting Tools',},
       ];
     {/*
     const [categorylist, setCategorylist] = useState([]);
@@ -81,6 +97,8 @@ import { useTheme } from '@mui/material/styles';
         }
     };
  */}
+
+
     const RenderTree = ({nodes, onSelect}) => (
         <TreeItem 
         key={nodes.id} 
@@ -119,6 +137,8 @@ function Matrix(){
     const [category, setCategory] = useState('');
     const [tool, setTool] = useState('');
 
+    const [toollist, setToollist] = useState([]);
+
     const theme = useTheme();
     const [activeItemIds, setActiveItemIds] = useState([]);
      
@@ -132,6 +152,7 @@ function Matrix(){
 
     const handleChange1 = (event) => {
       setCategory(event.target.value);
+      ToolList(event.target.value);
     };
 
     const handleChange2 = (event) => {
@@ -141,25 +162,19 @@ function Matrix(){
     const CircularJSON = require('circular-json');
 
 
-    const handleSelect = (id, label) => {
-        setSelectedId(id);
-        setSelectedLabel(label);
-        const jsonObject = JSON.parse(CircularJSON.stringify({ label }));
-        // 'children' 있으면 Str에 children value저장
-        if (jsonObject && jsonObject.label && jsonObject.label.props && jsonObject.label.props.children) {
-          setStr(jsonObject.label.props.children);
-        } else {
-            //  'children' 앖으면 Str에 label저장
-          setStr(jsonObject.label);
-        }
+    const ToolList = async (category) => {
+      try {
+          const response = await axios.get('/tools/category/' + category);
+          setToollist(response.data.result);
 
-        /* 정상 작동하는지는 모르겠지만 일단 데이터베이스에서 Definiton받아오는 코드//
-        useEffect(() => {
-            axios.get('/api/data/${id}')
-            .then(response => setSelectedDefinition(response.data))
-            .catch(error => console.log(error))
-        }, []);
-        */
+          const processedTool = response.data.result.map(item => ({
+              toolIdx: item.toolIdx,
+              toolName: item.toolName,
+            }));
+            setToollist(processedTool);
+        } catch (error) {
+          console.error('Tool:', error);
+        }
     };
 
     const Logout = () => {
@@ -263,8 +278,8 @@ function Matrix(){
                   MenuProps={MenuProps}
                   sx={{ maxHeight: '45px', fontSize: '15px' }}
                 >
-                  {testdata.map((item) => (
-                    <MenuItem value={item.id}> {item.label}</MenuItem>
+                  {toollist.map((item) => (
+                    <MenuItem value={item.toolIdx}> {item.toolName}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
