@@ -10,6 +10,6 @@ import lombok.Setter;
 public class PostUserRes {
     private int userIdx;
     private String nickName;
-    private int grade;
+    private int badge;
     private String jwt;
 }
