@@ -1,5 +1,6 @@
 package com.armoury.backend.tools;
 
+import com.armoury.backend.tools.model.GetCategoryRes;
 import com.armoury.backend.tools.model.GetToolRes;
 import com.armoury.backend.tools.model.GetToolSumInfoRes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,15 @@ public class ToolDao {
                         rs.getInt("toolIdx"),
                         rs.getString("toolName")
                 ), categoryIdx);
+    }
+
+    public List<GetCategoryRes> getCategoryAll() {
+        String getQuery = "SELECT * FROM ToolCategory";
+        return this.jdbcTemplate.query(getQuery,
+                (rs, rowNum) -> new GetCategoryRes(
+                        rs.getInt("categoryIdx"),
+                        rs.getString("categoryName")
+                ));
     }
 
     public String getAMLByIdx(int toolIdx) {

@@ -3,7 +3,7 @@ from pyattck import Attck
 
 
 mitre = Blueprint("mitre", __name__, url_prefix="/mitre")
-attack = Attck(
+attck = Attck(
     nested_techniques=True,
     use_config=False,
     save_config=False,
