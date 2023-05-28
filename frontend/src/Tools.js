@@ -333,7 +333,6 @@ function Tools(){
                     </LightTooltip>
                        
                         <div className='tool-container-right'>
-                         <Button sx={{color: '#000000'}}>edit</Button>
                          <IconButton aria-label="bookmark">
                             <BookmarkBorderIcon sx={{width: 40, height: 40}} />
                         </IconButton>
