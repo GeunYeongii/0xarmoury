@@ -79,4 +79,15 @@ public class ToolDao {
         String getToolQuery = "SELECT aml FROM Tool WHERE toolName = ?";
         return this.jdbcTemplate.queryForObject(getToolQuery, String.class, toolName);
     }
+
+    public void updateWiki(int toolIdx, String wiki) {
+        String updateQuery = "UPDATE Tool SET wikiInfo = ? WHERE toolIdx = ?";
+        Object[] params = new Object[]{wiki, toolIdx};
+        this.jdbcTemplate.update(updateQuery, params);
+    }
+
+    public int getUserBadge(int userIdx){
+        String getQuery = "SELECT badge FROM User WHERE userIdx = ?";
+        return this.jdbcTemplate.queryForObject(getQuery, int.class, userIdx);
+    }
 }

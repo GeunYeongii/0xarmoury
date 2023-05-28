@@ -53,7 +53,7 @@ public class UserDao {
     }
 
     public User getPwd(String email) {
-        String getPwdQuery = "SELECT userIdx, nickName, email, pwd, grade FROM User WHERE email = ?";
+        String getPwdQuery = "SELECT userIdx, nickName, email, pwd, badge FROM User WHERE email = ?";
         Object[] userEmailParams = { email };
         try {
             User user = this.jdbcTemplate.queryForObject(getPwdQuery, userEmailParams, (rs, rowNum) -> new User(
@@ -61,7 +61,7 @@ public class UserDao {
                     rs.getString("nickName"),
                     rs.getString("email"),
                     rs.getString("pwd"),
-                    rs.getInt("grade")
+                    rs.getInt("badge")
             ));
             System.out.println(user);
             System.out.println(user.getEmail());
