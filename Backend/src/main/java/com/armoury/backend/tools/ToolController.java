@@ -6,6 +6,8 @@ import com.armoury.backend.config.BaseResponseStatus;
 import com.armoury.backend.tools.model.GetCategoryRes;
 import com.armoury.backend.tools.model.GetToolRes;
 import com.armoury.backend.tools.model.GetToolSumInfoRes;
+import com.armoury.backend.tools.model.PostWikiReq;
+import com.armoury.backend.utils.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -23,9 +25,15 @@ public class ToolController {
 
     @Autowired
     private final ToolProvider toolProvider;
+    @Autowired
+    private final ToolService toolService;
+    @Autowired
+    private final JwtService jwtService;
 
-    public ToolController(ToolProvider toolProvider){
+    public ToolController(ToolProvider toolProvider, ToolService toolService, JwtService jwtService){
         this.toolProvider = toolProvider;
+        this.toolService = toolService;
+        this.jwtService = jwtService;
     }
 
     @ResponseBody
@@ -101,6 +109,22 @@ public class ToolController {
             List<GetCategoryRes> list = toolProvider.getCategoryAll();
             return new BaseResponse<>(list);
         } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @Operation(summary = "공격 도구 개별 위키 수정", description = "공격 도구에 대한 위키 정보 수정을 요청합니다."
+                        + "</br>뱃지 개수가 5개 이상인 Master 유저만 요청이 승인됩니다."
+                        + "</br>JWT 토큰이 필요한 요청입니다.")
+    @PostMapping ("/update/wiki")
+    public BaseResponse<String> updateWiki(@RequestBody PostWikiReq postWikiReq) {
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(toolService.updateWiki(userIdxByJwt, postWikiReq))
+                return new BaseResponse<>("성공");
+            return new BaseResponse<>("실패");
+        } catch(BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
