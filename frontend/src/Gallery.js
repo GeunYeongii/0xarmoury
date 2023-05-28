@@ -76,7 +76,7 @@ function Gallery(){
 
     const loginCheck = (no) =>{
         if (localStorage.getItem("accessToken") != null)
-            Navigate('./GalleryDetail/' + no);
+            Navigate('../GalleryDetail/' + no);
         else
             alert('Please Sign In!');
     }
