@@ -245,27 +245,152 @@ function MainPage(){
                     </div> 
                     <div className='training-division-line-top'></div>
                     <div className='training-box-content'>
-                    <Card sx={{ width: '20%', bgcolor: '#F6F6F6' }}>
-                        <CardContent>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            Word of the Day
-                            </Typography>
-                            <Typography variant="h5" component="div">
-                            benevlent
-                            </Typography>
-                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            adjective
-                            </Typography>
-                            <Typography variant="body2">
-                            well meaning and kindly.
-                            <br />
-                            {'"a benevolent smile"'}
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Learn More</Button>
-                        </CardActions>
+                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                Web Application Analysis
+                                </Typography>
+                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                training problem 1
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                Young
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }}>
+                                This problem is about ~~
+                                <br />
+                                I want to sleep<br />
+                                gaebbagchinda sssiang
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                            </CardActions>
                         </Card>
+                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                Web Application Analysis
+                                </Typography>
+                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                training problem 1
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                Young
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }}>
+                                This problem is about ~~
+                                <br />
+                                I want to sleep<br />
+                                gaebbagchinda sssiang
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                Web Application Analysis
+                                </Typography>
+                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                training problem 1
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                Young
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }}>
+                                This problem is about ~~
+                                <br />
+                                I want to sleep<br />
+                                gaebbagchinda sssiang
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                Web Application Analysis
+                                </Typography>
+                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                training problem 1
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                Young
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }}>
+                                This problem is about ~~
+                                <br />
+                                I want to sleep<br />
+                                gaebbagchinda sssiang
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                Web Application Analysis
+                                </Typography>
+                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                training problem 1
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                Young
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }}>
+                                This problem is about ~~
+                                <br />
+                                I want to sleep<br />
+                                gaebbagchinda sssiang
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                            </CardActions>
+                        </Card>
+                        {/*
+                            {categoryList.map((item) => (
+                                <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                                    <CardContent>
+                                        <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                        {item.category}
+                                        </Typography>
+                                        <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                        {item.problem}
+                                        </Typography>
+                                        <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                        <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                        {item.name}
+                                        </Typography>
+                                        <Typography sx={{ fontSize: 15 }}>
+                                        {item.contents}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                        <Button href={item.url} sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                                    </CardActions>
+                                </Card>
+                            ))}
+                        */}
+                        
                     </div>
                 </div>
             </div>

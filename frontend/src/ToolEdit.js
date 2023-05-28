@@ -149,79 +149,78 @@ function ToolEdit(){
             <div className = 'division-line'></div>
             <div className='contents'>
             
-            <div className='.Upload-Menu-sub' style={{ marginTop: '30px' }}>
+            <div className='.Upload-Menu' style={{ marginTop: '30px' }}>
                 
-            <Box sx={{
-                width: "590px",
-                height: "650px",
-                border: 1, 
-                borderColor: "#E2E8F0", 
-                boxshadow: 2,
-                borderradius: "2px"
-                }}>
-            <div className='font-Title'>Upload my Tools</div>
-            <div className='Upload-tool-line'></div>
-            <div className='font-name'>Tool name</div>
-            <Box
-                sx={{
-                    maxWidth: '96%',
-                }}
-                >
-                <TextField fullWidth id="fullWidth" name="title" defaultValue = {formData.title} onChange={handleInputChange} sx={{
-                    marginLeft: "10px",
-                    marginBottom: "20px",
-                    
-                }} />
-            </Box>
-            <div className='font-name'>Definition</div>
-            <Box
-                sx={{
-                    maxWidth: '96%',
-                }}
-                >
-                <TextField fullWidth id="outlined-multiline-static" name="definition"  defaultValue = {formData.definition} onChange={handleInputChange}
-                    multiline
-                    rows={3}
+                <Box sx={{
+                    width: "590px",
+                    height: "650px",
+                    border: 1, 
+                    borderColor: "#E2E8F0", 
+                    boxshadow: 2,
+                    borderradius: "2px"
+                    }}>
+                <div className='font-Title'>Upload my Tools</div>
+                <div className='Upload-tool-line'></div>
+                <div className='font-name'>Tool name</div>
+                <Box
                     sx={{
-                    marginLeft: "10px",
-                    marginBottom: "20px",
-                }} />
-            </Box>
-            <div className='font-name'>How to use</div>
-            <Box
-                sx={{
-                    maxWidth: '96%',
-                }}
-                >
-                <TextField fullWidth id="outlined-multiline-static" name="contents"  defaultValue = {formData.contents} onChange={handleInputChange}
-                    multiline
-                    rows={5}
+                        maxWidth: '96%',
+                    }}
+                    >
+                    <TextField fullWidth id="fullWidth" name="title" defaultValue = {formData.title} onChange={handleInputChange} sx={{
+                        marginLeft: "10px",
+                        marginBottom: "20px",
+                        
+                    }} />
+                </Box>
+                <div className='font-name'>Definition</div>
+                <Box
                     sx={{
-                    marginLeft: "10px",
-                    marginBottom: "20px",
-                }} />
-            </Box>
-            <div className='font-name'>Install URL</div>
-            <Box
-                sx={{
-                    maxWidth: '96%',
-                }}
-                >
-                <TextField fullWidth id="fullWidth"  name="url"  defaultValue = {formData.url} onChange={handleInputChange} InputProps={{
-                startAdornment: (
-                    <InputAdornment position="start">
-                    <GitHubIcon />
-                    </InputAdornment>
-                ), }}
-                sx={{
-                    marginLeft: "10px",
-                    marginBottom: "20px"
-                }} />
-            </Box>
-            </Box>
-
-           
+                        maxWidth: '96%',
+                    }}
+                    >
+                    <TextField fullWidth id="outlined-multiline-static" name="definition"  defaultValue = {formData.definition} onChange={handleInputChange}
+                        multiline
+                        rows={3}
+                        sx={{
+                        marginLeft: "10px",
+                        marginBottom: "20px",
+                    }} />
+                </Box>
+                <div className='font-name'>How to use</div>
+                <Box
+                    sx={{
+                        maxWidth: '96%',
+                    }}
+                    >
+                    <TextField fullWidth id="outlined-multiline-static" name="contents"  defaultValue = {formData.contents} onChange={handleInputChange}
+                        multiline
+                        rows={5}
+                        sx={{
+                        marginLeft: "10px",
+                        marginBottom: "20px",
+                    }} />
+                </Box>
+                <div className='font-name'>Install URL</div>
+                <Box
+                    sx={{
+                        maxWidth: '96%',
+                    }}
+                    >
+                    <TextField fullWidth id="fullWidth"  name="url"  defaultValue = {formData.url} onChange={handleInputChange} InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                        <GitHubIcon />
+                        </InputAdornment>
+                    ), }}
+                    sx={{
+                        marginLeft: "10px",
+                        marginBottom: "20px"
+                    }} />
+                </Box>
+                </Box>
             </div>
+
             <div className='Upload-Menu-sub'>
             <Box sx={{
                 width: "300px",
@@ -272,7 +271,8 @@ function ToolEdit(){
                 borderColor: '#FF5C60', 
                 fontSize: '11px',
                 justifyContent:"flex-start", 
-                fontWeight: '700'
+                fontWeight: '700',
+                marginRight:2,
                 }}>
                 Cancel
             </Button>
@@ -280,7 +280,8 @@ function ToolEdit(){
                 color: '#0000FF', 
                 borderColor: '#0000FF',
                 fontSize: '11px',
-                fontWeight : "700"
+                fontWeight : "700",
+                marginLeft:2,
                  }}>
                 Upload
             </Button>
