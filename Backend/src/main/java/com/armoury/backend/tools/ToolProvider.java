@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.armoury.backend.config.BaseResponseStatus.DATABASE_ERROR;
+import static com.armoury.backend.config.BaseResponseStatus.EMPTY_CONTENT;
 
 @Service
 public class ToolProvider {
@@ -64,23 +65,18 @@ public class ToolProvider {
     }
 
     public List<String> getAMLByIdx(int toolIdx) throws BaseException{
-        try{
-            String aml = toolDao.getAMLByIdx(toolIdx);
-            return extractAML(aml);
-        }
-        catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
+        String aml = toolDao.getAMLByIdx(toolIdx);
+        System.out.println(aml);
+        if (aml.isEmpty())
+            throw new BaseException(EMPTY_CONTENT);
+        return extractAML(aml);
     }
 
     public List<String> getAMLByName(String toolName) throws BaseException{
-        try{
-            String aml = toolDao.getAMLByName(toolName);
-            return extractAML(aml);
-        }
-        catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
+        String aml = toolDao.getAMLByName(toolName);
+        if (aml.isEmpty())
+            throw new BaseException(EMPTY_CONTENT);
+        return extractAML(aml);
     }
 
     public List<String> extractAML(String aml) {
