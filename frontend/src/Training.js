@@ -50,7 +50,7 @@ const categoryList = [
 function MainPage(){
     const [jsonData, setHello] = useState('');
     const [selectedId, setSelectedId] = useState(null);
-    const [selectedLabel, setSelectedLabel] = useState("**Select Scenario**");
+    const [selectedLabel, setSelectedLabel] = useState("**Select Category**");
     const [toollist, setToollist] = useState([]);
 
     const [category, setCategory] = useState('');
@@ -71,14 +71,11 @@ function MainPage(){
 
     const handleChange1 = (event) => {
         setCategory(event.target.value);
-        ToolList(event.target.value);
-      };
-  
-      const HandleChange2 = (event) => {
-        const selectedScenario = event.target.value;
-        setScenario(selectedScenario);
         handleSelect(event.target.value);
-    };
+      };
+
+
+    {/*const [toollist, setToollist] = useState([]);*/}
  
     const ToolList = async (category) => { //!!시나리오 불러올 때 변수 바꾸기!!
         try {
@@ -100,8 +97,8 @@ function MainPage(){
 
         fetchData(id)
           .then((response) => {
-            const { toolName } = response.data.result;
-            setSelectedLabel(toolName);
+            const { categoryName } = response.data.result[id-1];
+            setSelectedLabel(categoryName);
             // setToolCode(code);
           })
           .catch((error) => {
@@ -119,7 +116,7 @@ function MainPage(){
 
     async function fetchData(id) {
         try {
-          const response = await axios.get(`tools/${id}`);
+          const response = await axios.get(`/tools/category`);
           return response;
         } catch (error) {
           throw error;
@@ -220,22 +217,6 @@ function MainPage(){
                             </Select>
                         </FormControl>
 
-                        <FormControl sx={{ m: 1, width: 270, bgcolor: 'white'}}>
-                            <InputLabel id="demo-simple-select-label">Scenario</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={scenario}
-                            label="Scenario"
-                            onChange={HandleChange2}
-                            MenuProps={MenuProps}
-                            sx={{ maxHeight: '50px', fontSize: '16px' }}
-                            >
-                            {toollist.map((item) => (
-                                <MenuItem value={item.toolIdx}> {item.toolName}</MenuItem>
-                            ))}
-                            </Select>
-                        </FormControl>
                         </div>
                     <div className = 'tool-division-line2'></div>
                 </div>
