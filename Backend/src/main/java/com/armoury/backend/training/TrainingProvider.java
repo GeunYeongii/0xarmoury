@@ -1,14 +1,16 @@
 package com.armoury.backend.training;
 
 import com.armoury.backend.config.BaseException;
+import com.armoury.backend.gallery.model.GetToolInfoRes;
+import com.armoury.backend.training.model.GetPostInfoRes;
 import com.armoury.backend.training.model.GetPostSumInfoRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.armoury.backend.config.BaseResponseStatus.DATABASE_ERROR;
-import static com.armoury.backend.config.BaseResponseStatus.EMPTY_CONTENT;
+import static com.armoury.backend.config.BaseResponseStatus.*;
+import static com.armoury.backend.config.BaseResponseStatus.INVALID_USER_JWT;
 
 @Service
 public class TrainingProvider {
@@ -36,9 +38,19 @@ public class TrainingProvider {
     public List<GetPostSumInfoRes> getPostsInfo(int categoryIdx, int pageNum) throws BaseException {
         if (pageNum < 0)
             throw new BaseException(EMPTY_CONTENT);
-        List<GetPostSumInfoRes> infoList = trainingDao.getPostInfo(categoryIdx, pageNum);
+        List<GetPostSumInfoRes> infoList = trainingDao.getPostInfoList(categoryIdx, pageNum);
         if (infoList.size() == 0)
             throw new BaseException(EMPTY_CONTENT);
         return infoList;
+    }
+
+    public GetPostInfoRes getSinglePostInfo(int postIdx) throws BaseException {
+        GetPostInfoRes toolInfo = null;
+        try {
+            toolInfo = trainingDao.getPostInfo(postIdx);
+            return toolInfo;
+        } catch (Exception exception){
+            throw new BaseException(EMPTY_CONTENT);
+        }
     }
 }

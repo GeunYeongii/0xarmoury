@@ -2,7 +2,9 @@ package com.armoury.backend.training;
 
 import com.armoury.backend.config.BaseException;
 import com.armoury.backend.config.BaseResponse;
+import com.armoury.backend.gallery.model.GetToolInfoRes;
 import com.armoury.backend.training.model.GetPostISumInfoReq;
+import com.armoury.backend.training.model.GetPostInfoRes;
 import com.armoury.backend.training.model.GetPostSumInfoRes;
 import com.armoury.backend.utils.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -59,5 +61,15 @@ public class TrainingController {
         }
     }
 
-
+    @ResponseBody
+    @Operation(summary = "게시물 단일 조회", description = "Training 포스트를 개별적으로 조회합니다.")
+    @GetMapping("/tool/{postIdx}")
+    public BaseResponse<GetPostInfoRes> getPostInfo(@PathVariable("postIdx") int postIdx){
+        try {
+            GetPostInfoRes getPostInfoRes= trainingProvider.getSinglePostInfo(postIdx);
+            return new BaseResponse<>(getPostInfoRes);
+        } catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

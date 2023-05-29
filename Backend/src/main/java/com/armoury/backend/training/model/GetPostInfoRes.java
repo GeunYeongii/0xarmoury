@@ -11,6 +11,7 @@ public class GetPostInfoRes {
     private int postIdx;
     private int categoryIdx;
     private int userIdx;
+    private String nickName;
     private String title;
     private String description;
     private String environment;
