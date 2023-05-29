@@ -51,7 +51,6 @@ function MainPage(){
     const [jsonData, setHello] = useState('');
     const [selectedId, setSelectedId] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState("**Select Category**");
-    const [toollist, setToollist] = useState([]);
 
     const [category, setCategory] = useState('');
     const [scenario, setScenario] = useState('');
@@ -73,20 +72,20 @@ function MainPage(){
         setCategory(event.target.value);
         handleSelect(event.target.value);
       };
+    {/* scenarioList(event.target.value) */}
 
 
-    {/*const [toollist, setToollist] = useState([]);*/}
  
-    const ToolList = async (category) => { //!!시나리오 불러올 때 변수 바꾸기!!
+    const scenarioList = async (category) => { //!!시나리오 불러올 때 변수 바꾸기!!
         try {
-            const response = await axios.get('/tools/category/' + category);
-            setToollist(response.data.result);
+            const response = await axios.get('/tools/category/' + category); //경로 변경
+            setScenario(response.data.result);
   
             const processedTool = response.data.result.map(item => ({
-                toolIdx: item.toolIdx,
+                toolIdx: item.toolIdx, //변수 변경
                 toolName: item.toolName,
               }));
-              setToollist(processedTool);
+              setScenario(processedTool);
           } catch (error) {
             console.error('Tool:', error);
         }
@@ -143,7 +142,7 @@ function MainPage(){
                         :<div className="sign-container">
                             <div>
                             <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
-                            <Link href ="#" color='#000000'>          
+                            <Link href ="./Account" color='#000000'>          
                                 {localStorage.getItem('nickName')}
                             </Link>
                             </div>
@@ -171,7 +170,7 @@ function MainPage(){
                             <Link href="./Tools" color='#000000'>Tools</Link>
                             <Link href ="./Training" color='#0042ED'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
-                            <Link href ="./Mytools" color='#000000'>My page</Link>
+                            <Link href ="./Mytools" color='#000000'>My tool</Link>
                         </div>
                     </div>
                     
@@ -223,6 +222,8 @@ function MainPage(){
                 <div className='training-right'>
                     <div className='training-box-top'>
                         <div className='training-scenario-title'>{selectedLabel}</div>
+                        <Button href='#' variant="outlined" sx={{m: 1, color: 'black', borderColor:"black", ":hover": { borderColor: "black" },
+						boxShadow: 2,}}>Upload Your Problem</Button>
                     </div> 
                     <div className='training-division-line-top'></div>
                     <div className='training-box-content'>
@@ -347,7 +348,7 @@ function MainPage(){
                             </CardActions>
                         </Card>
                         {/*
-                            {categoryList.map((item) => (
+                            {scenario.map((item) => ( //!!변수 변경
                                 <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
                                     mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
                                     <CardContent>

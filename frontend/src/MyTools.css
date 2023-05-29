@@ -22,7 +22,7 @@
   }
   
   .MyTools-Menu-sub {
-	flex: 1;
+	flex: 0.8;
 	display: flex;
 	align-items: flex-start;
 	justify-content: flex-start;

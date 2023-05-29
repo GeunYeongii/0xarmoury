@@ -28,10 +28,10 @@ function ToolUpload(){
     const badge = localStorage.getItem('badge');
 
     const [formData, setFormData] = useState({
-        title: 'Namp+brLuteforce',
-        definition: 'My Nmap is King',
-        contents: 'Options...',
-        url: 'https://github.com/redcanaryco/atomic-red-team.git',
+        title: '',
+        definition: '',
+        contents: '',
+        url: '',
         share: 0
       });
 
@@ -95,7 +95,7 @@ function ToolUpload(){
                         :<div className="sign-container">
                             <div>
                             <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
-                            <Link href ="#" color='#000000'>          
+                            <Link href ="./Account" color='#000000'>          
                                 {localStorage.getItem('nickName')}
                             </Link>
                             </div>
@@ -123,7 +123,7 @@ function ToolUpload(){
                             <Link href="./Tools" color='#000000'>Tools</Link>
                             <Link href ="./Training" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
-                            <Link href ="./MyTools" color='#000000'>My page</Link>
+                            <Link href ="./MyTools" color='#000000'>My tool</Link>
                         </div>
                     </div>
                     
@@ -146,57 +146,7 @@ function ToolUpload(){
             </div>
             <div className = 'division-line'></div>
             <div className='contents'>
-            <div className='Upload-Menu' >
-                <h4>Personalization</h4>
-                <Button href='./MyTools' variant="outlined" size="large" style={{width:"60%"}} sx={{
-                        color:"black",
-                        borderColor:"black",
-                        ":hover": { borderColor: "black" },
-                        boxShadow: 2,
-                        marginBottom: "20px",
-                    }}startIcon={<BuildIcon sx={{color: "#0404B4" }}/>}>
-                        My tool             
-                </Button>
-                <Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-                    color:"black",
-                    borderColor:"black",
-                    ":hover": { borderColor: "black" },
-                    boxShadow: 2,
-                    marginBottom: "20px",
-                }}startIcon={<BookmarkIcon sx={{color: "#FACC2E" }}/>}>
-                   Favorites          
-                </Button>
-                <Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-                    color:"black",
-                    borderColor:"black",
-                    ":hover": { borderColor: "black" },
-                    boxShadow: 2,
-                }}startIcon={<HistoryIcon sx={{color: "#000000" }}/>}>
-                    Packaging History           
-                </Button>
-
-                    
-                <h4>Settings</h4>
-                <Button href="/Account"variant="outlined" size="large" style={{width:"60%"}} sx={{
-                    color:"black",
-                    borderColor:"black",
-                    ":hover": { borderColor: "black" },
-                    boxShadow: 2,
-                    marginBottom: "20px",
-                }}startIcon={<AccountCircleIcon />}>
-                   Account          
-                </Button>
-                <Button variant="outlined" size="large" style={{width:"60%" }} sx={{
-                    color:"black",
-                    borderColor:"black",
-                    ":hover": { borderColor: "black" },
-                    boxShadow: 2,
-                    marginBottom: "20px",
-
-                }}startIcon={<LockIcon/>}>
-                    <div className='font-align'>Security</div>
-                </Button> 
-            </div>
+        
             <div className='.Upload-Menu-sub' style={{ marginTop: '30px' }}>
                 
             <Box sx={{
@@ -215,7 +165,7 @@ function ToolUpload(){
                     maxWidth: '96%',
                 }}
                 >
-                <TextField fullWidth id="fullWidth" name="title" defaultValue = {formData.title} onChange={handleInputChange} sx={{
+                <TextField placeholder="Enter tool name" fullWidth id="fullWidth" name="title" defaultValue = {formData.title} onChange={handleInputChange} sx={{
                     marginLeft: "10px",
                     marginBottom: "20px",
                     
@@ -227,7 +177,7 @@ function ToolUpload(){
                     maxWidth: '96%',
                 }}
                 >
-                <TextField fullWidth id="outlined-multiline-static" name="definition"  defaultValue = {formData.definition} onChange={handleInputChange}
+                <TextField placeholder="Enter definition" fullWidth id="outlined-multiline-static" name="definition"  defaultValue = {formData.definition} onChange={handleInputChange}
                     multiline
                     rows={3}
                     sx={{
@@ -255,7 +205,7 @@ function ToolUpload(){
                     maxWidth: '96%',
                 }}
                 >
-                <TextField fullWidth id="fullWidth"  name="url"  defaultValue = {formData.url} onChange={handleInputChange} InputProps={{
+                <TextField placeholder="https://..." fullWidth id="fullWidth"  name="url"  defaultValue = {formData.url} onChange={handleInputChange} InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">
                     <GitHubIcon />
@@ -320,7 +270,8 @@ function ToolUpload(){
                 borderColor: '#FF5C60', 
                 fontSize: '11px',
                 justifyContent:"flex-start", 
-                fontWeight: '700'
+                fontWeight: '700',
+                marginRight:2,
                 }}>
                 Cancel
             </Button>
@@ -328,7 +279,8 @@ function ToolUpload(){
                 color: '#0000FF', 
                 borderColor: '#0000FF',
                 fontSize: '11px',
-                fontWeight : "700"
+                fontWeight : "700",
+                marginLeft: 2,
                  }}>
                 Upload
             </Button>
