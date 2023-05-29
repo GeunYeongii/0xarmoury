@@ -44,13 +44,13 @@ public class GalleryDao {
     }
 
     public GetToolInfoRes getToolInfo(int postIdx) {
-        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, COUNT(h.postIdx) AS like_count\n" +
+        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime, COUNT(h.postIdx) AS like_count\n" +
                 "FROM Post p\n" +
                 "JOIN User u ON p.userIdx = u.userIdx\n" +
                 "LEFT JOIN Heart h ON p.postIdx = h.postIdx\n" +
+                "WHERE p.postIdx = ?\n" +
                 "GROUP BY p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime\n" +
-                "ORDER BY p.postTime DESC\n" +
-                "LIMIT ?, 5;";
+                "HAVING p.postIdx IS NOT NULL;";
         return this.jdbcTemplate.queryForObject(getQuery,
                 (rs, rowNum) -> new GetToolInfoRes(
                        rs.getInt("postIdx"),

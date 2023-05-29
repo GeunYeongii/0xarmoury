@@ -64,11 +64,11 @@ public class GalleryController {
     @ResponseBody
     @Operation(summary = "공격 도구 정보 단일 조회", description = "공격 도구의 정보를 개별적으로 조회합니다.")
     @GetMapping("/tool/{postIdx}")
-    public BaseResponse<GetToolInfoRes> getToolInfo(@PathVariable("postIdx") int postIdx){
+    public BaseResponse<GetToolPHeartRes> getToolInfo(@PathVariable("postIdx") int postIdx){
         try {
             int userIdxByJwt = jwtService.getUserIdx();
-            GetToolInfoRes getToolInfoRes= galleryProvider.getToolInfo(postIdx, userIdxByJwt);
-            return new BaseResponse<>(getToolInfoRes);
+            GetToolPHeartRes res = galleryProvider.getToolInfo(postIdx, userIdxByJwt);
+            return new BaseResponse<>(res);
         } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

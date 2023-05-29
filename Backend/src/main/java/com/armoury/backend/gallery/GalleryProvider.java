@@ -2,6 +2,7 @@ package com.armoury.backend.gallery;
 
 import com.armoury.backend.config.BaseException;
 import com.armoury.backend.gallery.model.GetToolInfoRes;
+import com.armoury.backend.gallery.model.GetToolPHeartRes;
 import com.armoury.backend.gallery.model.GetToolSumInfoRes;
 import com.armoury.backend.gallery.model.PostCommentRes;
 import org.slf4j.Logger;
@@ -16,10 +17,14 @@ import static com.armoury.backend.config.BaseResponseStatus.*;
 @Service
 public class GalleryProvider {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private final GalleryService galleryService;
     @Autowired
     private final GalleryDao galleryDao;
 
-    public GalleryProvider(GalleryDao galleryDao) {
+    public GalleryProvider(GalleryService galleryService, GalleryDao galleryDao) {
+        this.galleryService = galleryService;
         this.galleryDao = galleryDao;
     }
 
@@ -53,7 +58,7 @@ public class GalleryProvider {
         return infoList;
     }
 
-    public GetToolInfoRes getToolInfo(int postIdx, int userIdx) throws BaseException {
+    public GetToolPHeartRes getToolInfo(int postIdx, int userIdx) throws BaseException {
         GetToolInfoRes toolInfo = null;
         try {
             toolInfo = galleryDao.getToolInfo(postIdx);
@@ -61,9 +66,17 @@ public class GalleryProvider {
             throw new BaseException(WRONG_TOOL_INPUT_REQ);
         }
 
-        if (toolInfo.getUserIdx() != userIdx && toolInfo.getShare() == 0)
+        System.out.println(toolInfo.getUserIdx());
+        if (toolInfo.getShare() == 0 && toolInfo.getUserIdx() != userIdx)
             throw new BaseException(INVALID_USER_JWT);
-        return toolInfo;
+
+        int isMyHeart = 0;
+        if (galleryService.checkHeartExist(userIdx, postIdx))
+            isMyHeart = 1;
+
+        GetToolPHeartRes res = new GetToolPHeartRes(toolInfo.getPostIdx(), toolInfo.getUserIdx(), toolInfo.getNickName(), toolInfo.getTitle(),
+                toolInfo.getDefinition(), toolInfo.getContents(), toolInfo.getUrl(), toolInfo.getPostTime(), toolInfo.getHeart(), isMyHeart);
+        return res;
     }
 
     public List<GetToolInfoRes> getUserTools(int userIdx, int pageNum) throws BaseException {
