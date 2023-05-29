@@ -13,6 +13,7 @@ import ToolUpload from './ToolUpload';
 import MyTools from './MyTools';
 import ToolEdit from './ToolEdit';
 import Account from './Account';
+import Package from './Package';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path = "MyTools" element = {<MyTools/>}></Route>
         <Route path = "ToolEdit/:no" element = {<ToolEdit />}></Route>
         <Route path = "Account" element = {<Account/>}></Route>
+        <Route path = "Package" element = {<Package/>}></Route>
 
       </Routes>
 

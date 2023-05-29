@@ -27,7 +27,7 @@ function MainPage(){
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
         localStorage.removeItem("email");
-          localStorage.removeItem("badge");
+        localStorage.removeItem("badge");
     }
 
     return(
@@ -42,7 +42,7 @@ function MainPage(){
                         :<div className="sign-container">
                             <div>
                             <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
-                            <Link href ="#" color='#000000'>          
+                            <Link href ="./Account" color='#000000'>          
                                 {localStorage.getItem('nickName')}
                             </Link>
                             </div>
@@ -71,7 +71,7 @@ function MainPage(){
                             <Link href="./Tools" color='#000000'>Tools</Link>
                             <Link href ="./Training" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
-                            <Link href ="./Mytools" color='#000000'>My page</Link>
+                            <Link href ="./Mytools" color='#000000'>My tool</Link>
                         </div>
                     </div>
                     

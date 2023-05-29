@@ -110,7 +110,7 @@ function MyTools(){
                         :<div className="sign-container">
 							<div>
                             <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
-                            <Link href ="#" color='#000000'>          
+                            <Link href ="./Account" color='#000000'>          
                                 {localStorage.getItem('nickName')}
                             </Link>
                             </div>
@@ -138,7 +138,7 @@ function MyTools(){
                             <Link href="./Tools" color='#000000'>Tools</Link>
                             <Link href ="./Training" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
-                            <Link href ="/MyTools" color='#0042ED'>My page</Link>
+                            <Link href ="/MyTools" color='#0042ED'>My tool</Link>
                         </div>
                     </div>
                     
@@ -168,28 +168,21 @@ function MyTools(){
 						borderColor:"black",
 						":hover": { borderColor: "black" },
 						boxShadow: 2,
+						bgcolor: "#EDEEFA",
+						marginBottom: "20px",
+					}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
+						My tool             
+					</Button>
+					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
+						color:"black",
+						borderColor:"black",
+						":hover": { borderColor: "black" },
+						boxShadow: 2,
 						marginBottom: "20px",
 					}}startIcon={<BookmarkIcon sx={{color: "#FACC2E" }}/>}>
 					Favorites          
 					</Button>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						marginBottom: "20px",
-					}}startIcon={<HistoryIcon sx={{color: "#000000" }}/>}>
-						Packaging History           
-					</Button>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						bgcolor: "#EDEEFA",
-					}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
-						My tool             
-					</Button>
+					
 
 					<h4>Settings</h4>
 					<Button href="./Account" variant="outlined" size="large" style={{width:"60%"}} sx={{

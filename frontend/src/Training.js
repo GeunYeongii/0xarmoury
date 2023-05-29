@@ -50,8 +50,7 @@ const categoryList = [
 function MainPage(){
     const [jsonData, setHello] = useState('');
     const [selectedId, setSelectedId] = useState(null);
-    const [selectedLabel, setSelectedLabel] = useState("**Select Scenario**");
-    const [toollist, setToollist] = useState([]);
+    const [selectedLabel, setSelectedLabel] = useState("**Select Category**");
 
     const [category, setCategory] = useState('');
     const [scenario, setScenario] = useState('');
@@ -71,25 +70,22 @@ function MainPage(){
 
     const handleChange1 = (event) => {
         setCategory(event.target.value);
-        ToolList(event.target.value);
-      };
-  
-      const HandleChange2 = (event) => {
-        const selectedScenario = event.target.value;
-        setScenario(selectedScenario);
         handleSelect(event.target.value);
-    };
+      };
+    {/* scenarioList(event.target.value) */}
+
+
  
-    const ToolList = async (category) => { //!!시나리오 불러올 때 변수 바꾸기!!
+    const scenarioList = async (category) => { //!!시나리오 불러올 때 변수 바꾸기!!
         try {
-            const response = await axios.get('/tools/category/' + category);
-            setToollist(response.data.result);
+            const response = await axios.get('/tools/category/' + category); //경로 변경
+            setScenario(response.data.result);
   
             const processedTool = response.data.result.map(item => ({
-                toolIdx: item.toolIdx,
+                toolIdx: item.toolIdx, //변수 변경
                 toolName: item.toolName,
               }));
-              setToollist(processedTool);
+              setScenario(processedTool);
           } catch (error) {
             console.error('Tool:', error);
         }
@@ -100,8 +96,8 @@ function MainPage(){
 
         fetchData(id)
           .then((response) => {
-            const { toolName } = response.data.result;
-            setSelectedLabel(toolName);
+            const { categoryName } = response.data.result[id-1];
+            setSelectedLabel(categoryName);
             // setToolCode(code);
           })
           .catch((error) => {
@@ -119,7 +115,7 @@ function MainPage(){
 
     async function fetchData(id) {
         try {
-          const response = await axios.get(`tools/${id}`);
+          const response = await axios.get(`/tools/category`);
           return response;
         } catch (error) {
           throw error;
@@ -146,7 +142,7 @@ function MainPage(){
                         :<div className="sign-container">
                             <div>
                             <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
-                            <Link href ="#" color='#000000'>          
+                            <Link href ="./Account" color='#000000'>          
                                 {localStorage.getItem('nickName')}
                             </Link>
                             </div>
@@ -174,7 +170,7 @@ function MainPage(){
                             <Link href="./Tools" color='#000000'>Tools</Link>
                             <Link href ="./Training" color='#0042ED'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
-                            <Link href ="./Mytools" color='#000000'>My page</Link>
+                            <Link href ="./Mytools" color='#000000'>My tool</Link>
                         </div>
                     </div>
                     
@@ -220,52 +216,163 @@ function MainPage(){
                             </Select>
                         </FormControl>
 
-                        <FormControl sx={{ m: 1, width: 270, bgcolor: 'white'}}>
-                            <InputLabel id="demo-simple-select-label">Scenario</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={scenario}
-                            label="Scenario"
-                            onChange={HandleChange2}
-                            MenuProps={MenuProps}
-                            sx={{ maxHeight: '50px', fontSize: '16px' }}
-                            >
-                            {toollist.map((item) => (
-                                <MenuItem value={item.toolIdx}> {item.toolName}</MenuItem>
-                            ))}
-                            </Select>
-                        </FormControl>
                         </div>
                     <div className = 'tool-division-line2'></div>
                 </div>
                 <div className='training-right'>
                     <div className='training-box-top'>
                         <div className='training-scenario-title'>{selectedLabel}</div>
+                        <Button href='#' variant="outlined" sx={{m: 1, color: 'black', borderColor:"black", ":hover": { borderColor: "black" },
+						boxShadow: 2,}}>Upload Your Problem</Button>
                     </div> 
                     <div className='training-division-line-top'></div>
                     <div className='training-box-content'>
-                    <Card sx={{ width: '20%', bgcolor: '#F6F6F6' }}>
-                        <CardContent>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            Word of the Day
-                            </Typography>
-                            <Typography variant="h5" component="div">
-                            benevlent
-                            </Typography>
-                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            adjective
-                            </Typography>
-                            <Typography variant="body2">
-                            well meaning and kindly.
-                            <br />
-                            {'"a benevolent smile"'}
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Learn More</Button>
-                        </CardActions>
+                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                Web Application Analysis
+                                </Typography>
+                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                training problem 1
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                Young
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }}>
+                                This problem is about ~~
+                                <br />
+                                I want to sleep<br />
+                                gaebbagchinda sssiang
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                            </CardActions>
                         </Card>
+                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                Web Application Analysis
+                                </Typography>
+                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                training problem 1
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                Young
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }}>
+                                This problem is about ~~
+                                <br />
+                                I want to sleep<br />
+                                gaebbagchinda sssiang
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                Web Application Analysis
+                                </Typography>
+                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                training problem 1
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                Young
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }}>
+                                This problem is about ~~
+                                <br />
+                                I want to sleep<br />
+                                gaebbagchinda sssiang
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                Web Application Analysis
+                                </Typography>
+                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                training problem 1
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                Young
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }}>
+                                This problem is about ~~
+                                <br />
+                                I want to sleep<br />
+                                gaebbagchinda sssiang
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <CardContent>
+                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                Web Application Analysis
+                                </Typography>
+                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                training problem 1
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                Young
+                                </Typography>
+                                <Typography sx={{ fontSize: 15 }}>
+                                This problem is about ~~
+                                <br />
+                                I want to sleep<br />
+                                gaebbagchinda sssiang
+                                </Typography>
+                            </CardContent>
+                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                            </CardActions>
+                        </Card>
+                        {/*
+                            {scenario.map((item) => ( //!!변수 변경
+                                <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                                    <CardContent>
+                                        <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
+                                        {item.category}
+                                        </Typography>
+                                        <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
+                                        {item.problem}
+                                        </Typography>
+                                        <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
+                                        <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
+                                        {item.name}
+                                        </Typography>
+                                        <Typography sx={{ fontSize: 15 }}>
+                                        {item.contents}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions sx={{justifyContent: 'end', mr: 1}}>
+                                        <Button href={item.url} sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
+                                    </CardActions>
+                                </Card>
+                            ))}
+                        */}
+                        
                     </div>
                 </div>
             </div>

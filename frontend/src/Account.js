@@ -22,20 +22,6 @@ import SchoolIcon from '@mui/icons-material/School';
 function Account(){
 	const [UserId, setUserId] = useState(localStorage.getItem("userId"));
 	const badge = localStorage.getItem('badge');
-	const [formData, setFormData] = useState({
-		nickName:localStorage.getItem("nickName"),
-		email: localStorage.getItem("email"),
-		pwd: "1234"
-	});
-
-	const handleInputChange = event => {
-        const { name, value } = event.target;
-        setFormData(prevState => ({
-          ...prevState,
-          [name]: value
-        }));
-      };
-
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
@@ -44,44 +30,7 @@ function Account(){
 		localStorage.removeItem("email");
         localStorage.removeItem("badge");
     }
-
-	useEffect(() => {
-		axios.get(`/users/${UserId}`)
-		  .then(function (response) {
-			if (response.data.isSuccess) {
-			  console.log(response, '성공');
-			  const { email, nickName } = response.data.result;
-			  setFormData(prevFormData => ({
-				...prevFormData,
-				email,
-				nickName
-			  }));
-			} else {
-			  console.log('error');
-			}
-		  });
-	  }, []);
-
-	  const handleSubmit = () => {
-		// post
-		axios.patch(`/users/${UserId}`, formData, {
-            headers: {
-            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
-            }
-            })
-		  .then(function (response) {
-			if (response.data.isSuccess) {
-			  console.log(response, '성공');
-			  localStorage.setItem("email", formData.email);
-			  localStorage.setItem("nickName", formData.nickName);
-			  
-			} else {
-			  console.log('error');
-			}
-		  })
-	  };
 	  
-	
 	  
     return(
         <div>
@@ -95,7 +44,7 @@ function Account(){
                         :<div className="sign-container">
 							<div>
                             <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
-                            <Link href ="#" color='#000000'>          
+                            <Link href ="./Account" color='#000000'>          
                                 {localStorage.getItem('nickName')}
                             </Link>
                             </div>
@@ -123,7 +72,7 @@ function Account(){
                             <Link href="./Tools" color='#000000'>Tools</Link>
                             <Link href ="./Training" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
-                            <Link href ="/MyTools" color='#0042ED'>My page</Link>
+                            <Link href ="/MyTools" color='#000000'>My tool</Link>
                         </div>
                     </div>
                     
@@ -146,129 +95,91 @@ function Account(){
             </div>
             <div className = 'division-line'></div>
             <div className='Account-contents'>
-				<div className='Account-Menu' >
-					<h4>Personalization</h4>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						marginBottom: "20px",
-					}}startIcon={<BookmarkIcon sx={{color: "#FACC2E" }}/>}>
-					Favorites          
-					</Button>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						marginBottom: "20px",
-					}}startIcon={<HistoryIcon sx={{color: "#000000" }}/>}>
-						Packaging History           
-					</Button>
-					<Button href='/Mytools' variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-					}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
-						My tool             
-					</Button>
+			<div className='Account-Menu' >
+				<h4>Personalization</h4>
+				<Button href='/Mytools' variant="outlined" size="large" style={{width:"60%"}} sx={{
+					color:"black",
+					borderColor:"black",
+					":hover": { borderColor: "black" },
+					boxShadow: 2,
+					marginBottom: "20px",
+				}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
+					My tool             
+				</Button>
+				<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
+					color:"black",
+					borderColor:"black",
+					":hover": { borderColor: "black" },
+					boxShadow: 2,
+					marginBottom: "20px",
+				}}startIcon={<BookmarkIcon sx={{color: "#FACC2E" }}/>}>
+				Favorites          
+				</Button>
+				
 
-					<h4>Settings</h4>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						marginBottom: "20px",
-						bgcolor: "#EDEEFA",
-					}}startIcon={<AccountCircleIcon />}>
-					Account          
-					</Button>
-					<Button herf= "/Account"variant="outlined" size="large" style={{width:"60%" }} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						marginBottom: "20px",
+				<h4>Settings</h4>
+				<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
+					color:"black",
+					borderColor:"black",
+					":hover": { borderColor: "black" },
+					boxShadow: 2,
+					marginBottom: "20px",
+					bgcolor: "#EDEEFA",
+				}}startIcon={<AccountCircleIcon />}>
+				Account          
+				</Button>
+				<Button herf= "/Account"variant="outlined" size="large" style={{width:"60%" }} sx={{
+					color:"black",
+					borderColor:"black",
+					":hover": { borderColor: "black" },
+					boxShadow: 2,
+					marginBottom: "20px",
 
-					}}startIcon={<LockIcon/>}>
-						<div className='font-align'>Security</div>
-					</Button> 
-					<Link href='./ToolUpload'>
-					<Button variant="outlined" sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						marginTop: "50px",
+				}}startIcon={<LockIcon/>}>
+					<div className='font-align'>Security</div>
+				</Button> 
+				<Link href='./ToolUpload'>
+				<Button variant="outlined" sx={{
+					color:"black",
+					borderColor:"black",
+					":hover": { borderColor: "black" },
+					boxShadow: 2,
+					marginTop: "50px",
 
-					}}startIcon={<CloudUploadIcon/>}>Upload my Tool</Button>
-					</Link>
-				</div>
-				<div className='Account-Menu-sub' style={{ marginTop: '30px' }}>
-						
-					<div className='Page-Title'>Account</div>
+				}}startIcon={<CloudUploadIcon/>}>Upload my Tool</Button>
+				</Link>
+			</div>
+			<div className='Account-Menu-sub' style={{ marginTop: '30px' }}>
+					
+				<div className='Page-Title'>Account</div>
 					<div className='Account-division-line'></div>
-						<div className='Account-info-title'>Nickname</div>
-						<div className='Textfield'>
-						<TextField
-						margin="normal"
-						fullWidth
-						id="nickName"
-						name="nickName"
-						defaultValue = {formData.nickName}
-						onChange={handleInputChange}
-						/>
-						<div className='Account-info-title'>Email</div>
-						<TextField
-						margin="normal"
-						fullWidth
-						name="email"
-						id="email"
-						defaultValue = {formData.email}
-						onChange={handleInputChange}
-						/>
-						<div className='Account-info-title'>Password</div>
-						<TextField
-						margin="normal"
-						required
-						fullWidth
-						name="pwd"
-						label="pwd"
-						type="password"
-						id="pwd"
-						autoComplete="current-password"
-						defaultValue = {formData.pwd}
-						
-						onChange={handleInputChange}
-						/>
-						<Button variant="outlined" style={{ 
-						color: '#FF5C60', 
-						borderColor: '#FF5C60', 
-						fontSize: '11px',
-						justifyContent:"flex-start", 
-						fontWeight: '700',
-						marginTop:'20px',
-						marginRight: '10px'
-						}}>
-						Discard Changes
-					</Button>
-					<Button onClick={handleSubmit} variant="outlined" style={{ 
-						color: '#0000FF', 
-						borderColor: '#0000FF',
-						fontSize: '11px',
-						marginTop:'20px',
-						fontWeight : "700"
-						}}>
-						Save Changes
-					</Button>
-						</div>
-						
+					<div className='Account-info-title'>Level</div>
+					<div className='Account-Textfield'>
+						<SchoolIcon 
+							style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8, 
+							padding:5, width: '100px', height: '100px'}}/>
+							<div className='Account-text-level'>
+							Your badge : {localStorage.getItem('badge')} <br />
+							If you have more than 6 badges, you are a MASTER
+							</div>
+					</div>
+					<div className='Account-Textfield'>
+						<div className='Account-info-text'>{badge > 5 ? 'MASTER' : 'general'}</div>
+					</div>
+					<div className='Account-info-title'>Nickname</div>
+					<div className='Account-Textfield'>
+						<div className='Account-info-text'>{localStorage.getItem('nickName')}</div>
+					</div>	
+					<div className='Account-info-title'>Email</div>
+					<div className='Account-Textfield'>
+						<div className='Account-info-text'>{localStorage.getItem('email')}</div>
+					</div>		
 				</div>
+				
+					
 			</div>
 		</div>
+
     );
 }
 

@@ -193,7 +193,7 @@ function GalleryDetail(){
                         :<div className="sign-container">
                             <div>
                             <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
-                            <Link href ="#" color='#000000'>          
+                            <Link href ="../Account" color='#000000'>          
                                 {localStorage.getItem('nickName')}
                             </Link>
                             </div>
@@ -221,7 +221,7 @@ function GalleryDetail(){
                             <Link href="../Tools" color='#000000'>Tools</Link>
                             <Link href ="../Training" color='#000000'>Training</Link>
                             <Link href ="../Gallery" color='#0042ED'>Gallery</Link>
-                            <Link href ="../MyTools" color='#000000'>My page</Link>
+                            <Link href ="../MyTools" color='#000000'>My tool</Link>
                         </div>
                     </div>
                     
