@@ -91,9 +91,33 @@ public class GalleryService {
         }
     }
 
+    public void postHeart(int userIdx, int postIdx) throws BaseException {
+        if (!checkPostExist(postIdx))
+            throw new BaseException(WRONG_TOOL_INPUT_REQ);
+        int postUser = galleryDao.whoPostTool(postIdx);
+        System.out.println(userIdx + " " + postUser);
+        if (userIdx == postUser)
+            throw new BaseException(NO_SELF_HEART);
+        else if (checkHeartExist(userIdx, postIdx))
+            throw new BaseException(DUPLICATE_HEART);
+        try {
+            galleryDao.postLike(userIdx, postIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public boolean checkPostExist(int postIdx) throws BaseException {
         try {
             return galleryDao.checkPostExist(postIdx) == 1;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public boolean checkHeartExist(int userIdx, int postIdx) throws BaseException {
+        try {
+            return galleryDao.checkHeartExist(postIdx, userIdx) == 1;
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }

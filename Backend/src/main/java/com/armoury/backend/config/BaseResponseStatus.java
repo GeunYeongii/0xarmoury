@@ -42,6 +42,9 @@ public enum BaseResponseStatus {
     PATCH_EMPTY_TOOL(false, 2050, "존재하지 않는 도구에 대한 수정 요청입니다."),
     WRONG_TOOL_INPUT_REQ(false, 2051, "공격 도구에 대한 올바르지 않는 입력값 요청입니다."),
     EMPTY_OUTPUT(false, 2052, "요청에 대한 결과가 존재하지 않습니다."),
+    DUPLICATE_HEART(false, 2053, "좋아요는 한번만 누를 수 있습니다."),
+    NO_SELF_HEART(false, 2054, "자기 자신에게는 '좋아요' 불가능합니다."),
+
     /**
      * 3000 : Response 오류
      */

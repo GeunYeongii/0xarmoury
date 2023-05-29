@@ -203,4 +203,17 @@ public class GalleryController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    @ResponseBody
+    @Operation(summary = "포스트에 좋아요 누르기", description = "무기에 '좋아요'를 추가합니다.")
+    @PostMapping("/heart/{postIdx}")
+    public BaseResponse<String> postHeart(@PathVariable("postIdx") int postIdx){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            galleryService.postHeart(userIdxByJwt, postIdx);
+            return new BaseResponse<>("좋아요♥");
+        } catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

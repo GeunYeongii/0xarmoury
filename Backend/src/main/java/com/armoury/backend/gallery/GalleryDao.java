@@ -153,6 +153,12 @@ public class GalleryDao {
         return this.jdbcTemplate.update(deleteQuery, deleteParams);
     }
 
+    public void postLike(int userIdx, int postIdx){
+        String insertQuery = "INSERT INTO Heart (postIdx, userIdx) VALUES (?,?)";
+        Object[] insertParams = new Object[]{postIdx, userIdx};
+        this.jdbcTemplate.update(insertQuery, insertParams);
+    }
+
     public int whoPostTool (int postIdx){
         String selectQuery = "SELECT userIdx FROM Post WHERE postIdx = ?";
         return this.jdbcTemplate.queryForObject(selectQuery, int.class, postIdx);
@@ -166,5 +172,11 @@ public class GalleryDao {
     public int checkPostExist(int postIdx) {
         String checkQuery = "SELECT EXISTS(SELECT postIdx FROM Post WHERE postIdx = ?)";
         return this.jdbcTemplate.queryForObject(checkQuery, int.class, postIdx);
+    }
+
+    public int checkHeartExist(int postIdx, int userIdx) {
+        String checkQuery = "SELECT EXISTS(SELECT postIdx FROM Heart WHERE postIdx = ? ANd userIdx = ?)";
+        Object[] insertParams = new Object[]{postIdx, userIdx};
+        return this.jdbcTemplate.queryForObject(checkQuery, int.class, insertParams);
     }
 }
