@@ -176,3 +176,33 @@
   width:100%;
   border-top: 1px solid #000000;
 }
+
+  .tool-matrix-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 20px;
+    background-color: rgb(255, 255, 255);;
+    border-radius: 10px;
+    margin: 35px;
+    margin-top: 0px;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    
+  }
+
+  
+  .tool-matrix-box-content {
+    flex: 0.9;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    text-align: center;
+    font-size: 20px;
+    height: auto;
+    overflow-y:auto;
+  }
