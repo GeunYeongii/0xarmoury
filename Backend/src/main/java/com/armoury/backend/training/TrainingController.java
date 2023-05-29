@@ -58,4 +58,6 @@ public class TrainingController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+
 }

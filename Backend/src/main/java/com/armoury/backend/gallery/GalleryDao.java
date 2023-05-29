@@ -20,7 +20,7 @@ public class GalleryDao {
     }
 
     public Integer countTotalPost() {
-        String countQuery = "SELECT COUNT(*) FROM Post";
+        String countQuery = "SELECT COUNT(*) FROM Post WHERE share = 1";
         return this.jdbcTemplate.queryForObject(countQuery, Integer.class);
     }
 
