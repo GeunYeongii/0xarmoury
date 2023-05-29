@@ -17,9 +17,9 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import SchoolIcon from '@mui/icons-material/School';
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function GalleryDetail(){
     const [data, setResponse] = useState([]);
@@ -28,6 +28,7 @@ function GalleryDetail(){
     const badge = localStorage.getItem('badge');
     
     const {no} = useParams();
+   
 
     {/* 
     useEffect(() => {
@@ -37,27 +38,10 @@ function GalleryDetail(){
       }, []);
     */}
 
-    const sendLikeInfo = async (no) => {
-        try {
-          const updatedLike = data.like + 1;
-          const response = await axios.post('api' + no, { like: updatedLike });
-          if(response.data.isSuccess)
-          {
-            setResponse({ ...data, like: updatedLike }); // 업데이트된 좋아요 값 저장
-          }
-          else
-          {
-            alert('좋아요는 한 번만 가능해용~');
-          }
-          console.log(response.data);
-
-        } catch (error) {
-          console.error(error);
-          alert('좋아요는 한 번만 가능해용~');
-        }
-      }
     
     useEffect(() => {GalleryDetail(no); CommentList(no);});
+
+   
 
     const GalleryDetail = async (no) => {
         try {
@@ -181,6 +165,32 @@ function GalleryDetail(){
     }
 
 
+    const sendLikeInfo = async () => {
+           await axios
+          .post(`../gallery/heart/`+ no, null, {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            })
+          .then(function(response){
+            console.log(response.data);
+            if(response.data.isSuccess){
+                setResponse({ ...data, like: data.like + 1 });
+            }
+            else if(response.data.code === 2053)
+            {
+                alert('좋아요는 한번만 누를 수 있습니다.');              
+            }
+            else
+            {
+                alert('자기 자신에게는 \'좋아요\' 불가능합니다.');              
+            }
+          })
+          .catch (function(error) {
+            console.error(error);
+            });
+     };
+
     return(
         <div>
             <div className='container-right'>
@@ -254,8 +264,14 @@ function GalleryDetail(){
                             </IconButton>{data.nickName}
                             
                             {/* 좋아요 버튼 */}
-                            <IconButton onClick={sendLikeInfo}><ThumbUpIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C', marginLeft: "10px"}}/>
-                            </IconButton>{data.like}
+                            {data.myHeart === 0 ?(
+                                <IconButton onClick={sendLikeInfo}><FavoriteBorderIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C', marginLeft: "10px"}}/>
+                                </IconButton>
+                            ):(
+                                <IconButton onClick={sendLikeInfo}><FavoriteIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#FF0000', marginLeft: "10px"}}/>
+                                </IconButton>
+                            )}{data.heart}
+                            
                             </div>
                             
                             <div className='gallery-title-right'>
