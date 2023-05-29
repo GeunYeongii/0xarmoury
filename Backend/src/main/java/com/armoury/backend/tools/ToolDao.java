@@ -71,6 +71,12 @@ public class ToolDao {
                 ));
     }
 
+    public List<String> getToolsByTechnique(String code, String rn) {
+        System.out.println(code + "-" + rn);
+        String sql = "SELECT toolName FROM Tool WHERE aml REGEXP CONCAT('\\\\b', ?, '\\\\[([^\\\\]]*\\\\b)?', ?, '\\\\b([^\\\\]]*)\\\\]')";
+        return jdbcTemplate.queryForList(sql, new Object[]{code, rn}, String.class);
+    }
+
     public String getAMLByIdx(int toolIdx) {
         String getToolQuery = "SELECT aml FROM Tool WHERE toolIdx = ?";
         return this.jdbcTemplate.queryForObject(getToolQuery, String.class, toolIdx);

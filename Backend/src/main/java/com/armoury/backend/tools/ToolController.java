@@ -137,5 +137,17 @@ public class ToolController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    @ResponseBody
+    @Operation(summary = "Matrix Technique 관련 도구 검색하기", description = "AML의 일부를 입력받아 관련된 공격 도구를 조회합니다."
+                            + "</br> \\'RC-2\\' 형태로 입력해주세요!")
+    @GetMapping ("/mitreInfo/")
+    public BaseResponse<List<String>> getToolsByTechnique(@RequestParam(required = true) String amlPart) {
+        try {
+            return new BaseResponse<>(toolProvider.getToolsByTechnique(amlPart));
+        } catch(BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }
 

@@ -64,6 +64,17 @@ public class ToolProvider {
         }
     }
 
+    public List<String> getToolsByTechnique(String amlPart) throws BaseException {
+        String[] sections = amlPart.split("-");
+        try {
+            System.out.println(sections[0] + "-" + sections[1]);
+            return toolDao.getToolsByTechnique(sections[0], sections[1]);
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public List<String> getAMLByIdx(int toolIdx) throws BaseException{
         String aml = toolDao.getAMLByIdx(toolIdx);
         System.out.println(aml);
@@ -94,4 +105,5 @@ public class ToolProvider {
         }
         return list;
     }
+
 }
