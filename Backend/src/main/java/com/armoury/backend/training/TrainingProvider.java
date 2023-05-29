@@ -1,7 +1,6 @@
 package com.armoury.backend.training;
 
 import com.armoury.backend.config.BaseException;
-import com.armoury.backend.gallery.model.GetToolInfoRes;
 import com.armoury.backend.training.model.GetPostInfoRes;
 import com.armoury.backend.training.model.GetPostSumInfoRes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.armoury.backend.config.BaseResponseStatus.*;
-import static com.armoury.backend.config.BaseResponseStatus.INVALID_USER_JWT;
 
 @Service
 public class TrainingProvider {

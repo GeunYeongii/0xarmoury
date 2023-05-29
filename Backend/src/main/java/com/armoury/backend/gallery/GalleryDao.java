@@ -44,8 +44,13 @@ public class GalleryDao {
     }
 
     public GetToolInfoRes getToolInfo(int postIdx) {
-        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
-                "JOIN User AS u ON p.userIdx = u.userIdx WHERE p.postIdx = ?";
+        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, COUNT(h.postIdx) AS like_count\n" +
+                "FROM Post p\n" +
+                "JOIN User u ON p.userIdx = u.userIdx\n" +
+                "LEFT JOIN Heart h ON p.postIdx = h.postIdx\n" +
+                "GROUP BY p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime\n" +
+                "ORDER BY p.postTime DESC\n" +
+                "LIMIT ?, 5;";
         return this.jdbcTemplate.queryForObject(getQuery,
                 (rs, rowNum) -> new GetToolInfoRes(
                        rs.getInt("postIdx"),
@@ -56,14 +61,21 @@ public class GalleryDao {
                        rs.getString("contents"),
                        rs.getString("url"),
                        rs.getInt("share"),
-                       rs.getString("postTime")
+                       rs.getString("postTime"),
+                       rs.getInt("like_count")
                 ),
                 postIdx);
     }
 
     public List<GetToolInfoRes> getUserTools(int userIdx, int pageNum) {
-        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
-                "JOIN User AS u ON p.userIdx = u.userIdx WHERE p.userIdx = ? ORDER BY p.postTime DESC LIMIT ?, 5";
+        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime, COUNT(h.postIdx) AS like_count\n" +
+                "FROM Post p\n" +
+                "JOIN User u ON p.userIdx = u.userIdx\n" +
+                "LEFT JOIN Heart h ON p.postIdx = h.postIdx\n" +
+                "WHERE p.userIdx = ? \n" +
+                "GROUP BY p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime\n" +
+                "ORDER BY p.postTime DESC\n" +
+                "LIMIT ?, 5;";
         Object[] getParams = new Object[]{userIdx, pageNum};
 
         return this.jdbcTemplate.query(getQuery,
@@ -76,7 +88,8 @@ public class GalleryDao {
                         rs.getString("contents"),
                         rs.getString("url"),
                         rs.getInt("share"),
-                        rs.getString("postTime")
+                        rs.getString("postTime"),
+                        rs.getInt("like_count")
                 ), getParams);
     }
 
