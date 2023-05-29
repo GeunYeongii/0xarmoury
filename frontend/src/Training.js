@@ -222,7 +222,7 @@ function MainPage(){
                 <div className='training-right'>
                     <div className='training-box-top'>
                         <div className='training-scenario-title'>{selectedLabel}</div>
-                        <Button href='#' variant="outlined" sx={{m: 1, color: 'black', borderColor:"black", ":hover": { borderColor: "black" },
+                        <Button href='./TrainingUpload' variant="outlined" sx={{m: 1, color: 'black', borderColor:"black", ":hover": { borderColor: "black" },
 						boxShadow: 2,}}>Upload Your Problem</Button>
                     </div> 
                     <div className='training-division-line-top'></div>
