@@ -80,7 +80,6 @@ public class ToolProvider {
                 for (String tech : techniques)
                     ttd.add(new TechniqueToolData(tech, 1));
                 if (techniques.size() != 0 && ttd.size() != 0) {
-                    // System.out.println(i);
                     TechniqueTool tt = new TechniqueTool(techniqueRow.getTechName(), ttd);
                     res.add(new data(tacticNames[i], tt));
                 }

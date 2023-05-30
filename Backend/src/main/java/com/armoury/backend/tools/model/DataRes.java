@@ -9,5 +9,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class DataRes {
-    private List<data> data;
+    private String name;
+    private dataRoot children;
 }

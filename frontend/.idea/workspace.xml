@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7980380-bcb6-4828-bc8d-79bdecad12cb" name="Changes" comment="" />
+    <list default="true" id="e7980380-bcb6-4828-bc8d-79bdecad12cb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Matrix.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Matrix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tools.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tools.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,9 +24,10 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/artis/github/0xarmoury-frontend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Gayoung/github/0xarmoury/Backend&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -52,19 +57,6 @@
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
       <method v="2" />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="frontend" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="frontend" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
       <module name="frontend" />
@@ -143,6 +135,8 @@
       <workItem from="1682485400853" duration="527000" />
       <workItem from="1682494808995" duration="19000" />
       <workItem from="1682574265479" duration="32000" />
+      <workItem from="1685417027328" duration="139000" />
+      <workItem from="1685418526875" duration="17000" />
     </task>
     <servers />
   </component>
