@@ -1,4 +1,4 @@
-from pyattck import Attck
+from pyattck import Attack
 
 attack = Attck(
     nested_techniques=True,

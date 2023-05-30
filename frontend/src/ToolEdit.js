@@ -19,6 +19,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormHelperTexts from '@mui/material/FormHelperText';
+import SchoolIcon from '@mui/icons-material/School';
 
 function ToolEdit(){
     const [PostError, setpostError] = useState('');
@@ -26,6 +27,7 @@ function ToolEdit(){
     const Navigate = useNavigate();
     const Location = useLocation();
     const data = Location.state;
+    const badge = localStorage.getItem('badge');
 
     const {no} = useParams();
 
@@ -77,6 +79,10 @@ function ToolEdit(){
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+        localStorage.removeItem("badge");
     }
 
     return(
@@ -88,7 +94,13 @@ function ToolEdit(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>username</Link>
+                        :<div className="sign-container">
+                            <div>
+                            <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                            <Link href ="./Assignment" color='#000000'>          
+                                {localStorage.getItem('nickName')}
+                            </Link>
+                            </div>
                         <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                     }
                     </div>
@@ -109,11 +121,11 @@ function ToolEdit(){
                 <div className='container-right'>
                     <div className='outline-container'>
                         <div className="button-container">
-                            <Link href ="#" color='#000000'>Matric</Link>
-                            <Link href="#" color='#000000'>Tools</Link>
-                            <Link href ="#" color='#000000'>Training</Link>
+                            <Link href ="../Matrix" color='#000000'>Matrix</Link>
+                            <Link href="../Tools" color='#000000'>Tools</Link>
+                            <Link href ="../Training" color='#000000'>Training</Link>
                             <Link href ="../Gallery" color='#0042ED'>Gallery</Link>
-                            <Link href ="#" color='#000000'>My page</Link>
+                            <Link href ="../MyTools" color='#000000'>My tool</Link>
                         </div>
                     </div>
                     
@@ -137,79 +149,78 @@ function ToolEdit(){
             <div className = 'division-line'></div>
             <div className='contents'>
             
-            <div className='.Upload-Menu-sub' style={{ marginTop: '30px' }}>
+            <div className='.Upload-Menu' style={{ marginTop: '30px' }}>
                 
-            <Box sx={{
-                width: "590px",
-                height: "650px",
-                border: 1, 
-                borderColor: "#E2E8F0", 
-                boxshadow: 2,
-                borderradius: "2px"
-                }}>
-            <div className='font-Title'>Upload my Tools</div>
-            <div className='Upload-tool-line'></div>
-            <div className='font-name'>Tool name</div>
-            <Box
-                sx={{
-                    maxWidth: '96%',
-                }}
-                >
-                <TextField fullWidth id="fullWidth" name="title" defaultValue = {formData.title} onChange={handleInputChange} sx={{
-                    marginLeft: "10px",
-                    marginBottom: "20px",
-                    
-                }} />
-            </Box>
-            <div className='font-name'>Definition</div>
-            <Box
-                sx={{
-                    maxWidth: '96%',
-                }}
-                >
-                <TextField fullWidth id="outlined-multiline-static" name="definition"  defaultValue = {formData.definition} onChange={handleInputChange}
-                    multiline
-                    rows={3}
+                <Box sx={{
+                    width: "590px",
+                    height: "650px",
+                    border: 1, 
+                    borderColor: "#E2E8F0", 
+                    boxshadow: 2,
+                    borderradius: "2px"
+                    }}>
+                <div className='font-Title'>Upload my Tools</div>
+                <div className='Upload-tool-line'></div>
+                <div className='font-name'>Tool name</div>
+                <Box
                     sx={{
-                    marginLeft: "10px",
-                    marginBottom: "20px",
-                }} />
-            </Box>
-            <div className='font-name'>How to use</div>
-            <Box
-                sx={{
-                    maxWidth: '96%',
-                }}
-                >
-                <TextField fullWidth id="outlined-multiline-static" name="contents"  defaultValue = {formData.contents} onChange={handleInputChange}
-                    multiline
-                    rows={5}
+                        maxWidth: '96%',
+                    }}
+                    >
+                    <TextField fullWidth id="fullWidth" name="title" defaultValue = {formData.title} onChange={handleInputChange} sx={{
+                        marginLeft: "10px",
+                        marginBottom: "20px",
+                        
+                    }} />
+                </Box>
+                <div className='font-name'>Definition</div>
+                <Box
                     sx={{
-                    marginLeft: "10px",
-                    marginBottom: "20px",
-                }} />
-            </Box>
-            <div className='font-name'>Install URL</div>
-            <Box
-                sx={{
-                    maxWidth: '96%',
-                }}
-                >
-                <TextField fullWidth id="fullWidth"  name="url"  defaultValue = {formData.url} onChange={handleInputChange} InputProps={{
-                startAdornment: (
-                    <InputAdornment position="start">
-                    <GitHubIcon />
-                    </InputAdornment>
-                ), }}
-                sx={{
-                    marginLeft: "10px",
-                    marginBottom: "20px"
-                }} />
-            </Box>
-            </Box>
-
-           
+                        maxWidth: '96%',
+                    }}
+                    >
+                    <TextField fullWidth id="outlined-multiline-static" name="definition"  defaultValue = {formData.definition} onChange={handleInputChange}
+                        multiline
+                        rows={3}
+                        sx={{
+                        marginLeft: "10px",
+                        marginBottom: "20px",
+                    }} />
+                </Box>
+                <div className='font-name'>How to use</div>
+                <Box
+                    sx={{
+                        maxWidth: '96%',
+                    }}
+                    >
+                    <TextField fullWidth id="outlined-multiline-static" name="contents"  defaultValue = {formData.contents} onChange={handleInputChange}
+                        multiline
+                        rows={5}
+                        sx={{
+                        marginLeft: "10px",
+                        marginBottom: "20px",
+                    }} />
+                </Box>
+                <div className='font-name'>Install URL</div>
+                <Box
+                    sx={{
+                        maxWidth: '96%',
+                    }}
+                    >
+                    <TextField fullWidth id="fullWidth"  name="url"  defaultValue = {formData.url} onChange={handleInputChange} InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                        <GitHubIcon />
+                        </InputAdornment>
+                    ), }}
+                    sx={{
+                        marginLeft: "10px",
+                        marginBottom: "20px"
+                    }} />
+                </Box>
+                </Box>
             </div>
+
             <div className='Upload-Menu-sub'>
             <Box sx={{
                 width: "300px",
@@ -260,7 +271,8 @@ function ToolEdit(){
                 borderColor: '#FF5C60', 
                 fontSize: '11px',
                 justifyContent:"flex-start", 
-                fontWeight: '700'
+                fontWeight: '700',
+                marginRight:2,
                 }}>
                 Cancel
             </Button>
@@ -268,7 +280,8 @@ function ToolEdit(){
                 color: '#0000FF', 
                 borderColor: '#0000FF',
                 fontSize: '11px',
-                fontWeight : "700"
+                fontWeight : "700",
+                marginLeft:2,
                  }}>
                 Upload
             </Button>

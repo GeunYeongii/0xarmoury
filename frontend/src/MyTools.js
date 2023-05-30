@@ -16,20 +16,19 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import IconButton from '@mui/material/IconButton';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import {Pagination} from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DownloadIcon from '@mui/icons-material/Download';
 import ShareIcon from '@mui/icons-material/Share';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import { blue } from '@mui/material/colors';
+import SchoolIcon from '@mui/icons-material/School';
 
 function MyTools(){
 
 	const [galleryList, setGalleryList] = useState([]);
 	const [paginationCount, setPaginationCount] = useState(0);
 	const [currentPage, setCurrentPage] = useState(1);
+	const badge = localStorage.getItem('badge');
 
 	const handleDelete = (postIdx) => {
 		axios.delete(`/gallery/tool/delete/${postIdx}`, {
@@ -94,6 +93,8 @@ function MyTools(){
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+        localStorage.removeItem("badge");
     }
 	
 
@@ -106,7 +107,13 @@ function MyTools(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                        :<div className="sign-container">
+							<div>
+                            <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                            <Link href ="./Account" color='#000000'>          
+                                {localStorage.getItem('nickName')}
+                            </Link>
+                            </div>
                         <Link href="./" onClick={Logout} color='#000000'>logout</Link></div>
                     }
                     </div>
@@ -127,11 +134,11 @@ function MyTools(){
                 <div className='container-right'>
                     <div className='outline-container'>
                         <div className="button-container">
-                            <Link href ="#" color='#000000'>Matric</Link>
-                            <Link href="#" color='#000000'>Tools</Link>
-                            <Link href ="#" color='#000000'>Training</Link>
+                            <Link href ="./Matrix" color='#000000'>Matrix</Link>
+                            <Link href="./Tools" color='#000000'>Tools</Link>
+                            <Link href ="./Training" color='#000000'>Training</Link>
                             <Link href ="./Gallery" color='#000000'>Gallery</Link>
-                            <Link href ="#" color='#000000'>My page</Link>
+                            <Link href ="/MyTools" color='#0042ED'>My tool</Link>
                         </div>
                     </div>
                     
@@ -161,31 +168,24 @@ function MyTools(){
 						borderColor:"black",
 						":hover": { borderColor: "black" },
 						boxShadow: 2,
+						bgcolor: "#EDEEFA",
+						marginBottom: "20px",
+					}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
+						My tool             
+					</Button>
+					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
+						color:"black",
+						borderColor:"black",
+						":hover": { borderColor: "black" },
+						boxShadow: 2,
 						marginBottom: "20px",
 					}}startIcon={<BookmarkIcon sx={{color: "#FACC2E" }}/>}>
 					Favorites          
 					</Button>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						marginBottom: "20px",
-					}}startIcon={<HistoryIcon sx={{color: "#000000" }}/>}>
-						Packaging History           
-					</Button>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						bgcolor: "#EDEEFA",
-					}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
-						My tool             
-					</Button>
+					
 
 					<h4>Settings</h4>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
+					<Button href="./Account" variant="outlined" size="large" style={{width:"60%"}} sx={{
 						color:"black",
 						borderColor:"black",
 						":hover": { borderColor: "black" },
@@ -201,7 +201,7 @@ function MyTools(){
 						boxShadow: 2,
 						marginBottom: "20px",
 
-					}}startIcon={<LockIcon/>}>
+					}}startIcon={<LockIcon />}>
 						<div className='font-align'>Security</div>
 					</Button> 
 					<Link href='./ToolUpload'>

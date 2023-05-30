@@ -1,0 +1,81 @@
+.Page-Title{
+	font-size: 20px;
+	font-weight: 500;
+}
+
+
+.Account-division-line{
+	margin-top: 10px;
+	border: 1px solid #000000;
+	width: 100%;
+  }
+
+  .Account-contents {
+	width: 1300x;
+	height: 100%;
+	background-color: white;
+	display: flex;
+	flex-direction: row;
+	padding-top: 30px;
+	padding-right: 30px;
+  }
+  
+  .Account-Menu {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 30px;
+
+	font-size: 24px;
+	width: 25%;
+	margin-left: 50px;
+	margin-top: 5px;
+  }
+  
+  .Account-Menu-sub {
+	flex: 1;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	justify-content: flex-start;
+	margin-left: 10px;
+	margin-top: 30px;
+	margin-right: 30px;
+	padding-right: 300px;
+  }
+
+  .Account-info-title{
+	margin-top: 20px;
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 17px;
+	line-height: 21px;
+  }
+
+  .Account-info-text{
+	width: 100%;
+	background-color: rgb(247, 247, 247);
+	padding: 15px;
+	margin-top: 5px;
+	font-size: 18px;
+	height: 25px;
+	border-radius: 10px;
+	border: 1px solid rgb(216, 216, 216);
+	margin-bottom: 15px;
+  }
+
+  .Account-Textfield{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+  }
+
+  .Account-text-level{
+	font-size: 18px;
+	font-weight: 500;
+	padding-top: 38px;	
+	margin-left: 10px;
+	color: rgb(116, 116, 116);
+  }

@@ -20,7 +20,7 @@ public class GalleryDao {
     }
 
     public Integer countTotalPost() {
-        String countQuery = "SELECT COUNT(*) FROM Post";
+        String countQuery = "SELECT COUNT(*) FROM Post WHERE share = 1";
         return this.jdbcTemplate.queryForObject(countQuery, Integer.class);
     }
 
@@ -44,8 +44,13 @@ public class GalleryDao {
     }
 
     public GetToolInfoRes getToolInfo(int postIdx) {
-        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
-                "JOIN User AS u ON p.userIdx = u.userIdx WHERE p.postIdx = ?";
+        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime, COUNT(h.postIdx) AS like_count\n" +
+                "FROM Post p\n" +
+                "JOIN User u ON p.userIdx = u.userIdx\n" +
+                "LEFT JOIN Heart h ON p.postIdx = h.postIdx\n" +
+                "WHERE p.postIdx = ?\n" +
+                "GROUP BY p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime\n" +
+                "HAVING p.postIdx IS NOT NULL;";
         return this.jdbcTemplate.queryForObject(getQuery,
                 (rs, rowNum) -> new GetToolInfoRes(
                        rs.getInt("postIdx"),
@@ -56,14 +61,21 @@ public class GalleryDao {
                        rs.getString("contents"),
                        rs.getString("url"),
                        rs.getInt("share"),
-                       rs.getString("postTime")
+                       rs.getString("postTime"),
+                       rs.getInt("like_count")
                 ),
                 postIdx);
     }
 
     public List<GetToolInfoRes> getUserTools(int userIdx, int pageNum) {
-        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime FROM Post AS p \n" +
-                "JOIN User AS u ON p.userIdx = u.userIdx WHERE p.userIdx = ? ORDER BY p.postTime DESC LIMIT ?, 5";
+        String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime, COUNT(h.postIdx) AS like_count\n" +
+                "FROM Post p\n" +
+                "JOIN User u ON p.userIdx = u.userIdx\n" +
+                "LEFT JOIN Heart h ON p.postIdx = h.postIdx\n" +
+                "WHERE p.userIdx = ? \n" +
+                "GROUP BY p.postIdx, p.userIdx, u.nickName, p.title, p.definition, p.contents, p.url, p.share, p.postTime\n" +
+                "ORDER BY p.postTime DESC\n" +
+                "LIMIT ?, 5;";
         Object[] getParams = new Object[]{userIdx, pageNum};
 
         return this.jdbcTemplate.query(getQuery,
@@ -76,7 +88,8 @@ public class GalleryDao {
                         rs.getString("contents"),
                         rs.getString("url"),
                         rs.getInt("share"),
-                        rs.getString("postTime")
+                        rs.getString("postTime"),
+                        rs.getInt("like_count")
                 ), getParams);
     }
 
@@ -140,6 +153,12 @@ public class GalleryDao {
         return this.jdbcTemplate.update(deleteQuery, deleteParams);
     }
 
+    public void postLike(int userIdx, int postIdx){
+        String insertQuery = "INSERT INTO Heart (postIdx, userIdx) VALUES (?,?)";
+        Object[] insertParams = new Object[]{postIdx, userIdx};
+        this.jdbcTemplate.update(insertQuery, insertParams);
+    }
+
     public int whoPostTool (int postIdx){
         String selectQuery = "SELECT userIdx FROM Post WHERE postIdx = ?";
         return this.jdbcTemplate.queryForObject(selectQuery, int.class, postIdx);
@@ -153,5 +172,11 @@ public class GalleryDao {
     public int checkPostExist(int postIdx) {
         String checkQuery = "SELECT EXISTS(SELECT postIdx FROM Post WHERE postIdx = ?)";
         return this.jdbcTemplate.queryForObject(checkQuery, int.class, postIdx);
+    }
+
+    public int checkHeartExist(int postIdx, int userIdx) {
+        String checkQuery = "SELECT EXISTS(SELECT postIdx FROM Heart WHERE postIdx = ? ANd userIdx = ?)";
+        Object[] insertParams = new Object[]{postIdx, userIdx};
+        return this.jdbcTemplate.queryForObject(checkQuery, int.class, insertParams);
     }
 }

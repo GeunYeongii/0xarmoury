@@ -23,10 +23,12 @@ public enum BaseResponseStatus {
     INVALID_USER_JWT(false, 2003, "권한이 없는 유저의 접근입니다."),
     EMPTY_CONTENT(false, 2004, "요청한 정보가 없습니다."),
     EMPTY_INPUT_REQ(false, 2005, "요청 데이터를 확인해주세요."),
+    WRONG_INPUT_REQ(false, 2006, "요청 데이터를 확인해주세요."),
 
     // users
     USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
     WRONG_USER(false, 2011, "존재하지 않는 유제에 대한 요청입니다."),
+    NEED_MASTER(false, 2012, "마스터 권한이 필요합니다."),
 
     // [POST] /users
     POST_USERS_EMPTY_EMAIL(false, 2015, "이메일을 입력해주세요."),
@@ -40,6 +42,9 @@ public enum BaseResponseStatus {
     PATCH_EMPTY_TOOL(false, 2050, "존재하지 않는 도구에 대한 수정 요청입니다."),
     WRONG_TOOL_INPUT_REQ(false, 2051, "공격 도구에 대한 올바르지 않는 입력값 요청입니다."),
     EMPTY_OUTPUT(false, 2052, "요청에 대한 결과가 존재하지 않습니다."),
+    DUPLICATE_HEART(false, 2053, "좋아요는 한번만 누를 수 있습니다."),
+    NO_SELF_HEART(false, 2054, "자기 자신에게는 '좋아요' 불가능합니다."),
+
     /**
      * 3000 : Response 오류
      */

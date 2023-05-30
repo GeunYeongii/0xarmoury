@@ -17,13 +17,18 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SchoolIcon from '@mui/icons-material/School';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function GalleryDetail(){
     const [data, setResponse] = useState([]);
     const [comment, setComment] = useState([]);
     const Navigate = useNavigate();
+    const badge = localStorage.getItem('badge');
     
     const {no} = useParams();
+   
 
     {/* 
     useEffect(() => {
@@ -33,7 +38,10 @@ function GalleryDetail(){
       }, []);
     */}
 
+    
     useEffect(() => {GalleryDetail(no); CommentList(no);});
+
+   
 
     const GalleryDetail = async (no) => {
         try {
@@ -152,8 +160,36 @@ function GalleryDetail(){
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userId");
         localStorage.removeItem("nickName");
+        localStorage.removeItem("email");
+        localStorage.removeItem("badge");
     }
 
+
+    const sendLikeInfo = async () => {
+           await axios
+          .post(`../gallery/heart/`+ no, null, {
+            headers: {
+            'X-ACCESS-TOKEN': localStorage.getItem('accessToken')
+            }
+            })
+          .then(function(response){
+            console.log(response.data);
+            if(response.data.isSuccess){
+                setResponse({ ...data, like: data.like + 1 });
+            }
+            else if(response.data.code === 2053)
+            {
+                alert('좋아요는 한번만 누를 수 있습니다.');              
+            }
+            else
+            {
+                alert('자기 자신에게는 \'좋아요\' 불가능합니다.');              
+            }
+          })
+          .catch (function(error) {
+            console.error(error);
+            });
+     };
 
     return(
         <div>
@@ -164,7 +200,13 @@ function GalleryDetail(){
                         localStorage.getItem("accessToken") == null
                         ?<div className="sign-container"><Link href ="./SignIn" color='#000000'>Sign In</Link>
                         <Link href="./SignUp" color='#000000'>Sign Up</Link></div>
-                        :<div className="sign-container"><Link href ="#" color='#000000'>{localStorage.getItem('nickName')}</Link>
+                        :<div className="sign-container">
+                            <div>
+                            <SchoolIcon style={{ color: badge > 5 ? '#F15F5F' : '#6B66FF', verticalAlign: 'bottom', marginRight: 8}}/> 
+                            <Link href ="../Account" color='#000000'>          
+                                {localStorage.getItem('nickName')}
+                            </Link>
+                            </div>
                         <Link href="../" onClick={Logout} color='#000000'>logout</Link></div>
                     }
                     </div>
@@ -185,11 +227,11 @@ function GalleryDetail(){
                 <div className='container-right'>
                     <div className='outline-container'>
                         <div className="button-container">
-                            <Link href ="#" color='#000000'>Matric</Link>
-                            <Link href="#" color='#000000'>Tools</Link>
-                            <Link href ="#" color='#000000'>Training</Link>
-                            <Link href ="../Gallery" sx={{ color: data.share === 0 ? 'black' : '#0042ED', textDecorationColor: data.share === 0 ? '#848484' : '#0042ED',}}>Gallery</Link>
-                            <Link href ="#" color='#000000'>My page</Link>
+                            <Link href ="../Matrix" color='#000000'>Matrix</Link>
+                            <Link href="../Tools" color='#000000'>Tools</Link>
+                            <Link href ="../Training" color='#000000'>Training</Link>
+                            <Link href ="../Gallery" color='#0042ED'>Gallery</Link>
+                            <Link href ="../MyTools" color='#000000'>My tool</Link>
                         </div>
                     </div>
                     
@@ -218,9 +260,22 @@ function GalleryDetail(){
                             {data.title}
                         </div>
                         <div className='gallery-title-info'>
-                            <div><AccountCircleIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C'}}/> {data.nickName} </div>
+                            <div><IconButton><AccountCircleIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C'}}/>
+                            </IconButton>{data.nickName}
+                            
+                            {/* 좋아요 버튼 */}
+                            {data.myHeart === 0 ?(
+                                <IconButton onClick={sendLikeInfo}><FavoriteBorderIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#4C4C4C', marginLeft: "10px"}}/>
+                                </IconButton>
+                            ):(
+                                <IconButton onClick={sendLikeInfo}><FavoriteIcon sx={{height: 22, width: 22, verticalAlign: 'bottom', color: '#FF0000', marginLeft: "10px"}}/>
+                                </IconButton>
+                            )}{data.heart}
+                            
+                            </div>
+                            
                             <div className='gallery-title-right'>
-                                {data.postTime}
+                               {data.postTime}
                                 {data.userIdx == localStorage.getItem('userId')
                                 &&<div><IconButton onClick={()=>Navigate('../ToolEdit/'+ no, 
                                     { state: { postIdx: no, 
@@ -235,6 +290,7 @@ function GalleryDetail(){
                                 <IconButton onClick={() => handleDelete()} aria-label="delete" sx={{height: 25, width: 25, verticalAlign: 'bottom', ml: '5px', mt: '2px'}}>
                                     <DeleteIcon  />
                                 </IconButton></div>
+                                
                                 }
                             </div>
                         </div>

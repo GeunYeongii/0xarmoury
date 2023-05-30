@@ -64,19 +64,19 @@ public class GalleryController {
     @ResponseBody
     @Operation(summary = "공격 도구 정보 단일 조회", description = "공격 도구의 정보를 개별적으로 조회합니다.")
     @GetMapping("/tool/{postIdx}")
-    public BaseResponse<GetToolInfoRes> getToolInfo(@PathVariable("postIdx") int postIdx){
+    public BaseResponse<GetToolPHeartRes> getToolInfo(@PathVariable("postIdx") int postIdx){
         try {
             int userIdxByJwt = jwtService.getUserIdx();
-            GetToolInfoRes getToolInfoRes= galleryProvider.getToolInfo(postIdx, userIdxByJwt);
-            return new BaseResponse<>(getToolInfoRes);
+            GetToolPHeartRes res = galleryProvider.getToolInfo(postIdx, userIdxByJwt);
+            return new BaseResponse<>(res);
         } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
     }
 
     @ResponseBody
-    @Operation(summary = "사용자의 공격도구 페이지 수 반환 (int)", description = "사용자(개인) 공격도구 게시글 조회에 사용되는 pageNumber의 전체 값을 반환합니다. 사용자 개시글 수 / 5 + 1\n"
-                                                                                + "JWT 토큰을 헤더에 포함해주세요.")
+    @Operation(summary = "사용자의 공격도구 페이지 수 반환 (int)", description = "사용자(개인) 공격도구 게시글 조회에 사용되는 pageNumber의 전체 값을 반환합니다. 사용자 개시글 수 / 5 + 1"
+                                                                                + "</br>JWT 토큰을 헤더에 포함해주세요.")
     @GetMapping("get/myList/pageNumber")
     public BaseResponse<Integer> getUserToolPage(){
         try {
@@ -200,6 +200,19 @@ public class GalleryController {
             return new BaseResponse<>("댓글 수정에 성공하였습니다.");
 
         } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @Operation(summary = "포스트에 좋아요 누르기", description = "무기에 '좋아요'를 추가합니다.")
+    @PostMapping("/heart/{postIdx}")
+    public BaseResponse<String> postHeart(@PathVariable("postIdx") int postIdx){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            galleryService.postHeart(userIdxByJwt, postIdx);
+            return new BaseResponse<>("좋아요♥");
+        } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
     }

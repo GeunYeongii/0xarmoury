@@ -17,4 +17,5 @@ public class GetToolInfoRes {
     private String url;
     private int share;
     private String postTime;
+    private int heart;
 }
