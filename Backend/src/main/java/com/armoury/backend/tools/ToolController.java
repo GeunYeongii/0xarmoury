@@ -68,11 +68,11 @@ public class ToolController {
     @Operation(summary = "공식 공격 도구 카테고리별 정보 조회", description = "칼리 기능 카테고리을 사용하여 공격 도구 정보 리스트를 조회합니다."
         + "</br>1    Information Gathering</br>2   Vulnerability Analysis</br>3   Web Application Analysis</br>4   Database Assessment"
         +"</br>5   Password Attacks</br>6   Wireless Attacks</br>7   Reverse Engineering</br>8   Exploitation Tools</br>"
-        +"9   Sniffing & Spoofing</br>10   Post Exploitation</br>11   Forensics</br>12   Reporting Tools")
+        +"9   Sniffing & Spoofing</br>10   Post Exploitation</br>11   Forensics</br>12   Reporting Tools </br>13   Master Tools")
     @GetMapping("/category/{categoryIdx}")
     public BaseResponse<List<GetToolSumInfoRes>> getToolsByCategoryIdx (@PathVariable("categoryIdx")int categoryIdx){
         try{
-            if (categoryIdx<1 || categoryIdx > 12)
+            if (categoryIdx<1 || categoryIdx > 13)
                 return new BaseResponse<>(BaseResponseStatus.WRONG_INPUT_REQ);
             List<GetToolSumInfoRes> infoList = toolProvider.getToolsByCategoryIdx(categoryIdx);
             return new BaseResponse<>(infoList);
