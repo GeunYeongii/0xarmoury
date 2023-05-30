@@ -1,9 +1,7 @@
 package com.armoury.backend.tools;
 
 import com.armoury.backend.config.BaseException;
-import com.armoury.backend.tools.model.GetCategoryRes;
-import com.armoury.backend.tools.model.GetToolRes;
-import com.armoury.backend.tools.model.GetToolSumInfoRes;
+import com.armoury.backend.tools.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,10 +62,37 @@ public class ToolProvider {
         }
     }
 
+    public List<data> getD3data() {
+        String[] tacticNames = {
+                "Reconnaissance", "Resource Development", "Initial Access", "Execution",
+                "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access",
+                "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact"
+        };
+
+        String[] code = { "RC","RD","IA","EX","PR","PE","DE","CA","DI","LM","CO","EXF","C2","IM"};
+
+        List<data> res = new ArrayList<>();
+        for (int i = 0; i < tacticNames.length ; i++) {
+            List<TechniqueRow> trn= toolDao.getTechInTactic(i+1);
+            for (TechniqueRow techniqueRow : trn) {
+                List<String> techniques = toolDao.getToolsByTechnique(code[i], techniqueRow.getRn() + "");
+                List<TechniqueToolData> ttd = new ArrayList<>();
+                for (String tech : techniques)
+                    ttd.add(new TechniqueToolData(tech, 1));
+                if (techniques.size() != 0 && ttd.size() != 0) {
+                    // System.out.println(i);
+                    TechniqueTool tt = new TechniqueTool(techniqueRow.getTechName(), ttd);
+                    res.add(new data(tacticNames[i], tt));
+                }
+            }
+        }
+
+        return res;
+    }
+
     public List<String> getToolsByTechnique(String amlPart) throws BaseException {
         String[] sections = amlPart.split("-");
         try {
-            System.out.println(sections[0] + "-" + sections[1]);
             return toolDao.getToolsByTechnique(sections[0], sections[1]);
         }
         catch (Exception exception) {

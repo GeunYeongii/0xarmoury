@@ -34,6 +34,13 @@ public class ToolController {
     }
 
     @ResponseBody
+    @Operation(summary = "", description = "")
+    @GetMapping("/d3")
+    public DataRes getD3data(){
+        return new DataRes(toolProvider.getD3data());
+    }
+
+    @ResponseBody
     @Operation(summary = "공식 공격 도구 개별 정보 조회 by toolIdx", description = "toolIdx 사용하여 공격 도구 정보 조회합니다.")
     @GetMapping("/{toolIdx}")
     public BaseResponse<GetToolRes> getToolByIdx (@PathVariable("toolIdx")int toolIdx){
