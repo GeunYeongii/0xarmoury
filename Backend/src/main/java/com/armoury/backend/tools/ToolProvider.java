@@ -104,7 +104,6 @@ public class ToolProvider {
 
     public List<String> getAMLByIdx(int toolIdx) throws BaseException{
         String aml = toolDao.getAMLByIdx(toolIdx);
-        System.out.println(aml);
         if (aml.isEmpty())
             throw new BaseException(EMPTY_CONTENT);
         return extractAML(aml);
