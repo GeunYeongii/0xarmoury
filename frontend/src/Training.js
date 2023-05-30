@@ -18,6 +18,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import SchoolIcon from '@mui/icons-material/School';
+import { textAlign } from '@mui/system';
 
 const categoryList = [
     {id: '1',
@@ -51,9 +52,9 @@ function MainPage(){
     const [jsonData, setHello] = useState('');
     const [selectedId, setSelectedId] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState("**Select Category**");
-
+    const [pageCount, setPageCount] = useState(0);
     const [category, setCategory] = useState('');
-    const [scenario, setScenario] = useState('');
+    const [scenario, setScenario] = useState([]);
 
     const badge = localStorage.getItem('badge');
 
@@ -74,16 +75,21 @@ function MainPage(){
       };
     {/* scenarioList(event.target.value) */}
 
-
- 
-    const scenarioList = async (category) => { //!!시나리오 불러올 때 변수 바꾸기!!
+    const scenarioList = async (categoryidx) => { //!!시나리오 불러올 때 변수 바꾸기!!
         try {
-            const response = await axios.get('/tools/category/' + category); //경로 변경
-            setScenario(response.data.result);
-  
+            const postData = {
+              "categoryIdx":categoryidx,
+              "pageNum": 1
+            }
+            const response = await axios.post('/training/postList/', postData); //경로 변경
+            
+            console.log(postData);
             const processedTool = response.data.result.map(item => ({
-                toolIdx: item.toolIdx, //변수 변경
-                toolName: item.toolName,
+                nickName: item.nickName, //변수 변경
+                title: item.title,
+                description: item.description,
+                postTime: item.postTime,
+                url: item.url
               }));
               setScenario(processedTool);
           } catch (error) {
@@ -93,7 +99,7 @@ function MainPage(){
 
     const handleSelect = (id) => {
         setSelectedId(id);
-
+        scenarioList(id);
         fetchData(id)
           .then((response) => {
             const { categoryName } = response.data.result[id-1];
@@ -105,13 +111,6 @@ function MainPage(){
           });
       };
 
-    {/* 
-    useEffect(() => {
-      axios.get('/api/test')
-      .then(response => setHello(response.data))
-      .catch(error => console.log(error))
-    }, []);
-    */}
 
     async function fetchData(id) {
         try {
@@ -227,152 +226,35 @@ function MainPage(){
                     </div> 
                     <div className='training-division-line-top'></div>
                     <div className='training-box-content'>
-                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
-                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
-                            <CardContent>
-                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
-                                Web Application Analysis
-                                </Typography>
-                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
-                                training problem 1
-                                </Typography>
-                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
-                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
-                                Young
-                                </Typography>
-                                <Typography sx={{ fontSize: 15 }}>
-                                This problem is about ~~
-                                <br />
-                                I want to sleep<br />
-                                gaebbagchinda sssiang
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
-                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
-                            </CardActions>
-                        </Card>
-                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
-                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
-                            <CardContent>
-                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
-                                Web Application Analysis
-                                </Typography>
-                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
-                                training problem 1
-                                </Typography>
-                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
-                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
-                                Young
-                                </Typography>
-                                <Typography sx={{ fontSize: 15 }}>
-                                This problem is about ~~
-                                <br />
-                                I want to sleep<br />
-                                gaebbagchinda sssiang
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
-                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
-                            </CardActions>
-                        </Card>
-                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
-                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
-                            <CardContent>
-                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
-                                Web Application Analysis
-                                </Typography>
-                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
-                                training problem 1
-                                </Typography>
-                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
-                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
-                                Young
-                                </Typography>
-                                <Typography sx={{ fontSize: 15 }}>
-                                This problem is about ~~
-                                <br />
-                                I want to sleep<br />
-                                gaebbagchinda sssiang
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
-                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
-                            </CardActions>
-                        </Card>
-                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
-                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
-                            <CardContent>
-                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
-                                Web Application Analysis
-                                </Typography>
-                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
-                                training problem 1
-                                </Typography>
-                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
-                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
-                                Young
-                                </Typography>
-                                <Typography sx={{ fontSize: 15 }}>
-                                This problem is about ~~
-                                <br />
-                                I want to sleep<br />
-                                gaebbagchinda sssiang
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
-                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
-                            </CardActions>
-                        </Card>
-                        <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
-                                    mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
-                            <CardContent>
-                                <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
-                                Web Application Analysis
-                                </Typography>
-                                <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
-                                training problem 1
-                                </Typography>
-                                <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
-                                <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
-                                Young
-                                </Typography>
-                                <Typography sx={{ fontSize: 15 }}>
-                                This problem is about ~~
-                                <br />
-                                I want to sleep<br />
-                                gaebbagchinda sssiang
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{justifyContent: 'end', mr: 1}}>
-                                <Button sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
-                            </CardActions>
-                        </Card>
-                        {/*
                             {scenario.map((item) => ( //!!변수 변경
-                                <Card sx={{ width: '30%', height: '70%', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
+                                <Card sx={{ width: '30%', minHeight: '70%', height: 'auto', bgcolor: '#F6F6F6' , boxShadow: '0 0 7px rgb(151, 151, 151)', 
                                     mb:4, ml:2, mr:2, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
                                     <CardContent>
-                                        <Typography sx={{ fontSize: 15, mt: 1}} color="text.secondary">
-                                        {item.category}
+                                        <Typography sx={{ fontSize: 15, textAlign:"right"}} color="text.secondary">  
+                                        {item.postTime}
                                         </Typography>
                                         <Typography sx={{ fontSize: 28, fontWeight: 600 }}>
-                                        {item.problem}
+                                        {item.title}
                                         </Typography>
                                         <Typography sx={{ fontSize: 15 }} color="text.secondary">by</Typography>
                                         <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 4 }} color="text.secondary">
-                                        {item.name}
+                                        {item.nickName}
                                         </Typography>
-                                        <Typography sx={{ fontSize: 15 }}>
-                                        {item.contents}
+                                        <Typography sx={{ fontSize: 15, textAlign: "left"}}>
+                                        {item.description &&
+                                            item.description.split('\n').map((line, index) => (
+                                              <React.Fragment key={index}>
+                                                {line}
+                                                <br/>
+                                              </React.Fragment>
+                                            ))}
                                         </Typography>
                                     </CardContent>
                                     <CardActions sx={{justifyContent: 'end', mr: 1}}>
                                         <Button href={item.url} sx={{fontWeight: 600, fontSize: '16px'}}>Go To Download</Button>
                                     </CardActions>
                                 </Card>
-                            ))}
-                        */}
-                        
+                            ))}  
                     </div>
                 </div>
             </div>
