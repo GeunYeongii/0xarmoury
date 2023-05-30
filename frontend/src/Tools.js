@@ -15,7 +15,6 @@ import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import React, { useState, useEffect } from 'react';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
-import Modal from '@mui/material/Modal';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import InputLabel from '@mui/material/InputLabel';
@@ -146,15 +145,15 @@ function Tools(){
     const [editedWiki, setEditedWiki] = useState(ToolWiki);
     const [toollist, setToollist] = useState([]);
 
-    const [MitreTip, setMitreTip] = useState("");
+   
 
     const badge = localStorage.getItem('badge');
 
     const [category, setCategory] = useState('');
     const [tool, setTool] = useState('');
     const [activeItemIds, setActiveItemIds] = useState([]);
-    const [tooltipInfo, setTooltipInfo] = useState('');
 
+    const [MitreTip, setMitreTip] = useState("");
     const [ClickItemIds, setClickItemIds] = useState('');
     // Tooltip
 
