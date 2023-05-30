@@ -20,7 +20,7 @@ function MainPage(){
     const d3 = require("d3");
     const width = 640;
     const radius = width / 2;
-    const breadcrumbWidth = 75;
+    const breadcrumbWidth = 250;
     const breadcrumbHeight = 30;
 
     function breadcrumbPoints(d, i) {
@@ -39,108 +39,21 @@ function MainPage(){
       }
 
 
-    //const csv = async() => d3.csvParseRows(await fetch("visit-sequences@1.csv").text());
-    const csv = [
-        ["account-account-account-account-account-account","22781"],
-        ["account-account-account-account-account-end", "3311"],
-        ["account-account-account-account-account-home", "906"],
-    ];
+    const [data, setData] = useState([]);
 
-
-    console.log('csv: ',csv);
-
-    function buildHierarchy(csv) {
-        // Helper function that transforms the given CSV into a hierarchical format.
-        const root = { name: "root", children: [] };
-        for (let i = 0; i < csv.length; i++) {
-          const sequence = csv[i][0];
-          const size = +csv[i][1];
-          if (isNaN(size)) {
-            // e.g. if this is a header row
-            continue;
-          }
-          const parts = sequence.split("-");
-          let currentNode = root;
-          for (let j = 0; j < parts.length; j++) {
-            const children = currentNode["children"];
-            const nodeName = parts[j];
-            let childNode = null;
-            if (j + 1 < parts.length) {
-              // Not yet at the end of the sequence; move down the tree.
-              let foundChild = false;
-              for (let k = 0; k < children.length; k++) {
-                if (children[k]["name"] == nodeName) {
-                  childNode = children[k];
-                  foundChild = true;
-                  break;
-                }
-              }
-              // If we don't already have a child node for this branch, create it.
-              if (!foundChild) {
-                childNode = { name: nodeName, children: [] };
-                children.push(childNode);
-              }
-              currentNode = childNode;
-            } else {
-              // Reached the end of the sequence; create a leaf node.
-              childNode = { name: nodeName, value: size };
-              children.push(childNode);
-            }
-          }
+    
+    const datalist = async () => {
+        try {
+            const response = await axios.get('/tools/d3');
+            setData(response.data);
+        } catch (error) {
+            console.error('datalist error:', error);
         }
-        return root;
-      }
+    };
 
-    //const data = buildHierarchy(csv);
-
-    const data ={name: "root",
-         children: [{name: "account",
-                    children: [
-                        {name: "account",
-                        children: []},
-                        {name: "end",
-                        value: 202885},
-                        {name: "home",
-                        value: 202834},
-                        {name: "search",
-                        value: 202845},
-                        {name: "search",
-                        value: 202883},
-                        {name: "search",
-                        value: 202885},
-                    ]},
-                    {name: "home",
-                        children: [{name: "account",
-                        value: 202885},
-                        {name: "end",
-                        value: 202885},
-                        {name: "home",
-                        value: 202885},
-                        {name: "search",
-                        value: 202885}
-                    ]},
-                    {name: "other",
-                        children: [{name: "account",
-                        value: 202885},
-                        {name: "end",
-                        value: 202885},
-                        {name: "home",
-                        value: 202885},
-                        {name: "search",
-                        value: 202885}
-                    ]},
-                    {name: "product",
-                        children: [{name: "account",
-                        children: []},
-                        {name: "end",
-                        value: 202885},
-                        {name: "home",
-                        children: []},
-                        {name: "search",
-                        children: []}
-                    ]}]
-        };
-    console.log(data);
+    datalist();
+    
+    console.log('data',data);
 
     const partition = data =>
         d3.partition().size([2 * Math.PI, radius * radius])(
@@ -152,8 +65,8 @@ function MainPage(){
 
     const color = d3
         .scaleOrdinal()
-        .domain(["home", "product", "search", "account", "other", "end"])
-        .range(["#27374D", "#526D82", "#9DB2BF", "#DDE6ED"])
+        .domain(["Reconnaissance", "Resource Development", "Initial Access", "account", "other", "end"])
+        .range(["#EFEEFF", "#CECCFF", "#9C99FF", "#6B66FF"])
 
     const arc = d3
         .arc()
@@ -175,12 +88,17 @@ function MainPage(){
 
     const sunburst = () => {
         const svg1 = select(svgRef1.current);
-        let elementValue;
+        const svg = select(svgRef2.current);
+
+        svg //글자 시각화
+            .attr("viewBox", `0 0 ${breadcrumbWidth * 4} ${breadcrumbHeight}`)
+            .style("font", "bold 10px sans-serif")
+            .style("margin", "5px");
+        
         //원 모양 시각화
         const root = partition(data);
         // Make this into a view, so that the currently hovered sequence is available to the breadcrumb
         const element = svg1.node();
-        elementValue = element.value;
         element.value = { sequence: [], percentage: 0.0 };
 
         
@@ -192,19 +110,23 @@ function MainPage(){
 
         label
             .append("tspan")
-            .attr("class", "percentage")
+            .attr("class", "name")
             .attr("x", 0)
             .attr("y", 0)
-            .attr("dy", "-0.1em")
-            .attr("font-size", "3em")
-            .text("");
+            .attr("dy", "1.0em")
+            .attr("font-size", "2.3em")
+            .attr("font-weight", "bold")
+            .text(""); 
 
         label
             .append("tspan")
+            .attr("class", "percentage")
             .attr("x", 0)
             .attr("y", 0)
-            .attr("dy", "1.5em")
-            .text("of visits begin with this sequence");
+            .attr("dy", "-1.0em")
+            .attr("font-size", "2.5em")
+            .attr("font-weight", "bold")
+            .text("");
 
         svg1
             .attr("viewBox", `${-radius} ${-radius} ${width} ${width}`)
@@ -250,6 +172,10 @@ function MainPage(){
                 .ancestors()
                 .reverse()
                 .slice(1);
+            label
+                .style("visibility", null)
+                .select(".name")
+                .text(d.data.name);
             // Highlight the ancestors
             path.attr("fill-opacity", node =>
                 sequence.indexOf(node) >= 0 ? 1.0 : 0.3
@@ -259,33 +185,13 @@ function MainPage(){
                 .style("visibility", null)
                 .select(".percentage")
                 .text(percentage + "%");
+            
             // Update the value of this view with the currently hovered sequence and percentage
             element.value = { sequence, percentage };
             element.dispatchEvent(new CustomEvent("input"));
-            });
-
-            console.log('1:', element.value);
-            
-        return element;
-    };
-
-    
-    useEffect(() => {
-            const element = sunburst();
-        
-
-            //글자 모양 시각화
-            console.log('element.value: ',element.value);
-            const svg = select(svgRef2.current);
-            svg
-                .attr("viewBox", `0 0 ${breadcrumbWidth * 10} ${breadcrumbHeight}`)
-                .style("font", "12px sans-serif")
-                .style("margin", "5px");
-
-            console.log('sequence', element.value.sequence)
             const g = svg
                 .selectAll("g")
-                .data(element.value.sequence)
+                .data(sequence)
                 .join("g")
                 .attr("transform", (d, i) => `translate(${i * breadcrumbWidth}, 0)`);
 
@@ -299,21 +205,19 @@ function MainPage(){
                 .attr("y", 15)
                 .attr("dy", "0.35em")
                 .attr("text-anchor", "middle")
-                .attr("fill", "white")
+                .attr("fill", "black")
                 .text(d => d.data.name);
 
-            svg
-                .append("text")
-                .text(element.value.percentage > 0 ? element.value.percentage + "%" : "")
-                .attr("x", (element.value.sequence.length + 0.5) * breadcrumbWidth)
-                .attr("y", breadcrumbHeight / 2)
-                .attr("dy", "0.35em")
-                .attr("text-anchor", "middle");
+            });
+            
+        return element;
+    };
 
-        }, [data]
-    );
+    useEffect(() => {
+        const sun = sunburst();
+    });
 
-
+    
 
 
     const Logout = () => {
@@ -387,11 +291,16 @@ function MainPage(){
                 </div>
             </div>
             <div className = 'division-line'></div>
-            <div className='container-body1' >
-                <div className='container-body2'>
-                    <svg ref={svgRef2}></svg>
-                    <svg ref={svgRef1}></svg>
+            <div className='container-svg' >
+                <div className='svg-top2'>
+                     <div className='svg-text'>Tactic</div>
+                     <div className='svg-text'>Technic</div>
+                     <div className='svg-text'>Tool</div>
                 </div>
+                <div className='svg-top'>
+                    <svg ref={svgRef2}></svg>
+                </div>
+                    <svg ref={svgRef1}></svg>
             </div>
         </div>
     );
