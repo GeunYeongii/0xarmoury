@@ -37,7 +37,7 @@ public class ToolController {
     @Operation(summary = "D3 데이터 조회", description = "MITRE 기술, 잔술과 공격도구 전체 연계 데이터를 조회합니다.")
     @GetMapping("/d3")
     public DataRes getD3data(){
-        return new DataRes(toolProvider.getD3data());
+        return new DataRes("root", new dataRoot(toolProvider.getD3data()));
     }
 
     @ResponseBody
