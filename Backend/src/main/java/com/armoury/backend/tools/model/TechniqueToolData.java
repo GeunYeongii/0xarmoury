@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class TechniqueToolData {
-    private String name;
+    private String name;    // toolName
     private int value;
 }
