@@ -153,7 +153,7 @@ function MainPage(){
     const color = d3
         .scaleOrdinal()
         .domain(["home", "product", "search", "account", "other", "end"])
-        .range(["#5d85cf", "#7c6561", "#da7847", "#6fb971", "#9e70cf", "#bbbbbb"])
+        .range(["#27374D", "#526D82", "#9DB2BF", "#DDE6ED"])
 
     const arc = d3
         .arc()
@@ -171,14 +171,16 @@ function MainPage(){
         .innerRadius(d => Math.sqrt(d.y0))
         .outerRadius(radius)
 
+    //useEffect(() => {sunburst();});
 
-    useEffect(() => {
+    const sunburst = () => {
         const svg1 = select(svgRef1.current);
-        let sequence = [];
+        let elementValue;
         //원 모양 시각화
         const root = partition(data);
         // Make this into a view, so that the currently hovered sequence is available to the breadcrumb
         const element = svg1.node();
+        elementValue = element.value;
         element.value = { sequence: [], percentage: 0.0 };
 
         
@@ -244,7 +246,7 @@ function MainPage(){
             .attr("d", mousearc)
             .on("mouseenter", (event, d) => {
             // Get the ancestors of the current segment, minus the root
-            sequence = d
+            const sequence = d
                 .ancestors()
                 .reverse()
                 .slice(1);
@@ -262,14 +264,25 @@ function MainPage(){
             element.dispatchEvent(new CustomEvent("input"));
             });
 
+            console.log('1:', element.value);
+            
+        return element;
+    };
+
+    
+    useEffect(() => {
+            const element = sunburst();
+        
+
             //글자 모양 시각화
+            console.log('element.value: ',element.value);
             const svg = select(svgRef2.current);
             svg
                 .attr("viewBox", `0 0 ${breadcrumbWidth * 10} ${breadcrumbHeight}`)
                 .style("font", "12px sans-serif")
                 .style("margin", "5px");
 
-            console.log(element.value.sequence)
+            console.log('sequence', element.value.sequence)
             const g = svg
                 .selectAll("g")
                 .data(element.value.sequence)
