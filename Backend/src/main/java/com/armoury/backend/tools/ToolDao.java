@@ -1,9 +1,6 @@
 package com.armoury.backend.tools;
 
-import com.armoury.backend.tools.model.GetCategoryRes;
-import com.armoury.backend.tools.model.GetToolRes;
-import com.armoury.backend.tools.model.GetToolSumInfoRes;
-import com.armoury.backend.tools.model.amlData;
+import com.armoury.backend.tools.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -106,5 +103,14 @@ public class ToolDao {
                         rs.getString("techniqueName"),
                         rs.getString("techId")
                 ), params);
+    }
+
+    public List<TechniqueRow> getTechInTactic(int categoryIdx) {
+        String getQuery = "SELECT rowNum, techniqueName FROM MitreMatrix WHERE tacticCode = ?";
+        return this.jdbcTemplate.query(getQuery,
+                (rs, rowNum) -> new TechniqueRow (
+                        rs.getInt("rowNum"),
+                        rs.getString("techniqueName")
+                ), categoryIdx);
     }
 }
