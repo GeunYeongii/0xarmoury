@@ -10,15 +10,34 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import SchoolIcon from '@mui/icons-material/School';
 import { width } from '@mui/system';
-import { select} from "d3";  
+import { create, select} from "d3";  
 
 function MainPage(){
     const [jsonData, setHello] = useState('')
     const badge = localStorage.getItem('badge');
-    const svgRef = useRef();
+    const svgRef1 = useRef();
+    const svgRef2 = useRef();
     const d3 = require("d3");
     const width = 640;
     const radius = width / 2;
+    const breadcrumbWidth = 75;
+    const breadcrumbHeight = 30;
+
+    function breadcrumbPoints(d, i) {
+        const tipWidth = 10;
+        const points = [];
+        points.push("0,0");
+        points.push(`${breadcrumbWidth},0`);
+        points.push(`${breadcrumbWidth + tipWidth},${breadcrumbHeight / 2}`);
+        points.push(`${breadcrumbWidth},${breadcrumbHeight}`);
+        points.push(`0,${breadcrumbHeight}`);
+        if (i > 0) {
+          // Leftmost breadcrumb; don't include 6th vertex.
+          points.push(`${tipWidth},${breadcrumbHeight / 2}`);
+        }
+        return points.join(" ");
+      }
+
 
     //const csv = async() => d3.csvParseRows(await fetch("visit-sequences@1.csv").text());
     const csv = [
@@ -82,37 +101,44 @@ function MainPage(){
                         {name: "end",
                         value: 202885},
                         {name: "home",
+                        value: 202834},
+                        {name: "search",
+                        value: 202845},
+                        {name: "search",
+                        value: 202883},
+                        {name: "search",
+                        value: 202885},
+                    ]},
+                    {name: "home",
+                        children: [{name: "account",
+                        value: 202885},
+                        {name: "end",
+                        value: 202885},
+                        {name: "home",
+                        value: 202885},
+                        {name: "search",
+                        value: 202885}
+                    ]},
+                    {name: "other",
+                        children: [{name: "account",
+                        value: 202885},
+                        {name: "end",
+                        value: 202885},
+                        {name: "home",
+                        value: 202885},
+                        {name: "search",
+                        value: 202885}
+                    ]},
+                    {name: "product",
+                        children: [{name: "account",
+                        children: []},
+                        {name: "end",
+                        value: 202885},
+                        {name: "home",
                         children: []},
                         {name: "search",
                         children: []}
-                    ]},
-                    {name: "home",
-                    children: [{name: "account",
-                    children: []},
-                    {name: "end",
-                    value: 202885},
-                    {name: "home",
-                    children: []},
-                    {name: "search",
-                    children: []}]},
-                    {name: "other",
-                    children: [{name: "account",
-                    children: []},
-                    {name: "end",
-                    value: 202885},
-                    {name: "home",
-                    children: []},
-                    {name: "search",
-                    children: []}]},
-                    {name: "product",
-                    children: [{name: "account",
-                    children: []},
-                    {name: "end",
-                    value: 202885},
-                    {name: "home",
-                    children: []},
-                    {name: "search",
-                    children: []}]}]
+                    ]}]
         };
     console.log(data);
 
@@ -147,16 +173,16 @@ function MainPage(){
 
 
     useEffect(() => {
-        const svg = select(svgRef.current);
-    
+        const svg1 = select(svgRef1.current);
+        let sequence = [];
+        //원 모양 시각화
         const root = partition(data);
-        console.log(root);
         // Make this into a view, so that the currently hovered sequence is available to the breadcrumb
-        const element = svg.node();
+        const element = svg1.node();
         element.value = { sequence: [], percentage: 0.0 };
 
         
-        const label = svg
+        const label = svg1
             .append("text")
             .attr("text-anchor", "middle")
             .attr("fill", "#888")
@@ -178,12 +204,12 @@ function MainPage(){
             .attr("dy", "1.5em")
             .text("of visits begin with this sequence");
 
-        svg
+        svg1
             .attr("viewBox", `${-radius} ${-radius} ${width} ${width}`)
             .style("max-width", `${width}px`)
             .style("font", "12px sans-serif");
 
-        const path = svg
+        const path = svg1
             .append("g")
             .selectAll("path")
             .data(
@@ -196,7 +222,7 @@ function MainPage(){
             .attr("fill", d => color(d.data.name))
             .attr("d", arc);
 
-        svg
+        svg1
             .append("g")
             .attr("fill", "none")
             .attr("pointer-events", "all")
@@ -218,7 +244,7 @@ function MainPage(){
             .attr("d", mousearc)
             .on("mouseenter", (event, d) => {
             // Get the ancestors of the current segment, minus the root
-            const sequence = d
+            sequence = d
                 .ancestors()
                 .reverse()
                 .slice(1);
@@ -235,8 +261,45 @@ function MainPage(){
             element.value = { sequence, percentage };
             element.dispatchEvent(new CustomEvent("input"));
             });
+
+            //글자 모양 시각화
+            const svg = select(svgRef2.current);
+            svg
+                .attr("viewBox", `0 0 ${breadcrumbWidth * 10} ${breadcrumbHeight}`)
+                .style("font", "12px sans-serif")
+                .style("margin", "5px");
+
+            console.log(element.value.sequence)
+            const g = svg
+                .selectAll("g")
+                .data(element.value.sequence)
+                .join("g")
+                .attr("transform", (d, i) => `translate(${i * breadcrumbWidth}, 0)`);
+
+            g.append("polygon")
+                .attr("points", breadcrumbPoints)
+                .attr("fill", d => color(d.data.name))
+                .attr("stroke", "white");
+
+            g.append("text")
+                .attr("x", (breadcrumbWidth + 10) / 2)
+                .attr("y", 15)
+                .attr("dy", "0.35em")
+                .attr("text-anchor", "middle")
+                .attr("fill", "white")
+                .text(d => d.data.name);
+
+            svg
+                .append("text")
+                .text(element.value.percentage > 0 ? element.value.percentage + "%" : "")
+                .attr("x", (element.value.sequence.length + 0.5) * breadcrumbWidth)
+                .attr("y", breadcrumbHeight / 2)
+                .attr("dy", "0.35em")
+                .attr("text-anchor", "middle");
+
         }, [data]
     );
+
 
 
 
@@ -313,7 +376,8 @@ function MainPage(){
             <div className = 'division-line'></div>
             <div className='container-body1' >
                 <div className='container-body2'>
-                    <svg ref={svgRef}></svg>
+                    <svg ref={svgRef2}></svg>
+                    <svg ref={svgRef1}></svg>
                 </div>
             </div>
         </div>
