@@ -32,7 +32,7 @@ public class GalleryDao {
     public List<GetToolSumInfoRes> getPostInfo(int pageNum) {
         String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.postTime FROM Post AS p \n" +
                 "JOIN User AS u ON p.userIdx = u.userIdx \n" +
-                "ORDER BY postTime DESC LIMIT ?, 5;";
+                "WHERE p.pmshare = 1 ORDER BY postTime DESC LIMIT ?, 5;";
         return this.jdbcTemplate.query(getQuery,
                 (rs, rowNum) -> new GetToolSumInfoRes(
                         rs.getInt("postIdx"),

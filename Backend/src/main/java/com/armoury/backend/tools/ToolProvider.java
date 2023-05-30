@@ -72,17 +72,20 @@ public class ToolProvider {
         String[] code = { "RC","RD","IA","EX","PR","PE","DE","CA","DI","LM","CO","EXF","C2","IM"};
 
         List<data> res = new ArrayList<>();
-        for (int i = 0; i < tacticNames.length ; i++) {
+        for (int i = 0; i < tacticNames.length ; i++) { //tactic
             List<TechniqueRow> trn= toolDao.getTechInTactic(i+1);
-            for (TechniqueRow techniqueRow : trn) {
+            List<dataChildren> dcList = new ArrayList<>();
+            for (TechniqueRow techniqueRow : trn) {     // technique
                 List<String> techniques = toolDao.getToolsByTechnique(code[i], techniqueRow.getRn() + "");
                 List<TechniqueToolData> ttd = new ArrayList<>();
                 for (String tech : techniques)
                     ttd.add(new TechniqueToolData(tech, 1));
-                if (techniques.size() != 0 && ttd.size() != 0) {
-                    TechniqueTool tt = new TechniqueTool(techniqueRow.getTechName(), ttd);
-                    res.add(new data(tacticNames[i], tt));
+                if (techniques.size() != 0) {
+                    dcList.add(new dataChildren(techniqueRow.getTechName(), ttd));
                 }
+            }
+            if (dcList.size() != 0){
+                res.add(new data(tacticNames[i], dcList));
             }
         }
 
