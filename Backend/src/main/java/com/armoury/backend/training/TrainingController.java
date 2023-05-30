@@ -49,7 +49,7 @@ public class TrainingController {
 
     @ResponseBody
     @Operation(summary = "카테고리 내의 게시물 목록 조회", description = "pageNumber를 사용하여 1,2,..., N까지의 게시물 목록을 조회합니다. (현재 6개씩 조회)")
-    @PostMapping("/postList/")
+    @PostMapping("/postList")
     public BaseResponse<List<GetPostSumInfoRes>> getPostsInfo(@RequestBody GetPostISumInfoReq getReq){
         try {
             if (getReq.getCategoryIdx() < 0 || getReq.getCategoryIdx() > 12)

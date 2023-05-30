@@ -34,7 +34,7 @@ public class ToolController {
     }
 
     @ResponseBody
-    @Operation(summary = "", description = "")
+    @Operation(summary = "D3 데이터 조회", description = "MITRE 기술, 잔술과 공격도구 전체 연계 데이터를 조회합니다.")
     @GetMapping("/d3")
     public DataRes getD3data(){
         return new DataRes(toolProvider.getD3data());
@@ -54,7 +54,7 @@ public class ToolController {
 
     @ResponseBody
     @Operation(summary = "공식 공격 도구 개별 정보 조회 by 도구 이름", description = "도구 이름을 사용하여 공격 도구 정보 조회합니다.")
-    @GetMapping("/toolName/")
+    @GetMapping("/toolName")
     public BaseResponse<GetToolRes> getToolByIdx (@RequestParam(required = true) String toolName){
         try{
             GetToolRes toolRes = toolProvider.getToolByName(toolName);
@@ -95,7 +95,7 @@ public class ToolController {
 
     @ResponseBody
     @Operation(summary = "공식 공격 도구 AML 조회 by toolName", description = "AML 정보를 list 형태로 반환합니다.")
-    @GetMapping("/AML/toolName/")
+    @GetMapping("/AML/toolName")
     public BaseResponse<List<String>> getAMLlByIdx (@RequestParam(required = true) String toolName){
         try{
             List<String> list = toolProvider.getAMLByName(toolName);
@@ -148,7 +148,7 @@ public class ToolController {
     @ResponseBody
     @Operation(summary = "Matrix Technique 관련 도구 검색하기", description = "AML의 일부를 입력받아 관련된 공격 도구를 조회합니다."
                             + "</br> \\'RC-2\\' 형태로 입력해주세요!")
-    @GetMapping ("/mitreInfo/")
+    @GetMapping ("/mitreInfo")
     public BaseResponse<List<String>> getToolsByTechnique(@RequestParam(required = true) String amlPart) {
         try {
             return new BaseResponse<>(toolProvider.getToolsByTechnique(amlPart));
