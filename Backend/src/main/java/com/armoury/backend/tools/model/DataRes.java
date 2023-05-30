@@ -10,5 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 public class DataRes {
     private String name;
-    private dataRoot children;
+    private List<data> children;
 }
