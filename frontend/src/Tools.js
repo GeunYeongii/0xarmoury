@@ -62,6 +62,8 @@ const categoryList = [
      label: 'Forensics',},
      {id: '12',
      label: 'Reporting Tools',},
+     {id: '13',
+     label: 'Master tools',},
   ];
 
     {/*
@@ -205,12 +207,13 @@ function Tools(){
         try {
             const response = await axios.get('/tools/category/' + category);
             setToollist(response.data.result);
-  
+            
             const processedTool = response.data.result.map(item => ({
                 toolIdx: item.toolIdx,
                 toolName: item.toolName,
               }));
               setToollist(processedTool);
+              console.log(processedTool);
           } catch (error) {
             console.error('Tool:', error);
           }
