@@ -6,21 +6,9 @@
 </p>
 
 # 📌 Usage
-* React
+* Docker
 ```bash
-cd frontend
-npm install http-proxy-middleware --save  
-npm install axios --save  
-npm ds3
-npm start  
-```
-
-* SpringBoot
-```basg
-// SpringBoot
-cd Backend
-./gradlew clean build
-java -jar build/libs/Backend-0.0.1-SNAPSHOT.jar
+docker-compose up
 ```
 
 # 📌 Swagger Docs
