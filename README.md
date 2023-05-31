@@ -1,39 +1,37 @@
-# Usage
+# 📌 Demo
+<p align="center">
+    
+![KakaoTalk_Video_2023-05-31-20-32-16](https://github.com/GeunYeongii/0xarmoury/assets/82564045/46ce3125-20a1-425e-afd0-ae4116aa24b8)
+    
+</p>
+
+# 📌 Usage
+* React
 ```bash
-// React
 cd frontend
 npm install http-proxy-middleware --save  
 npm install axios --save  
+npm ds3
 npm start  
 ```
 
-* EC2
+* SpringBoot
 ```basg
 // SpringBoot
 cd Backend
 ./gradlew clean build
-nohup java -jar build/libs/Backend-0.0.1-SNAPSHOT.jar &
-
-// Flask
-cd Backend/src/main/python
-pip install -r requests.txt
-nohup python3 run.py &
-
-log >> nohup.out
+java -jar build/libs/Backend-0.0.1-SNAPSHOT.jar
 ```
 
-# Swagger Docs
+# 📌 Swagger Docs
     jar 실행 후 접속하기 (2023.05.28 업데이트)
+    -링크: <http://<address>:8080/swagger-ui/index.html>
 
--링크: <http://localhost:8080/swagger-ui/index.html>
 
-React Server : 3000
----
-
+# 📌 Image
 
 <p align="center">
-http://3.35.21.86/api/techniques
-<img width="827" alt="Screenshot 2023-04-16 at 1 46 12 PM" src="https://user-images.githubusercontent.com/82564045/232267890-7815c58e-f189-461c-86f3-33456bd1ba0f.png">  
-http://3.35.21.86/api/test
-<img width="827" alt="Screenshot 2023-04-16 at 1 01 39 PM" src="https://user-images.githubusercontent.com/82564045/232265760-fcf2a2ba-78fd-4068-b7f1-5c653bbbee05.png">
+    <img width="1552" alt="스크린샷 2023-05-31 오후 9 13 23" src="https://github.com/GeunYeongii/0xarmoury/assets/82564045/b723d2df-cb97-4379-bb39-3680041c9a75">
+    <img width="1552" alt="스크린샷 2023-05-31 오후 9 14 09" src="https://github.com/GeunYeongii/0xarmoury/assets/82564045/ab652308-3f39-47c2-8f8d-7aeb9f1f582d">
 </p>
+
