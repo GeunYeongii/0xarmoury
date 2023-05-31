@@ -24,7 +24,16 @@ public class GalleryService {
     }
 
     public int postNewAttackTool(int userIdx, PostToolReq toolInfo) throws BaseException {
-        return galleryDao.createPost(userIdx, toolInfo.getTitle(), toolInfo.getDefinition(), toolInfo.getContents(), toolInfo.getUrl(), toolInfo.getShare());
+        try {
+            // 공유 설정 및 마스터 사용자라면
+            if (toolInfo.getShare() == 1 && galleryDao.checkMaster(userIdx) > 5) {
+                int toolIdx = galleryDao.uploadTool(toolInfo.getTitle(), toolInfo.getDefinition(), toolInfo.getContents(), toolInfo.getUrl());
+                galleryDao.updateTools(toolIdx);
+            }
+            return galleryDao.createPost(userIdx, toolInfo.getTitle(), toolInfo.getDefinition(), toolInfo.getContents(), toolInfo.getUrl(), toolInfo.getShare());
+        } catch(Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
 
     public void modifyToolInfo(PatchToolReq toolInfo, int userIdx) throws BaseException {

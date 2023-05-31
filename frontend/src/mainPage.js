@@ -41,19 +41,19 @@ function MainPage(){
 
     const [data, setData] = useState([]);
 
-    
     const datalist = async () => {
         try {
-            const response = await axios.get('/tools/d3');
-            setData(response.data);
+          const response = await axios.get('/tools/d3');
+          setData(response.data);
         } catch (error) {
-            console.error('datalist error:', error);
+          console.error('datalist error:', error);
         }
-    };
-
-    datalist();
+      };
     
-    console.log('data',data);
+      useEffect(() => {
+        datalist();
+      }, []);
+    
 
     const partition = data =>
         d3.partition().size([2 * Math.PI, radius * radius])(
@@ -300,7 +300,24 @@ function MainPage(){
                 <div className='svg-top'>
                     <svg ref={svgRef2}></svg>
                 </div>
-                    <svg ref={svgRef1}></svg>
+                    <div className = 'container-svg2'>
+                        
+                        <div className='svg-content'>
+                            <div className='svg-text1'>mouse over!</div>
+                            <svg ref={svgRef1}></svg>
+                        </div>
+                        <div className='svg-content2'>
+                            <div className='svg-text1'>
+                                cyber arsenal with <br />MITRE ATT&CK framework
+                            </div>
+                            <div className='svg-text2'>
+                            <strong>0xARMOURY</strong> is a cyber arsenal <br />
+                            that is linked to the miter att&ck framework.<br />
+                            Try and train with lots of information and tools!<br />
+                            You may also share information with users.
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     );

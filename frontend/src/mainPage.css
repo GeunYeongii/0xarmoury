@@ -74,6 +74,7 @@
 	padding: 30px;
 	font-size: 24px;
 	height: 80vh;
+	width: 100%;
   }
 
   .svg-top{
@@ -83,10 +84,21 @@
   }
 
   .svg-top2{
-	flex: 0.2;
+	flex: 0.1;
 	width: 95%;
 	display: flex;
 	flex-direction: row;
+  }
+
+  .container-svg2 {
+	flex: 0.7;
+	display: flex;
+	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+	font-size: 24px;
+	height: 80vh;
+	width: 100%;
   }
 
   .svg-text{
@@ -97,9 +109,22 @@
   }
 
   .svg-content{
-	flex: 0.8;
-	width: 100%;
+	flex: 0.5;
+	width: 90%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin-left: 80px;
+  }
+
+  .svg-content2{
+	flex: 0.5;
+	width: 90%;
+	display: flex;
 	align-items: left;
+	margin-left: 100px;
+	flex-direction: column;
   }
 
   .sign-container{
@@ -117,4 +142,16 @@
 	margin-left: 65px;
 	margin-right: 65px;
 	margin-top: 15px;
+  }
+
+  .svg-text1{
+	font-size: 17px;
+	font-weight: 500;
+	color: #0036c0;
+	margin-bottom: 5px;
+  }
+
+  .svg-text2{
+	font-size: 23px;
+	font-family: 'verdana';
   }
