@@ -62,6 +62,8 @@ const categoryList = [
      label: 'Forensics',},
      {id: '12',
      label: 'Reporting Tools',},
+     {id: '13',
+     label: 'Master tools',},
   ];
 
     {/*
@@ -135,12 +137,12 @@ function Tools(){
     const [fullscreen, setFullscreen] = useState(false);
 
     const [selectedId, setSelectedId] = useState(null);
-    const [selectedLabel, setSelectedLabel] = useState("Title");
-    const [Toolcode, setToolCode] = useState("여기는 표식체계 자리");
-    const [Tooldefintion, setTooldefinition]=useState("여기는 툴 설명\n아 여기네ㅎ");
-    const [Tooloption, setTooloption]=useState("여기는 옵션 설명\n제발돼라ㅏㅏㅏㅏ");
+    const [selectedLabel, setSelectedLabel] = useState("[select tool]");
+    const [Toolcode, setToolCode] = useState("");
+    const [Tooldefintion, setTooldefinition]=useState("");
+    const [Tooloption, setTooloption]=useState("");
     const [ToolMITRE, setToolMITRE]=useState([]);
-    const [ToolWiki, setToolWiki] = useState("기본 위키 내용\n여기두");
+    const [ToolWiki, setToolWiki] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [editedWiki, setEditedWiki] = useState(ToolWiki);
     const [toollist, setToollist] = useState([]);
@@ -205,12 +207,13 @@ function Tools(){
         try {
             const response = await axios.get('/tools/category/' + category);
             setToollist(response.data.result);
-  
+            
             const processedTool = response.data.result.map(item => ({
                 toolIdx: item.toolIdx,
                 toolName: item.toolName,
               }));
               setToollist(processedTool);
+              console.log(processedTool);
           } catch (error) {
             console.error('Tool:', error);
           }

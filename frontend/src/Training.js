@@ -51,7 +51,7 @@ const categoryList = [
 function MainPage(){
     const [jsonData, setHello] = useState('');
     const [selectedId, setSelectedId] = useState(null);
-    const [selectedLabel, setSelectedLabel] = useState("**Select Category**");
+    const [selectedLabel, setSelectedLabel] = useState("[Select Category]");
     const [pageCount, setPageCount] = useState(0);
     const [category, setCategory] = useState('');
     const [scenario, setScenario] = useState([]);

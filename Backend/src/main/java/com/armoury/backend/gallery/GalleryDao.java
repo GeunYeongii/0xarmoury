@@ -32,7 +32,7 @@ public class GalleryDao {
     public List<GetToolSumInfoRes> getPostInfo(int pageNum) {
         String getQuery = "SELECT p.postIdx, p.userIdx, u.nickName, p.title, p.postTime FROM Post AS p \n" +
                 "JOIN User AS u ON p.userIdx = u.userIdx \n" +
-                "WHERE p.pmshare = 1 ORDER BY postTime DESC LIMIT ?, 5;";
+                "WHERE p.share = 1 ORDER BY postTime DESC LIMIT ?, 5;";
         return this.jdbcTemplate.query(getQuery,
                 (rs, rowNum) -> new GetToolSumInfoRes(
                         rs.getInt("postIdx"),
@@ -100,6 +100,23 @@ public class GalleryDao {
 
         String lastInsertIdQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
+    }
+
+    public int uploadTool(String name, String defi, String option, String url) {
+        String insertQuery = "INSERT INTO Tool (toolName, definition, options, mitreInfo, wikiInfo, toolUrl, aml) VALUES (?,?,?,'','',?,'')";
+        Object[] insertParams = new Object[]{name, defi, option, url};
+        System.out.println("test1");
+        this.jdbcTemplate.update(insertQuery, insertParams);
+        System.out.println("test2");
+
+        String lastInsertIdQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
+    }
+
+    public void updateTools(int toolIdx) {
+        System.out.println("test3");
+        String insertQuery = "INSERT INTO ToolCategoryInfo (categoryIdx, toolIdx) VALUES (13, ?)";
+        this.jdbcTemplate.update(insertQuery, toolIdx);
     }
 
     public int modifyPost(int postIdx, String title, String definition, String contents, String url, int share) {
@@ -178,5 +195,10 @@ public class GalleryDao {
         String checkQuery = "SELECT EXISTS(SELECT postIdx FROM Heart WHERE postIdx = ? ANd userIdx = ?)";
         Object[] insertParams = new Object[]{postIdx, userIdx};
         return this.jdbcTemplate.queryForObject(checkQuery, int.class, insertParams);
+    }
+
+    public int checkMaster(int userIdx) {
+        String checkQuery = "SELECT badge From User WHERE userIdx = ?";
+        return this.jdbcTemplate.queryForObject(checkQuery, int.class, userIdx);
     }
 }
