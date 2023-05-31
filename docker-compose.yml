@@ -1,0 +1,21 @@
+version: '3'
+services:
+  dev-frontend:
+      container_name: armoury-frontend
+      restart: always
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile
+      ports:
+        - "3000:3000"
+
+  dev-backend:
+    container_name: armoury-backend
+    restart: always
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - host.docker.internal:host-gateway
