@@ -1,8 +1,9 @@
 # 📌 Demo
 <p align="center">
     
-![KakaoTalk_Video_2023-05-31-20-32-16](https://github.com/GeunYeongii/0xarmoury/assets/82564045/46ce3125-20a1-425e-afd0-ae4116aa24b8)
-    
+![KakaoTalk_Video_2023-05-31-20-32-16](https://github.com/seo-00/0xarmoury/assets/82564045/c2015c02-60d5-4d20-86aa-473108859c1a)
+
+   
 </p>
 
 # 📌 Usage
@@ -19,7 +20,10 @@ docker-compose up
 # 📌 Image
 
 <p align="center">
-    <img width="1552" alt="스크린샷 2023-05-31 오후 9 13 23" src="https://github.com/GeunYeongii/0xarmoury/assets/82564045/b723d2df-cb97-4379-bb39-3680041c9a75">
-    <img width="1552" alt="스크린샷 2023-05-31 오후 9 14 09" src="https://github.com/GeunYeongii/0xarmoury/assets/82564045/ab652308-3f39-47c2-8f8d-7aeb9f1f582d">
+    <img width="1552" alt="스크린샷 2023-05-31 오후 9 13 23" src="https://github.com/seo-00/0xarmoury/assets/82564045/98a4330b-c7c9-4f7c-bc32-e2e2cb441d20">
+
+    
+   <img width="1552" alt="스크린샷 2023-05-31 오후 9 14 09" src="https://github.com/seo-00/0xarmoury/assets/82564045/5bd7a705-37bf-4a44-8bce-113b7dc3bbd3">
+
 </p>
 
