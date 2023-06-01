@@ -161,64 +161,23 @@ function MyTools(){
             </div>
             <div className = 'division-line'></div>
             <div className='MyTools-contents'>
-				<div className='MyTools-Menu' >
-					<h4>Personalization</h4>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						bgcolor: "#EDEEFA",
-						marginBottom: "20px",
-					}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
-						My tool             
-					</Button>
-					<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						marginBottom: "20px",
-					}}startIcon={<BookmarkIcon sx={{color: "#FACC2E" }}/>}>
-					Favorites          
-					</Button>
-					
+				
+				<div className='MyTools-Menu-sub' style={{ marginTop: '30px' }}>
+						
+					{/*게시판*/}
+					<div className='MyTools-right'>
 
-					<h4>Settings</h4>
-					<Button href="./Account" variant="outlined" size="large" style={{width:"60%"}} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						marginBottom: "20px",
-					}}startIcon={<AccountCircleIcon />}>
-					Account          
-					</Button>
-					<Button variant="outlined" size="large" style={{width:"60%" }} sx={{
-						color:"black",
-						borderColor:"black",
-						":hover": { borderColor: "black" },
-						boxShadow: 2,
-						marginBottom: "20px",
-
-					}}startIcon={<LockIcon />}>
-						<div className='font-align'>Security</div>
-					</Button> 
 					<Link href='./ToolUpload'>
 					<Button variant="outlined" sx={{
 						color:"black",
 						borderColor:"black",
 						":hover": { borderColor: "black" },
 						boxShadow: 2,
-						marginTop: "50px",
+						marginBottom: "30px",
 
 					}}startIcon={<CloudUploadIcon/>}>Upload my Tool</Button>
 					</Link>
-				</div>
-				<div className='MyTools-Menu-sub' style={{ marginTop: '30px' }}>
-						
-					{/*게시판*/}
-					<div className='MyTools-right'>
+
 					
 						{galleryList.map((item) => (
 							<div key={item.postIdx} className='Tool_name'>

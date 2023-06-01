@@ -95,60 +95,6 @@ function Account(){
             </div>
             <div className = 'division-line'></div>
             <div className='Account-contents'>
-			<div className='Account-Menu' >
-				<h4>Personalization</h4>
-				<Button href='/Mytools' variant="outlined" size="large" style={{width:"60%"}} sx={{
-					color:"black",
-					borderColor:"black",
-					":hover": { borderColor: "black" },
-					boxShadow: 2,
-					marginBottom: "20px",
-				}}startIcon={<BuildIcon sx={{color: "#0404B4"}}/>}>
-					My tool             
-				</Button>
-				<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-					color:"black",
-					borderColor:"black",
-					":hover": { borderColor: "black" },
-					boxShadow: 2,
-					marginBottom: "20px",
-				}}startIcon={<BookmarkIcon sx={{color: "#FACC2E" }}/>}>
-				Favorites          
-				</Button>
-				
-
-				<h4>Settings</h4>
-				<Button variant="outlined" size="large" style={{width:"60%"}} sx={{
-					color:"black",
-					borderColor:"black",
-					":hover": { borderColor: "black" },
-					boxShadow: 2,
-					marginBottom: "20px",
-					bgcolor: "#EDEEFA",
-				}}startIcon={<AccountCircleIcon />}>
-				Account          
-				</Button>
-				<Button herf= "/Account"variant="outlined" size="large" style={{width:"60%" }} sx={{
-					color:"black",
-					borderColor:"black",
-					":hover": { borderColor: "black" },
-					boxShadow: 2,
-					marginBottom: "20px",
-
-				}}startIcon={<LockIcon/>}>
-					<div className='font-align'>Security</div>
-				</Button> 
-				<Link href='./ToolUpload'>
-				<Button variant="outlined" sx={{
-					color:"black",
-					borderColor:"black",
-					":hover": { borderColor: "black" },
-					boxShadow: 2,
-					marginTop: "50px",
-
-				}}startIcon={<CloudUploadIcon/>}>Upload my Tool</Button>
-				</Link>
-			</div>
 			<div className='Account-Menu-sub' style={{ marginTop: '30px' }}>
 					
 				<div className='Page-Title'>Account</div>

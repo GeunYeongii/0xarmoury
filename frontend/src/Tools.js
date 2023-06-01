@@ -147,7 +147,8 @@ function Tools(){
     const [editedWiki, setEditedWiki] = useState(ToolWiki);
     const [toollist, setToollist] = useState([]);
 
-   
+    const [searchId, SetsearchId] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const badge = localStorage.getItem('badge');
 
@@ -286,7 +287,61 @@ function Tools(){
       setEditedWiki(event.target.value);
     };
 
+    const HandleChangesearch = (event) => {
+      const { value } = event.target;
+      setSearchTerm(value);
+    };
 
+    // 검색 버튼 클릭시
+    const handleSearch = (searchTerm) => {
+      setActiveItemIds([]); // activeItemIds 초기화
+      console.log({ searchTerm });
+      let toolIdx; // toolIdx 변수 추가
+
+      axios
+        .get('/tools/toolName?toolName=' + searchTerm)
+        .then(response => {
+          console.log(response);
+          if (response.data.isSuccess) {
+            console.log("success");
+            const { toolName, definition, options, wikiInfo, aml } = response.data.result;
+            toolIdx = response.data.result.toolIdx; // toolIdx 변수에 저장
+            setSelectedLabel(toolName);
+            setTooldefinition(definition);
+            setTooloption(options);
+            setToolWiki(wikiInfo);
+            setToolCode(aml);
+
+            return axios.get(`tools/mitreInfo/${toolIdx}`);
+          } else {
+            alert("해당 도구가 없습니다. 다시 확인해주세요");
+          }
+        })
+        .then(response2 => {
+          console.log(response2);
+          if (response2.data.isSuccess) {
+            const mitreInfo = response2.data.result;
+            setToolMITRE(mitreInfo);
+
+            return axios.get(`/tools/AML/${toolIdx}`);
+          }
+        })
+        .then(response3 => {
+          console.log(response3);
+          if(response3.data.isSuccess){
+            const result = response3.data.result;
+            const simulatedServerData = { itemIds: result };
+            setActiveItemIds(simulatedServerData.itemIds);
+          }
+          else{
+            console.log('error');
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    };
+             
 
     const CircularJSON = require('circular-json');
 
@@ -384,11 +439,15 @@ function Tools(){
                     <Box sx={{ '& > :not(style)': { m: 1 } , justifyContent: "flex-end"}}>
                         <TextField
                             id="input-with-icon-textfield"
+                            value={searchTerm}
+                            onChange={HandleChangesearch}
                             
                             InputProps={{
                             startAdornment: (
                                 <InputAdornment position="end">
-                                <SearchIcon/>
+                                 <IconButton onClick={() => handleSearch(searchTerm)}>
+                                  <SearchIcon />
+                                </IconButton>
                                 </InputAdornment>
                             )
                             ,
@@ -529,7 +588,7 @@ function Tools(){
                                     )}
                                 </IconButton>
                             </div>
-                            <iframe className={`toolbox-exec ${fullscreen ? 'fullscreen' : ''}`} src="http://43.201.19.40:5901/cast"></iframe>
+                            <iframe className={`toolbox-exec ${fullscreen ? 'fullscreen' : ''}`} src="http://localhost:5901/cast"></iframe>
 
 
                             <div className='text-size2'>
