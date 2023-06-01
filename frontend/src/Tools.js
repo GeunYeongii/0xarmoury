@@ -172,6 +172,9 @@ function Tools(){
               // 받아온 정보를 상태에 저장하여 툴팁으로 표시
               setMitreTip("Tool list\n------------------\n" + itemInfo);
             }
+            else{
+              console.log(response);
+            }
           });
           
       };
@@ -473,18 +476,19 @@ function Tools(){
                                         <br />
                                     </React.Fragment>
                                 ))}</p>
+
                             </div>
                             <div className='text-size2'>
                                 Options
                             </div>
                             <div className='toolbox-option'>
-                                <p>{Tooloption && Tooloption.split('\n').map((line, index) => (
+                              <p>{Tooloption && Tooloption.split('\n').map((line, index) => (
                                     <React.Fragment key={index}>
                                         {line}
                                         <br />
                                     </React.Fragment>
                                 ))}</p>
-
+ 
                             </div>
                             <div className='text-size2'>
                                 MITRE ATT&CK
@@ -495,7 +499,8 @@ function Tools(){
                             </div>
                             <div className='toolbox-mitre'>
                              <ul>
-                                {ToolMITRE.map((category) => (
+                             { Array.isArray(ToolMITRE) &&
+                               ToolMITRE.map((category) => (
                                     <li key={category.tacticName}>
                                         {category.tacticName}
                                         <ul>
