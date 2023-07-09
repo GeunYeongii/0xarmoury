@@ -20,6 +20,10 @@ docker-compose up
 
 ![대지 1@3x](https://github.com/seo-00/0xarmoury/assets/82564045/2e302e3b-06f4-477f-85c4-cc5dedc33e42)
 
+# 📌 Paper
+<p align="center">
+<img width="675" alt="스크린샷 2023-07-10 오전 3 45 48" src="https://github.com/GeunYeongii/0xarmoury/assets/82564045/8007b41d-c3ca-4168-b3b2-88c9891c711b">
+</p>
 
 # 📌 Image
 
